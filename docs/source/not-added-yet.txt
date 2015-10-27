@@ -1,0 +1,624 @@
+
+---+++ Deleting a local and remote branch
+
+When you are done with a branch, having merged its contents into another branch, saving a ``diff`` with ``git show``, or otherwise being totally over it, you need to delete your local branch first and then delete the remote branch.
+<verbatim>
+$ git branch -d -r refactor
+Deleted branch refactor (was e4234ae).</verbatim>
+
+An alternate method of deleting a remote branch is the following obscure command:
+<verbatim>
+$ git push origin :refactor</verbatim>
+
+You can delete all unused local tracking branches with the prune command:
+<verbatim>
+$ git remote prune origin
+Pruning origin
+URL: git@raptor.cari.net:/opt/git/prisem.git
+ * [pruned] origin/refactor
+ * [pruned] origin/stats</verbatim>
+
+"Deletes all stale remote-tracking branches under <name>. These stale branches have already been removed from the remote repository referenced by <name>, but are still locally available in "remotes/<name>".
+
+With ``--dry-run`` option, report what branches will be pruned, but do not actually prune them."
+
+---+++ Merging changes from dev into a feature branch to keep it up to date.
+
+Start by reading these pages:
+
+   * [[http://sethrobertson.github.io/GitBestPractices/][Commit Often, Perfect Later, Publish Once: Git Best Practices]]
+   * [[http://mislav.uniqpath.com/2010/07/git-tips/][Git Tips]]
+<verbatim>
+[dittrich@localhost ansible-playbooks (dims-207)]$ git checkout pyes
+Switched to branch 'pyes'
+Your branch is up-to-date with 'origin/pyes'.
+[dittrich@localhost ansible-playbooks (pyes)]$ git rebase dev
+First, rewinding head to replay your work on top of it...
+Applying: Add pyes pip install to ELK role
+Applying: Add marker to prevent re-loading of existing data and don't add Team Cymru data
+Applying: Fix bug in demo.logstash.deleteESDB script
+Applying: Add feedback message if data already loaded
+Applying: Remove debug flag from data pre-load play
+Applying: Add demo.firefox.setup changes
+Applying: Make default for Kibana be the UFW dataset
+Applying: Add curl to base role
+Using index info to reconstruct a base tree...
+M	roles/base-os/tasks/main.yml
+Falling back to patching base and 3-way merge...
+Auto-merging roles/base-os/tasks/main.yml
+Applying: Add elasticutils Python library to ELK role
+Applying: Add play to pin Gnome Terminal to panel
+Applying: Fix Ansible syntax error re: Gnome Terminal fix
+Applying: Fix typo in Gnome Terminal script setup
+Applying: Add dconf-tools package for dconf program
+Applying: Run Gnome Terminal pin script with sudo
+Applying: Fix for dbus-launch failure
+Applying: Fix bug in pin-gnome-terminal script re: dconf write operation
+Applying: Fix bug in pin-gnome-terminal script
+Applying: Fix bug in pin-gnome-terminal re: empty 'value' variable</verbatim>
+
+This is what the ``pyes`` branch looked like before:
+
+<center><img alt``"pyes Branch Before Rebase" src``"%ATTACHURLPATH%/pyes-before-rebase.png" width="100%" /></center>
+
+This is what the ``pyes`` branch looked like after the rebase:
+
+<center><img alt``"pyes Branch After Rebase" src``"%ATTACHURLPATH%/pyes-after-rebase.png" width="100%" /></center>
+
+Notice the numbers *+23-19* in the after image? We just rebased commits from the local repo branch ``dev`` onto the local repo branch ``pyes``. We haven't done anything yet with the remote repo. The numbers mean that after rebasing to get the missing commits, there are commits that exist on the local repo that do not exist on the remote repo, and vice-versa.
+
+If I now try to push the <span>pyes</span>branch, Git tells me that I can't, because there are remote changes that are not in the local repo that need to be merged and checked for possible conflict before the push can proceed.
+<verbatim>
+[dittrich@localhost ansible-playbooks (pyes)]$ git push
+To git@git.prisem.washington.edu:/opt/git/ansible-playbooks.git
+ ! [rejected]        pyes -> pyes (non-fast-forward)
+error: failed to push some refs to 'git@git.prisem.washington.edu:/opt/git/ansible-playbooks.git'
+hint: Updates were rejected because the tip of your current branch is behind
+hint: its remote counterpart. Integrate the remote changes (e.g.
+hint: 'git pull ...') before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.</verbatim>
+
+Doing a ``git pull`` first, then a ``git push`` results in a clean rebase of the remote commits with the local commits (which are now up to date on the ``pyes`` feature branch in relation to the <span>dev</span>branch.)
+<verbatim>
+[dittrich@localhost ansible-playbooks (pyes)]$ git pull
+First, rewinding head to replay your work on top of it...
+Applying: Added schema.psl to populate dims database from ops-trust
+Applying: added postgres-dims role and files
+Using index info to reconstruct a base tree...
+M	dims-global-server.yml
+<stdin>:94: trailing whitespace.
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
+<stdin>:101: trailing whitespace.
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
+<stdin>:210: trailing whitespace.
+-- Name: attestations; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+<stdin>:224: trailing whitespace.
+-- Name: audit_history; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+<stdin>:237: trailing whitespace.
+-- Name: language_skill; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+warning: squelched 50 whitespace errors
+warning: 55 lines add whitespace errors.
+Falling back to patching base and 3-way merge...
+Auto-merging dims-global-server.yml
+Applying: Add curl to all hosts in base-os role
+Using index info to reconstruct a base tree...
+M	roles/base-os/tasks/main.yml
+Falling back to patching base and 3-way merge...
+Auto-merging roles/base-os/tasks/main.yml
+Applying: Add curl to base role
+Using index info to reconstruct a base tree...
+M	roles/base-os/tasks/main.yml
+Falling back to patching base and 3-way merge...
+No changes -- Patch already applied.
+[dittrich@localhost ansible-playbooks (pyes)]$ git push
+Counting objects: 15, done.
+Delta compression using up to 8 threads.
+Compressing objects: 100% (14/14), done.
+Writing objects: 100% (15/15), 392.72 KiB | 0 bytes/s, done.
+Total 15 (delta 9), reused 3 (delta 0)
+remote: Running post-receive hook: Tue Nov  4 18:12:01 PST 2014
+To git@git.prisem.washington.edu:/opt/git/ansible-playbooks.git
+   9b23575..2166e16  pyes -> pyes</verbatim>
+
+---+++ Finding a string in a commit anywhere in the repo
+
+   * [[http://stackoverflow.com/questions/5816134/finding-a-git-commit-that-introduced-a-string-in-any-branch][]]
+
+There are times when you need to identify a commit that contains a string (or regular expression) in order to understand what is happening in some code. The command ``git show -S`` or <span>git show -G</span>will do this.
+<verbatim>
+[dittrich@localhost ansible-playbooks (dims-207)]$ git log -S sources_url
+commit 2a4451636f4141c63db43df9e0b67031bdeac297
+Author: eliot <eliot@uw.edu>
+Date:   Tue Nov 4 15:53:45 2014 -0800
+
+    added missing ansible variable sources_url
+
+commit 28e28d19dbe31180d10caa1189140f84ed1f7e01
+Author: Linda Colby <linda.colby@nextcentury.com>
+Date:   Fri Oct 31 10:23:08 2014 -0400
+
+    Removed sources that were moved to sources server. Updated task files to use sources server</verbatim>
+
+Now that you have identified the commits that contain the string, use the first few characters of the hash with the <span>git show</span>command to see the diff of the commit:
+<verbatim>
+[dittrich@localhost ansible-playbooks (dims-207)]$ git show 28e28d19db
+commit 28e28d19dbe31180d10caa1189140f84ed1f7e01
+Author: Linda Colby <linda.colby@nextcentury.com>
+Date:   Fri Oct 31 10:23:08 2014 -0400
+
+    Removed sources that were moved to sources server. Updated task files to use sources server
+
+diff --git a/roles/base-os/files/feedgnuplot-master.zip b/roles/base-os/files/feedgnuplot-master.zip
+deleted file mode 100644
+index 096bcd3..0000000
+Binary files a/roles/base-os/files/feedgnuplot-master.zip and /dev/null differ
+diff --git a/roles/base-os/tasks/gnuplotinstall.yml b/roles/base-os/tasks/gnuplotinstall.yml
+index 66832df..527b53c 100644
+--- a/roles/base-os/tasks/gnuplotinstall.yml
++++ b/roles/base-os/tasks/gnuplotinstall.yml
+@@ -2,18 +2,18 @@
+ # Install gnuplot and feedgnuplot
+ #
+ # Set up before-install steps
+-- name: Create deploy folder, if it does not exist
++- name: Create deploy folder if it does not exist
+   file: "state``directory path``{{deploy_dir}}"
+   tags:
+     - gnuplot
+
+-- name: Create feedgnuplot folder, if it does not exist
++- name: Create feedgnuplot folder if it does not exist
+   file: "state``directory path``{{feed_dir}}"
+   tags:
+     - gnuplot
+
+-- name: Copy feedgnuplot archive
+-  copy: "src``{{feed_file}} dest``{{deploy_dir}} owner``root group``root mode=744"
++- name: Get feedgnuplot archive from sources server
++  get_url: "url``{{sources_url}}/{{feed_file}} dest``{{deploy_dir}} owner``root group``root mode=744"
+   tags:
+     - gnuplot
+
+diff --git a/roles/jdk/files/jdk-7u51-linux-x64.tar.gz b/roles/jdk/files/jdk-7u51-linux-x64.tar.gz
+deleted file mode 100644
+index aa77893..0000000
+Binary files a/roles/jdk/files/jdk-7u51-linux-x64.tar.gz and /dev/null differ
+diff --git a/roles/jdk/tasks/main.yml b/roles/jdk/tasks/main.yml
+index 1b439b0..0e38784 100644
+--- a/roles/jdk/tasks/main.yml
++++ b/roles/jdk/tasks/main.yml
+@@ -11,8 +11,8 @@
+   tags:
+     - jdk
+
+-- name: Copy java archive
+-  copy: "src``{{java_file}} dest``{{java_archive}} owner``root group``root mode=744"
++- name: Get java archive from sources server
++  get_url: "url``{{sources_url}}/{{java_file}} dest``{{java_archive}} owner``root group``root mode=744"
+   tags:
+     - jdk
+
+diff --git a/roles/ozone/files/OWF-bundle-7.0.1-GA.zip b/roles/ozone/files/OWF-bundle-7.0.1-GA.zip
+deleted file mode 100644
+index c5f013a..0000000
+Binary files a/roles/ozone/files/OWF-bundle-7.0.1-GA.zip and /dev/null differ
+diff --git a/roles/ozone/files/postgresql-9.3-1102.jdbc41.jar b/roles/ozone/files/postgresql-9.3-1102.jdbc41.jar
+deleted file mode 100644
+index 4fb1f5b..0000000
+Binary files a/roles/ozone/files/postgresql-9.3-1102.jdbc41.jar and /dev/null differ
+diff --git a/roles/ozone/tasks/main.yml b/roles/ozone/tasks/main.yml
+index 2108828..6795b63 100644
+--- a/roles/ozone/tasks/main.yml
++++ b/roles/ozone/tasks/main.yml
+@@ -158,7 +158,7 @@
+     - ozone-certs
+
+ - name: Install jdbc driver for postgres
+-  copy: "src``{{ app_db_jdbc_driver_name }} dest``{{ tomcat_app_path }}/lib/{{ app_db_jdbc_driver_name }} owner``{{ tomcat_user }} group``{{ tomcat_user }} "
++  get_url: "url``{{sources_url}}/{{ app_db_jdbc_driver_name }} dest``{{ tomcat_app_path }}/lib/{{ app_db_jdbc_driver_name }} owner``{{ tomcat_user }} group``{{ tomcat_user }} "
+   when: app_db_jdbc_driver_name is defined
+   tags:
+     - ozone
+@@ -275,23 +275,23 @@
+     - ozone
+
+ - name: Copy OWF archive to server
+-  copy: "src``{{app_bundle_name}}.zip dest``/opt/deploy"
++  get_url: "url``{{sources_url}}/{{app_bundle_name}}.zip dest``{{deploy_dir}}"
+   tags:
+     - ozone
+
+ - name: Extract OWF archive
+-  command: "unzip {{app_bundle_name}}.zip -d /opt/deploy/ozone chdir=/opt/deploy"
++  command: "unzip {{app_bundle_name}}.zip -d {{ozone_deploy_dir}} chdir={{deploy_dir}}"
+   tags:
+     - ozone
+
+ - name: Copy owf.war file to webapps
+-  command: "cp /opt/deploy/ozone/apache-tomcat-7.0.21/webapps/owf.war {{tomcat_app_path}}/webapps/owf.war" 
++  command: "cp {{ozone_deploy_dir}}/apache-tomcat-7.0.21/webapps/owf.war {{tomcat_app_path}}/webapps/owf.war" 
+   notify: restart tomcat
+commit 28e28d19dbe31180d10caa1189140f84ed1f7e01
+Author: Linda Colby <linda.colby@nextcentury.com>
+Date:   Fri Oct 31 10:23:08 2014 -0400
+
+    Removed sources that were moved to sources server. Updated task files to use sources server
+
+diff --git a/roles/base-os/files/feedgnuplot-master.zip b/roles/base-os/files/feedgnuplot-master.zip
+deleted file mode 100644
+index 096bcd3..0000000
+Binary files a/roles/base-os/files/feedgnuplot-master.zip and /dev/null differ
+diff --git a/roles/base-os/tasks/gnuplotinstall.yml b/roles/base-os/tasks/gnuplotinstall.yml
+index 66832df..527b53c 100644
+--- a/roles/base-os/tasks/gnuplotinstall.yml
++++ b/roles/base-os/tasks/gnuplotinstall.yml
+@@ -2,18 +2,18 @@
+ # Install gnuplot and feedgnuplot
+ #
+ # Set up before-install steps
+-- name: Create deploy folder, if it does not exist
++- name: Create deploy folder if it does not exist
+   file: "state``directory path``{{deploy_dir}}"
+   tags:
+     - gnuplot
+
+-- name: Create feedgnuplot folder, if it does not exist
++- name: Create feedgnuplot folder if it does not exist
+   file: "state``directory path``{{feed_dir}}"
+   tags:
+     - gnuplot
+
+-- name: Copy feedgnuplot archive
+-  copy: "src``{{feed_file}} dest``{{deploy_dir}} owner``root group``root mode=744"
++- name: Get feedgnuplot archive from sources server
++  get_url: "url``{{sources_url}}/{{feed_file}} dest``{{deploy_dir}} owner``root group``root mode=744"
+   tags:
+     - gnuplot
+
+diff --git a/roles/jdk/files/jdk-7u51-linux-x64.tar.gz b/roles/jdk/files/jdk-7u51-linux-x64.tar.gz
+deleted file mode 100644
+index aa77893..0000000
+Binary files a/roles/jdk/files/jdk-7u51-linux-x64.tar.gz and /dev/null differ
+diff --git a/roles/jdk/tasks/main.yml b/roles/jdk/tasks/main.yml
+index 1b439b0..0e38784 100644
+--- a/roles/jdk/tasks/main.yml
++++ b/roles/jdk/tasks/main.yml
+@@ -11,8 +11,8 @@
+   tags:
+     - jdk
+
+-- name: Copy java archive
+-  copy: "src``{{java_file}} dest``{{java_archive}} owner``root group``root mode=744"
++- name: Get java archive from sources server
++  get_url: "url``{{sources_url}}/{{java_file}} dest``{{java_archive}} owner``root group``root mode=744"
+   tags:
+     - jdk
+
+diff --git a/roles/ozone/files/OWF-bundle-7.0.1-GA.zip b/roles/ozone/files/OWF-bundle-7.0.1-GA.zip
+deleted file mode 100644
+index c5f013a..0000000
+Binary files a/roles/ozone/files/OWF-bundle-7.0.1-GA.zip and /dev/null differ
+diff --git a/roles/ozone/files/postgresql-9.3-1102.jdbc41.jar b/roles/ozone/files/postgresql-9.3-1102.jdbc41.jar
+deleted file mode 100644
+index 4fb1f5b..0000000
+Binary files a/roles/ozone/files/postgresql-9.3-1102.jdbc41.jar and /dev/null differ
+diff --git a/roles/ozone/tasks/main.yml b/roles/ozone/tasks/main.yml
+index 2108828..6795b63 100644
+--- a/roles/ozone/tasks/main.yml
++++ b/roles/ozone/tasks/main.yml
+@@ -158,7 +158,7 @@
+     - ozone-certs
+
+ - name: Install jdbc driver for postgres
+-  copy: "src``{{ app_db_jdbc_driver_name }} dest``{{ tomcat_app_path }}/lib/{{ app_db_jdbc_driver_name }} owner``{{ tomcat_user }} group``{{ tomcat_user }} "
++  get_url: "url``{{sources_url}}/{{ app_db_jdbc_driver_name }} dest``{{ tomcat_app_path }}/lib/{{ app_db_jdbc_driver_name }} owner``{{ tomcat_user }} group``{{ tomcat_user }} "
+   when: app_db_jdbc_driver_name is defined
+   tags:
+     - ozone
+@@ -275,23 +275,23 @@
+     - ozone
+
+ - name: Copy OWF archive to server
+-  copy: "src``{{app_bundle_name}}.zip dest``/opt/deploy"
++  get_url: "url``{{sources_url}}/{{app_bundle_name}}.zip dest``{{deploy_dir}}"
+   tags:
+     - ozone
+
+ - name: Extract OWF archive
+-  command: "unzip {{app_bundle_name}}.zip -d /opt/deploy/ozone chdir=/opt/deploy"
++  command: "unzip {{app_bundle_name}}.zip -d {{ozone_deploy_dir}} chdir={{deploy_dir}}"
+   tags:
+     - ozone
+
+ - name: Copy owf.war file to webapps
+-  command: "cp /opt/deploy/ozone/apache-tomcat-7.0.21/webapps/owf.war {{tomcat_app_path}}/webapps/owf.war" 
++  command: "cp {{ozone_deploy_dir}}/apache-tomcat-7.0.21/webapps/owf.war {{tomcat_app_path}}/webapps/owf.war" 
+   notify: restart tomcat
+commit 28e28d19dbe31180d10caa1189140f84ed1f7e01
+Author: Linda Colby <linda.colby@nextcentury.com>
+Date:   Fri Oct 31 10:23:08 2014 -0400
+
+    Removed sources that were moved to sources server. Updated task files to use sources server
+
+diff --git a/roles/base-os/files/feedgnuplot-master.zip b/roles/base-os/files/feedgnuplot-master.zip
+deleted file mode 100644
+index 096bcd3..0000000
+Binary files a/roles/base-os/files/feedgnuplot-master.zip and /dev/null differ
+diff --git a/roles/base-os/tasks/gnuplotinstall.yml b/roles/base-os/tasks/gnuplotinstall.yml
+index 66832df..527b53c 100644
+--- a/roles/base-os/tasks/gnuplotinstall.yml
++++ b/roles/base-os/tasks/gnuplotinstall.yml
+@@ -2,18 +2,18 @@
+ # Install gnuplot and feedgnuplot
+ #
+ # Set up before-install steps
+-- name: Create deploy folder, if it does not exist
++- name: Create deploy folder if it does not exist
+   file: "state``directory path``{{deploy_dir}}"
+   tags:
+     - gnuplot
+
+-- name: Create feedgnuplot folder, if it does not exist
++- name: Create feedgnuplot folder if it does not exist
+   file: "state``directory path``{{feed_dir}}"
+   tags:
+     - gnuplot
+
+-- name: Copy feedgnuplot archive
+-  copy: "src``{{feed_file}} dest``{{deploy_dir}} owner``root group``root mode=744"
++- name: Get feedgnuplot archive from sources server
++  get_url: "url``{{sources_url}}/{{feed_file}} dest``{{deploy_dir}} owner``root group``root mode=744"
+   tags:
+     - gnuplot
+ </verbatim>
+
+Both of these can be combined using the following alias:
+<verbatim>git config --global alias.find '!git log --color -p -S '</verbatim>
+
+You can then do:
+<verbatim>
+$ git find <whatever>
+<verbatim>
+
+or
+
+<verbatim>
+$ git find <whatever> --all
+$ git find <whatever> master develop
+</verbatim>
+
+---+++ Renaming a tag
+
+<em>[DO NOT DO THIS!!!! These notes are here because I was testing and documenting while testing. Dittrich Sat Nov 15 17:11:19 PST 2014]</em>
+
+   * [[http://stackoverflow.com/questions/1028649/how-do-you-rename-a-git-tag][How do you rename a tag?]]
+   * [[http://git-scm.com/docs/git-tag][git tag]]
+
+<verbatim>
+[dittrich@localhost dims-ci-utils (master)]$ git tag --list
+v1.0
+[dittrich@localhost dims-ci-utils (master)]$ git describe
+warning: tag 'v1.0' is really 'v0.1' here
+v1.0-82-gabad3e5
+[dittrich@localhost dims-ci-utils (master)]$ git tag v0.1 v0.1 -m"v0.1" --force
+[dittrich@localhost dims-ci-utils (master)]$ git push origin :refs/tags/v1.0
+remote: Running post-receive hook: Sat Nov 15 16:47:58 PST 2014
+To git@git.prisem.washington.edu:/opt/git/dims-ci-utils.git
+ - [deleted]         v1.0
+[dittrich@localhost dims-ci-utils (master)]$ git push origin --tags
+Counting objects: 1, done.
+Writing objects: 100% (1/1), 180 bytes | 0 bytes/s, done.
+Total 1 (delta 0), reused 0 (delta 0)
+remote: Running post-receive hook: Sat Nov 15 16:48:13 PST 2014
+To git@git.prisem.washington.edu:/opt/git/dims-ci-utils.git
+ * [new tag]         v0.1 -> v0.1
+[dittrich@localhost dims-ci-utils (master)]$ git describe
+v0.1-83-gfd37b8f
+</verbatim>
+
+After doing this, let everyone know to do the following from within their local copy of the repo you just changed:
+
+<verbatim>
+git pull --prune --tags
+</verbatim>
+
+---+++ Step...
+
+---+++ Managing Multiple Git Repositories
+
+A useful tool for managing multiple Git repositories and keeping them in sync with the master branches is to use [[http://joeyh.name/code/mr/][mr]].
+
+To track a repo with ``mr``, do the following:
+<verbatim>
+[dittrich@localhost ~]$ cd ~/git/ansible-inventory
+[dittrich@localhost ansible-inventory (master)]$ mr register
+Registering git url: git@git.prisem.washington.edu:/opt/git/ansible-inventory.git in /Users/dittrich/.mrconfig
+[dittrich@localhost ansible-inventory (master)]$ mr update
+mr update: /Users/dittrich/git/ansible-inventory
+Already up-to-date.
+
+mr update: finished (1 ok)</verbatim>
+
+The following ``~/.mrconfig`` file can be used to bootstrap a bunch of the DIMS related repos. This is not a complete list of all DIMS repos, but serves to illustrate how ``mr`` maintains its list of repos to track when you do ``mr update``:
+<verbatim>
+[dittrich@localhost git]$ cat ~/.mrconfig 
+[git/prisem]
+checkout = git clone 'git@git.prisem.washington.edu:/opt/git/prisem.git' 'prisem'
+
+[git/dims-sample-data]
+checkout = git clone 'git@git.prisem.washington.edu:/opt/git/dims-sample-data.git' 'dims-sample-data'
+
+[git/vagrant]
+checkout = git clone 'git@git.prisem.washington.edu:/opt/git/vagrant.git' 'vagrant'
+
+[git/ansible-playbooks]
+checkout = git clone 'git@git.prisem.washington.edu:/opt/git/ansible-playbooks.git' 'ansible-playbooks'
+
+[git/ansible-inventory]
+checkout = git clone 'git@git.prisem.washington.edu:/opt/git/ansible-inventory.git' 'ansible-inventory'
+
+[git/supervisor]
+checkout = git clone 'git@git.prisem.washington.edu:/opt/git/supervisor.git' 'supervisor'
+
+[git/packer]
+checkout = git clone 'git@git.prisem.washington.edu:/opt/git/packer.git' 'packer'
+
+[git/ipgrep]
+checkout = git clone 'git@git.prisem.washington.edu:/opt/git/ipgrep' 'ipgrep'
+
+[git/pygraph]
+checkout = git clone 'git@git.prisem.washington.edu:/opt/git/pygraph.git' 'pygraph'
+
+[git/mal4s]
+checkout = git clone 'https://github.com/secure411dotorg/mal4s/' 'mal4s'
+
+[git/dims]
+checkout = git clone 'git@git.prisem.washington.edu:/opt/git/dims.git' 'dims'
+
+[git/dims-keys]
+checkout = git clone 'git@git.prisem.washington.edu:/opt/git/dims-keys.git' 'dims-keys'</verbatim>
+
+---+++ Linda's instructions on how to do Git and Jira dev branching:
+<verbatim>
+Suppose the ticket in JIRA is dims-193. Suppose the work you are doing is in ansible-playbooks.
+
+1.   cd to your ansible-playbooks repo. Ensure you are on the dev branch. Update the repo if you haven't already (mr update)
+
+2.   git checkout -b dims-193        -   this will create the branch and check it out. You can also do a  "git branch dims-193" and "git checkout dims-193" if you want to use 2 steps.
+
+3.   git push origin dims-193        -  pushes the new branch to origin
+
+4.   git branch --set-upstream-to=origin/dims-193 dims-193          -  this sets your local branch as a tracking branch of the remote
+
+So, do the work in branch dims-193. Commit frequently 
+
+To test Ansible, you are going to want to make sure that the change (if it is a change) works on an existing system. So I would do the following.
+
+1.    Make sure you've committed your changes in the ansible-playbooks repo branch dims-193 and have pushed them to the origin (otherwise packer Makefile won't be able to get them). Command is "git push origin dims-193"
+
+2.   cd to the packer repo.  Say you are going to call your server VM  ddsrv1  and workstation VM dddesktop1. The following command is an example - use the IP you want and the name you want.
+
+3.   make PLATFORM``server 3D``off IP``192.168.56.32 NAME``ddsrv1 ANSIBLEPLAYBOOKSBRANCH=dev
+
+This will start the creation of the server VM. By setting the ANSIBLEPLAYBOOKSBRANCH=dev, you are telling make to checkout the dev branch when it clones the ansible-playbooks repo.
+
+4. Wait.....  When make finishes (check the output to see what variables were used and what other artifacts there are), cd to the vagrant run directory that was created. It should be as simple as:
+
+cd ../vagrant-run-ddsrv1
+
+However, make will tell you where your vagrant run directory is.
+
+5.   In the vagrant run directory, do:
+
+make up
+
+This should run vagrant up, which creates the VM, starts it, and provisions it via Ansible. Note, you are provisioning via the dev branch of ansible-playbooks.
+
+Ok, hopefully that will all work and you will get no errors...  Now you're going to provision the machine with your dims-193 branch of ansible-playbooks.
+
+1.  cd back to packer directory.
+
+2.  Run:
+
+make NAME=ddsrv1 clean-playbooks
+
+This will delete the ansible-playbooks repo in the vagrant run directory.
+
+3.  Next, run:
+
+make NAME``ddsrv1 ANSIBLEPLAYBOOKSBRANCH``dims-193 update-playbooks
+
+This will clone the repo again to your vagrant run directory and check out dims-193.
+
+4.  Go back to your vagrant run directory.
+
+Now, you don't need to provision the entire server again. If you made changes in a couple roles,  common and cif-client for example, and you know there are not interdependencies, you can run:
+
+TAG='common,cif-client'  make provision
+
+and that will re-provision the server using the dims-193 branch of ansible-playbooks.
+
+If you want to test the whole thing (to make sure your change didn't have unintended consequences in other roles) you could do:
+
+make provision
+
+and that will re-provision everything.
+
+Now, you can create a desktop VM using the same methodology, except that PLATFORM=desktop.   I don't know how thorough we are going to want to be with these ansible tests - a change to cif-client should work identically on a desktop or a server, but I'll leave that up to others to decide. 
+
+Now that you've got a server VM and a desktop VM created, you can continue to use them for other tests. If you need to start over with a fresh, unprovisioned VM, just do, in the vagrant run directory,
+
+make destroy
+
+and that will destroy the current vagrant VM created by the Vagrantfile in that directory.
+
+I will put how to merge your change back into dev in another post.
+
+Also, I need to update Jenkins to use the dev branch of Ansible-playbooks...  But you won't be running on Jenkins until your branch is merged back into dev.
+
+I can tell you which Jenkins job should be run if one is needed (if the change to ansible-playbooks affects any of our deployed servers) if you don't know which one it is.
+
+Linda
+
+</verbatim>
+
+---++ Cleaning up a repo by removing large files (DANGEROUS!!!)
+
+   * [[https://gist.github.com/aaronzirbes/4570924][This script will help you remove large files from your git repo history and shrink the size of your repository.]]
+   * [[http://stevelorek.com/how-to-shrink-a-git-repository.html][How to Shrink a Git Repository]]
+
+The [[http://stevelorek.com/how-to-shrink-a-git-repository.html][How to Shrink a Git Repository]] page was used to perform cleanup of the ``ansible-playbooks`` repo. The string ``filename`` needed to be substituted with the paths of the files to delete, which were identified by the script ``git-find-largest`` and edited with ``vi`` and ``awk`` to strip out just the paths. The following command was then used on the list:
+
+<verbatim>
+for f in `cat largest.txt`; do git filter-branch --tag-name-filter cat --index-filter "git rm -r --cached --ignore-unmatch $f" --prune-empty -f -- --all; done
+</verbatim>
+
+After that, the steps to clear the cache, do garbage collection and pruning, etc. were followed.
+
+---++ (OLD AND POSSIBLY OBSOLETE) Dittrich notes on using Git
+
+*NOTE:These are now potentially obsolete instructions. They were an initial attempt to teach people what I (Dittrich) was doing as I learned to use Git. These are now beginning to diverge from what the DIMS team has been using. They are here only for historic purposes as we clean up the instructions the team is supposed to be using. *
+
+[[DittrichGitNotes]]
+
+<verbatim>
+[dittrich@localhost ansible-playbooks (dev)]$ git flow init
+
+Which branch should be used for bringing forth production releases?
+   - dev
+   - dims-166
+   - gitcomplete
+   - master
+   - mergefix
+Branch name for production releases: [master] 
+
+Which branch should be used for integration of the "next release"?
+   - dev
+   - dims-166
+   - gitcomplete
+   - mergefix
+Branch name for "next release" development: [master] dev
+
+How to name your supporting branch prefixes?
+Feature branches? [feature/] 
+Release branches? [release/] 
+Hotfix branches? [hotfix/] 
+Support branches? [support/] 
+Version tag prefix? [] 
+
+[dittrich@localhost ansible-playbooks (dev)]$ git flow feature start hello
+Switched to a new branch 'feature/hello'
+
+Summary of actions:
+- A new branch 'feature/hello' was created, based on 'dev'
+- You are now on branch 'feature/hello'
+
+Now, start committing on your feature. When done, use:
+
+     git flow feature finish hello
+
+[dittrich@localhost ansible-playbooks (feature/hello)]$ 
+</verbatim></verbatim></verbatim>
+
+&lt;/verbatim&gt;
+
