@@ -30,6 +30,7 @@ administration of DIMS components from an administrator's perspective.
 
    introduction
    referenceddocs
+   installation
    rabbitmq
    rpidocker
    appendices
