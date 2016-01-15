@@ -1,0 +1,2048 @@
+    [+++] DIMS shell initialization [ansible-playbooks v1.2.108]
+    [+++] Sourcing /opt/dims/etc/bashrc.dims.d/bashrc.dims.network ...
+     * VPN prsm_dave-prisem-2 is not running
+     * VPN uwapl_dave_u500 is running
+    [+++] Sourcing /opt/dims/etc/bashrc.dims.d/bashrc.dims.virtualenv ...
+    [+++] Activating USER virtual environment (/Users/dittrich/dims/envs/dimsenv) [ansible-playbooks v1.2.108]
+    [+++] (Create file /Users/dittrich/.DIMS_NO_DIMSENV_ACTIVATE to disable)
+    [+++] Virtual environment 'dimsenv' activated [ansible-playbooks v1.2.108]
+    [dimsenv] dittrich@27b:~/git/homepage (develop*) $
+    [dimsenv] dittrich@27b:~/git/homepage (develop*) $ cd ../
+    [dimsenv] dittrich@27b:~/git () $ git clone https://github.com/hypriot/flash.git
+    Cloning into 'flash'...
+    remote: Counting objects: 100, done.
+    remote: Total 100 (delta 0), reused 0 (delta 0), pack-reused 100
+    Receiving objects: 100% (100/100), 25.54 KiB | 0 bytes/s, done.
+    Resolving deltas: 100% (42/42), done.
+    Checking connectivity... done.
+    [dimsenv] dittrich@27b:~/git () $ cd flash
+    [dimsenv] dittrich@27b:~/git/flash (master) $ ls
+    AUTHORS         Darwin          LICENSE         Linux           README.md
+    [dimsenv] dittrich@27b:~/git/flash (master) $ tree
+    .
+    ├── AUTHORS
+    ├── Darwin
+    │   └── flash
+    ├── LICENSE
+    ├── Linux
+    │   └── flash
+    └── README.md
+
+    2 directories, 5 files
+    [dimsenv] dittrich@27b:~/git/flash (master) $ cd Darwin
+    [dimsenv] dittrich@27b:~/git/flash/Darwin (master) $ git checkout -b dims
+    Switched to a new branch 'dims'
+    [dimsenv] dittrich@27b:~/git/flash/Darwin (dims) $ ls
+    flash
+    [dimsenv] dittrich@27b:~/git/flash/Darwin (dims) $ vi flash
+    [dimsenv] dittrich@27b:~/git/flash/Darwin (dims) $ brew install pv
+    ==> Downloading https://homebrew.bintray.com/bottles/pv-1.6.0.yosemite.bottle.1.tar.gz
+    brew install awscli/usr/bin/curl -fLA Homebrew 0.9.5 (Ruby 2.0.0-481; OS X 10.10.5) https://homebrew.bintray.com/bottles/pv-1.6.0.yosemite.bottle.1.tar.gz -C 0 -o /Library/Caches/Homeb
+    rew/pv-1.6.0.yosemite.bottle.1.tar.gz.incomplete
+      % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                     Dload  Upload   Total   Spent    Left  Speed
+    100 34692  100 34692    0     0  10668      0  0:00:03  0:00:03 --:--:-- 10671
+    ==> Verifying pv-1.6.0.yosemite.bottle.1.tar.gz checksum
+    ==> Pouring pv-1.6.0.yosemite.bottle.1.tar.gz
+    tar xf /Library/Caches/Homebrew/pv-1.6.0.yosemite.bottle.1.tar.gz
+    ==> Finishing up
+    ln -s ../Cellar/pv/1.6.0/bin/pv pv
+    ln -s ../../../Cellar/pv/1.6.0/share/man/man1/pv.1 pv.1
+    ==> Summary
+    🍺  /usr/local/Cellar/pv/1.6.0: 4 files, 84K
+    [dimsenv] dittrich@27b:~/git/flash/Darwin (dims) $ brew install awscli
+    ==> Downloading https://homebrew.bintray.com/bottles/awscli-1.8.8.yosemite.bottle.tar.gz
+    /usr/bin/curl -fLA Homebrew 0.9.5 (Ruby 2.0.0-481; OS X 10.10.5) https://homebrew.bintray.com/bottles/awscli-1.8.8.yosemite.bottle.tar.gz -C 0 -o /Library/Caches/Homebrew/awscli-1.8.8.
+    yosemite.bottle.tar.gz.incomplete
+      % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                     Dload  Upload   Total   Spent    Left  Speed
+      0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+    100 3017k  100 3017k    0     0  1908k      0  0:00:01  0:00:01 --:--:-- 4364k
+    ==> Verifying awscli-1.8.8.yosemite.bottle.tar.gz checksum
+    ==> Pouring awscli-1.8.8.yosemite.bottle.tar.gz
+    tar xf /Library/Caches/Homebrew/awscli-1.8.8.yosemite.bottle.tar.gz
+    ==> Finishing up
+    ln -s ../Cellar/awscli/1.8.8/bin/aws aws
+    ln -s ../Cellar/awscli/1.8.8/bin/aws.cmd aws.cmd
+    ln -s ../Cellar/awscli/1.8.8/bin/aws_completer aws_completer
+    ln -s ../Cellar/awscli/1.8.8/bin/aws_zsh_completer.sh aws_zsh_completer.sh
+    ln -s ../Cellar/awscli/1.8.8/share/awscli awscli
+    ln -s ../../../Cellar/awscli/1.8.8/share/zsh/site-functions/_aws _aws
+    ==> Caveats
+    The "examples" directory has been installed to:
+      /usr/local/share/awscli/examples
+
+    Add the following to ~/.bashrc to enable bash completion:
+      complete -C aws_completer aws
+
+    Add the following to ~/.zshrc to enable zsh completion:
+      source /usr/local/share/zsh/site-functions/_aws
+
+    Before using awscli, you need to tell it about your AWS credentials.
+    The easiest way to do this is to run:
+      aws configure
+
+    More information:
+      https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html
+
+    zsh completion has been installed to:
+      /usr/local/share/zsh/site-functions
+    ==> Summary
+    🍺  /usr/local/Cellar/awscli/1.8.8: 2231 files, 23M
+    [dimsenv] dittrich@27b:~/git/flash/Darwin (dims) $ ls
+    flash
+    [dimsenv] dittrich@27b:~/git/flash/Darwin (dims) $ ./flash -h
+    usage: ./flash [options] name-of-rpi.img
+
+    Flash a local or remote Raspberry Pi SD card image.
+
+    OPTIONS:
+       --help|-h      Show this message
+       --bootconf|-C  Copy this config file to /boot/config.txt
+       --config|-c    Copy this config file to /boot/occidentalis.txt
+       --hostname|-n  Set hostname for this SD image
+       --ssid|-s      Set WiFi SSID for this SD image
+       --password|-p  Set WiFI password for this SD image
+
+    The config file occidentalis.txt should look like
+
+    # hostname for your Hypriot Raspberry Pi:
+    hostname=hypriot-pi
+
+    # basic wireless networking options:
+    wifi_ssid=SSID
+    wifi_password=12345
+
+    The boot config file config.txt has name/value pairs such as:
+
+    max_usb_current=1
+
+    [dimsenv] dittrich@27b:~/git/flash/Darwin (dims) $ vi occidentalis.txt
+    [dimsenv] dittrich@27b:~/git/flash/Darwin (dims*) $ ls
+    flash                   occidentalis.txt
+    [dimsenv] dittrich@27b:~/git/flash/Darwin (dims*) $ vi config.txt
+    [dimsenv] dittrich@27b:~/git/flash/Darwin (dims*) $ ./flash -c occidentalis.txt http://downloads.hypriot.com/hypriot-rpi-20151004-132414.img.zip
+
+    Downloading http://downloads.hypriot.com/hypriot-rpi-20151004-132414.img.zip ...
+      % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                     Dload  Upload   Total   Spent    Left  Speed
+    100  449M  100  449M    0     0  3025k      0  0:02:32  0:02:32 --:--:--  118k
+    Uncompressing /tmp/image.img.zip ...
+    Archive:  /tmp/image.img.zip
+      inflating: /tmp/hypriot-rpi-20151004-132414.img
+    Use /tmp/hypriot-rpi-20151004-132414.img
+    Filesystem    512-blocks      Used Available Capacity   iused   ifree %iused  Mounted on
+    /dev/disk1     974749472 905546856  68690616    93% 113257355 8586327   93%   /
+    devfs                686       686         0   100%      1188       0  100%   /dev
+    map -hosts             0         0         0   100%         0       0  100%   /net
+    map auto_home          0         0         0   100%         0       0  100%   /home
+    /dev/disk2s2    15328216   5154552  10173664    34%    644317 1271708   34%   /Users/dittrich/dims/git
+    /dev/disk3s1      130780     47284     83496    37%       512       0  100%   /Volumes/NO NAME
+
+    Is /dev/disk3s1 correct? y
+    Unmounting disk3 ...
+    Unmount of all volumes on disk3 was successful
+    Unmount of all volumes on disk3 was successful
+    Flashing /tmp/hypriot-rpi-20151004-132414.img to disk3 ...
+    Password:
+     1.4GiB 0:03:45 [6.34MiB/s] [=====================================================================================================================================================>] 100
+    %
+    dd: /dev/rdisk3: Invalid argument
+    0+22889 records in
+    0+22888 records out
+    1499987968 bytes transferred in 225.533768 secs (6650835 bytes/sec)
+    Copying occidentalis.txt to /Volumes/NO NAME/occidentalis.txt ...
+    Unmounting and ejecting disk3 ...
+    Unmount of all volumes on disk3 was successful
+    Unmount of all volumes on disk3 was successful
+    Disk /dev/disk3 ejected
+    🍺  Finished.
+    [dimsenv] dittrich@27b:~/git/flash/Darwin (dims*) $ ssh pi@dims-rpi.local
+    ssh: Could not resolve hostname dims-rpi.local: nodename nor servname provided, or not known
+    [dimsenv] dittrich@27b:~/git/flash/Darwin (dims*) $ sudo nmap -sS 192.168.0.0/24
+    Password:
+
+    Starting Nmap 6.00 ( http://nmap.org ) at 2015-10-31 18:58 PDT
+    Nmap scan report for 192.168.0.1
+    Host is up (0.0080s latency).
+    Not shown: 988 closed ports
+    PORT     STATE SERVICE
+    23/tcp   open  telnet
+    53/tcp   open  domain
+    80/tcp   open  http
+    443/tcp  open  https
+    4567/tcp open  tram
+    5431/tcp open  park-agent
+    8081/tcp open  blackice-icecap
+    8082/tcp open  blackice-alerts
+    8083/tcp open  us-srv
+    8085/tcp open  unknown
+    8086/tcp open  d-s-n
+    8087/tcp open  simplifymedia
+    MAC Address: C4:EA:1D:02:65:8F (Unknown)
+
+    Nmap scan report for 192.168.0.4
+    Host is up (0.058s latency).
+    Not shown: 999 closed ports
+    PORT      STATE SERVICE
+    62078/tcp open  iphone-sync
+    MAC Address: B8:E8:56:BD:BA:CE (Unknown)
+
+    Nmap scan report for 192.168.0.5
+    Host is up (0.00014s latency).
+    Not shown: 998 filtered ports
+    PORT     STATE SERVICE
+    25/tcp   open  smtp
+    2222/tcp open  EtherNet/IP-1
+
+    sendto in send_ip_packet_sd: sendto(4, packet, 44, 0, 192.168.0.103, 16) => No route to host
+    Offending packet: TCP 192.168.0.5:40104 > 192.168.0.103:52848 S ttl=38 id=46034 iplen=11264  seq=3757193245 win=1024 <mss 1460>
+    sendto in send_ip_packet_sd: sendto(4, packet, 44, 0, 192.168.0.103, 16) => Host is down
+    Offending packet: TCP 192.168.0.5:40133 > 192.168.0.103:25 S ttl=41 id=32129 iplen=11264  seq=3371577113 win=1024 <mss 1460>
+    sendto in send_ip_packet_sd: sendto(4, packet, 44, 0, 192.168.0.103, 16) => Host is down
+    Offending packet: TCP 192.168.0.5:40100 > 192.168.0.103:1071 S ttl=44 id=31969 iplen=11264  seq=3757455385 win=1024 <mss 1460>
+    sendto in send_ip_packet_sd: sendto(4, packet, 44, 0, 192.168.0.103, 16) => Host is down
+    Offending packet: TCP 192.168.0.5:40101 > 192.168.0.103:1071 S ttl=40 id=38235 iplen=11264  seq=3757520920 win=1024 <mss 1460>
+    sendto in send_ip_packet_sd: sendto(4, packet, 44, 0, 192.168.0.103, 16) => Host is down
+    Offending packet: TCP 192.168.0.5:40102 > 192.168.0.103:1071 S ttl=42 id=57048 iplen=11264  seq=3757324315 win=1024 <mss 1460>
+    sendto in send_ip_packet_sd: sendto(4, packet, 44, 0, 192.168.0.103, 16) => Host is down
+    Offending packet: TCP 192.168.0.5:40103 > 192.168.0.103:1071 S ttl=59 id=52375 iplen=11264  seq=3757389850 win=1024 <mss 1460>
+    sendto in send_ip_packet_sd: sendto(4, packet, 44, 0, 192.168.0.103, 16) => Host is down
+    Offending packet: TCP 192.168.0.5:40104 > 192.168.0.103:1071 S ttl=57 id=52893 iplen=11264  seq=3757193245 win=1024 <mss 1460>
+    sendto in send_ip_packet_sd: sendto(4, packet, 44, 0, 192.168.0.103, 16) => Host is down
+    Offending packet: TCP 192.168.0.5:40100 > 192.168.0.103:22939 S ttl=38 id=43407 iplen=11264  seq=3757455385 win=1024 <mss 1460>
+    sendto in send_ip_packet_sd: sendto(4, packet, 44, 0, 192.168.0.103, 16) => Host is down
+    Offending packet: TCP 192.168.0.5:40101 > 192.168.0.103:22939 S ttl=47 id=20839 iplen=11264  seq=3757520920 win=1024 <mss 1460>
+    sendto in send_ip_packet_sd: sendto(4, packet, 44, 0, 192.168.0.103, 16) => Host is down
+    Offending packet: TCP 192.168.0.5:40102 > 192.168.0.103:22939 S ttl=51 id=6908 iplen=11264  seq=3757324315 win=1024 <mss 1460>
+    Omitting future Sendto error messages now that 10 have been shown.  Use -d2 if you really want to see them.
+
+    Warning: 192.168.0.103 giving up on port because retransmission cap hit (10).
+
+    ^C[dimsenv] dittrich@27b:~/git/flash/Darwin (dims*) $ ssh-copy-id -i ~/.ssh/dims_dittrich_rsa.pub pi@192.168.0.104
+    /opt/local/bin/ssh-copy-id: INFO: attempting to log in with the new key(s), to filter out any that are already installed
+    /opt/local/bin/ssh-copy-id: INFO: 1 key(s) remain to be installed -- if you are prompted now it is to install the new keys
+    pi@192.168.0.104's password:
+
+    Number of key(s) added:        1
+
+    Now try logging into the machine, with:   "ssh 'pi@192.168.0.104'"
+    and check to make sure that only the key(s) you wanted were added.
+
+    [dimsenv] dittrich@27b:~/git/flash/Darwin (dims*) $ ssh-copy-id -i ~/.ssh/dims_dittrich_rsa.pub root@192.168.0.104
+
+    /opt/local/bin/ssh-copy-id: INFO: attempting to log in with the new key(s), to filter out any that are already installed
+    /opt/local/bin/ssh-copy-id: INFO: 1 key(s) remain to be installed -- if you are prompted now it is to install the new keys
+    root@192.168.0.104's password:
+
+    Number of key(s) added:        1
+
+    Now try logging into the machine, with:   "ssh 'root@192.168.0.104'"
+    and check to make sure that only the key(s) you wanted were added.
+
+    [dimsenv] dittrich@27b:~/git/flash/Darwin (dims*) $ curl -o docker-machine http://downloads.hypriot.com/docker-machine_0.4.0-dev_darwin-amd64
+      % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                     Dload  Upload   Total   Spent    Left  Speed
+    100 11.8M  100 11.8M    0     0  1413k      0  0:00:08  0:00:08 --:--:-- 2744k
+    [dimsenv] dittrich@27b:~/git/flash/Darwin (dims*) $ chmod +x docker-machine
+    [dimsenv] dittrich@27b:~/git/flash/Darwin (dims*) $ curl -o docker-machine http://downloads.hypriot.com/docker-machine_0.4.0-dev_darwin-amd64
+    [dimsenv] dittrich@27b:~/git/flash/Darwin (dims*) $ export TOKEN=$(for i in $(seq 1 32); do echo -n $(echo "obase=16; $(($RANDOM % 16))" | bc); done; echo)
+    [dimsenv] dittrich@27b:~/git/flash/Darwin (dims*) $ echo $TOKEN
+    69258BE0369CF258BE1369CF258BE146
+    [dimsenv] dittrich@27b:~/git/flash/Darwin (dims*) $ ./docker-machine create -d hypriot --swarm --swarm-master --swarm-discovery token://$TOKEN --hypriot-ip-address 192.168.0.104 pi1
+    Importing SSH key...
+    Error creating machine: Too many retries.  Last error: Maximum number of retries (60) exceeded
+    You will want to check the provider to make sure the machine and associated resources were properly removed.
+    [dimsenv] dittrich@27b:~/git/flash/Darwin (dims*) $ ./docker-machine create -d hypriot --swarm --swarm-master --swarm-discovery token://$TOKEN --hypriot-ip-address 192.168.0.104 pi1
+    Error creating machine: Machine pi1 already exists
+    You will want to check the provider to make sure the machine and associated resources were properly removed.
+    [dimsenv] dittrich@27b:~/git/flash/Darwin (dims*) $ export TOKEN=$(for i in $(seq 1 32); do echo -n $(echo "obase=16; $(($RANDOM % 16))" | bc); done; echo)
+    [dimsenv] dittrich@27b:~/git/flash/Darwin (dims*) $ ./docker-machine create -d hypriot --swarm --swarm-master --swarm-discovery token://$TOKEN --hypriot-ip-address 192.168.0.104 pi1
+    Error creating machine: Machine pi1 already exists
+    You will want to check the provider to make sure the machine and associated resources were properly removed.
+    [dimsenv] dittrich@27b:~/git/flash/Darwin (dims*) $ eval $(./docker-machine env --swarm pi1)
+    open /Users/dittrich/.docker/machine/machines/pi1/ca.pem: no such file or directory
+    [dimsenv] dittrich@27b:~/git/flash/Darwin (dims*) $ ls ~/.docker/machine/
+    cache/    certs/    machines/
+    [dimsenv] dittrich@27b:~/git/flash/Darwin (dims*) $ ls ~/.docker/machine/machines/
+    .active  default/ dev/     pi1/
+    [dimsenv] dittrich@27b:~/git/flash/Darwin (dims*) $ ls ~/.docker/machine/machines/pi1/
+    config.json  id_rsa       id_rsa.pub
+    [dimsenv] dittrich@27b:~/git/flash/Darwin (dims*) $ ls ~/.docker/machine/machines/
+    [dimsenv] dittrich@27b:~/git/flash/Darwin (dims*) $ eval $(docker-machine env --swarm pi1)
+    Error getting migrated host: hosts: Unknown driver "hypriot"
+    [dimsenv] dittrich@27b:~/git/flash/Darwin (dims*) $ eval $(docker-machine env --swarm pi1)
+    [dimsenv] dittrich@27b:~/git/flash/Darwin (dims*) $ tree ~/.docker
+    /Users/dittrich/.docker
+    └── machine
+        ├── cache
+        │   └── boot2docker.iso
+        ├── certs
+        │   ├── ca-key.pem
+        │   ├── ca.pem
+        │   ├── cert.pem
+        │   └── key.pem
+        └── machines
+            ├── default
+            │   ├── boot2docker.iso
+            │   ├── config.json
+            │   ├── default
+            │   │   ├── Logs
+            │   │   │   ├── VBox.log
+            │   │   │   ├── VBox.log.1
+            │   │   │   ├── VBox.log.2
+            │   │   │   └── VBox.log.3
+            │   │   ├── default.vbox
+            │   │   └── default.vbox-prev
+            │   ├── disk.vmdk
+            │   ├── id_rsa
+            │   └── id_rsa.pub
+            ├── dev
+            │   ├── boot2docker.iso
+            │   ├── ca.pem
+            │   ├── cert.pem
+            │   ├── config.json
+            │   ├── id_rsa
+            │   ├── id_rsa.pub
+            │   ├── key.pem
+            │   ├── server-key.pem
+            │   └── server.pem
+            └── pi1
+                ├── config.json
+                ├── id_rsa
+                └── id_rsa.pub
+
+    9 directories, 28 files
+    [dimsenv] dittrich@27b:~/git/flash/Darwin (dims*) $
+    [dimsenv] dittrich@27b:~/git/flash/Darwin (dims*) $ docker run --rm hypriot/rpi-swarm create
+    An error occurred trying to connect: Post https://192.168.59.103:2376/v1.20/containers/create: dial tcp 192.168.59.103:2376: i/o timeout
+    [dimsenv] dittrich@27b:~/git/flash/Darwin (dims*) $
+    [dimsenv] dittrich@27b:~/git/flash/Darwin (dims*) $ ssh-copy-id -i ~/.ssh/dims_dittrich_rsa.pub root@192.168.0.104
+
+    ^C
+    [dimsenv] dittrich@27b:~/git/flash/Darwin (dims*) $ scp occidentalis.txt root@192.168.0.104:/boot/
+    ^C[dimsenv] dittrich@27b:~/git/flash/Darwin (dims*) $ scp occidentalis.txt root@192.168.0.105:/boot/
+
+    The authenticity of host '192.168.0.105 (192.168.0.105)' can't be established.
+    ECDSA key fingerprint is MD5:d6:3f:a7:ea:b0:06:61:09:9b:19:fd:e8:d0:9e:3a:9c.
+    Are you sure you want to continue connecting (yes/no)? yes
+    Warning: Permanently added '192.168.0.105' (ECDSA) to the list of known hosts.
+    root@192.168.0.105's password:
+    occidentalis.txt                                                                                                                                           100%  153     0.2KB/s   00:00
+
+    [dimsenv] dittrich@27b:~/git/flash/Darwin (dims*) $ ssh-copy-id -i ~/.ssh/dims_dittrich_rsa.pub root@192.168.0.105
+    /opt/local/bin/ssh-copy-id: INFO: attempting to log in with the new key(s), to filter out any that are already installed
+
+    /opt/local/bin/ssh-copy-id: WARNING: All keys were skipped because they already exist on the remote system.
+
+    [dimsenv] dittrich@27b:~/git/flash/Darwin (dims*) $ slogin root@192.168.0.105
+    root@192.168.0.105's password:
+    Linux black-pearl 3.18.11-hypriotos-v7+ #2 SMP PREEMPT Sun Apr 12 16:34:20 UTC 2015 armv7l
+
+    The programs included with the Debian GNU/Linux system are free software;
+    the exact distribution terms for each program are described in the
+    individual files in /usr/share/doc/*/copyright.
+
+    Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
+    permitted by applicable law.
+    Last login: Sat Oct 31 18:07:17 2015 from 192.168.0.5
+    HypriotOS: root@black-pearl in ~
+    $ ifconfig -a | less
+    HypriotOS: root@black-pearl in ~
+    $ ifconfig -a
+    docker0   Link encap:Ethernet  HWaddr 56:84:7a:fe:97:99
+              inet addr:172.17.42.1  Bcast:0.0.0.0  Mask:255.255.0.0
+              inet6 addr: fe80::5484:7aff:fefe:9799/64 Scope:Link
+              UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+              RX packets:8 errors:0 dropped:0 overruns:0 frame:0
+              TX packets:28 errors:0 dropped:0 overruns:0 carrier:0
+              collisions:0 txqueuelen:0
+              RX bytes:536 (536.0 B)  TX bytes:5178 (5.0 KiB)
+
+    eth0      Link encap:Ethernet  HWaddr b8:27:eb:de:3a:32
+              inet addr:192.168.0.105  Bcast:192.168.0.255  Mask:255.255.255.0
+              inet6 addr: fe80::ba27:ebff:fede:3a32/64 Scope:Link
+              UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+              RX packets:640 errors:0 dropped:0 overruns:0 frame:0
+              TX packets:275 errors:0 dropped:0 overruns:0 carrier:0
+              collisions:0 txqueuelen:1000
+              RX bytes:50498 (49.3 KiB)  TX bytes:39958 (39.0 KiB)
+
+    lo        Link encap:Local Loopback
+              inet addr:127.0.0.1  Mask:255.0.0.0
+              inet6 addr: ::1/128 Scope:Host
+              UP LOOPBACK RUNNING  MTU:65536  Metric:1
+              RX packets:8 errors:0 dropped:0 overruns:0 frame:0
+              TX packets:8 errors:0 dropped:0 overruns:0 carrier:0
+              collisions:0 txqueuelen:0
+              RX bytes:1104 (1.0 KiB)  TX bytes:1104 (1.0 KiB)
+
+    veth176b447 Link encap:Ethernet  HWaddr 8e:d1:29:39:a9:53
+              inet6 addr: fe80::8cd1:29ff:fe39:a953/64 Scope:Link
+              UP BROADCAST RUNNING  MTU:1500  Metric:1
+              RX packets:8 errors:0 dropped:0 overruns:0 frame:0
+              TX packets:36 errors:0 dropped:0 overruns:0 carrier:0
+              collisions:0 txqueuelen:0
+              RX bytes:648 (648.0 B)  TX bytes:5826 (5.6 KiB)
+
+    wlan0     Link encap:Ethernet  HWaddr 00:e0:4c:1d:4a:a0
+              UP BROADCAST MULTICAST  MTU:1500  Metric:1
+              RX packets:0 errors:0 dropped:0 overruns:0 frame:0
+              TX packets:0 errors:0 dropped:0 overruns:0 carrier:0
+              collisions:0 txqueuelen:1000
+              RX bytes:0 (0.0 B)  TX bytes:0 (0.0 B)
+
+    HypriotOS: root@black-pearl in ~
+    $
+    HypriotOS: root@black-pearl in ~
+    $ /sbin/reboot
+
+    Broadcast message from root@black-pearl (pts/0) (Sat Oct 31 23:55:14 2015):
+    The system is going down for reboot NOW!
+    HypriotOS: root@black-pearl in ~
+    $
+    HypriotOS: root@black-pearl in ~
+    $ Connection to 192.168.0.105 closed by remote host.
+    Connection to 192.168.0.105 closed.
+    [dimsenv] dittrich@27b:~/git/flash/Darwin (dims*) $
+    [dimsenv] dittrich@27b:~/git/flash/Darwin (dims*) $ slogin root@192.168.0.105
+    ssh_exchange_identification: read: Connection reset by peer
+    [dimsenv] dittrich@27b:~/git/flash/Darwin (dims*) $ slogin root@192.168.0.104
+    ^C
+    [dimsenv] dittrich@27b:~/git/flash/Darwin (dims*) $ slogin root@192.168.0.105
+    root@192.168.0.105's password:
+    Linux black-pearl 3.18.11-hypriotos-v7+ #2 SMP PREEMPT Sun Apr 12 16:34:20 UTC 2015 armv7l
+
+    The programs included with the Debian GNU/Linux system are free software;
+    the exact distribution terms for each program are described in the
+    individual files in /usr/share/doc/*/copyright.
+
+    Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
+    permitted by applicable law.
+    Last login: Sat Oct 31 23:54:31 2015 from 192.168.0.5
+    HypriotOS: root@dims-rpi in ~
+    $ ifconfig -a
+    docker0   Link encap:Ethernet  HWaddr 56:84:7a:fe:97:99
+              inet addr:172.17.42.1  Bcast:0.0.0.0  Mask:255.255.0.0
+              inet6 addr: fe80::5484:7aff:fefe:9799/64 Scope:Link
+              UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+              RX packets:8 errors:0 dropped:0 overruns:0 frame:0
+              TX packets:40 errors:0 dropped:0 overruns:0 carrier:0
+              collisions:0 txqueuelen:0
+              RX bytes:536 (536.0 B)  TX bytes:6734 (6.5 KiB)
+
+    eth0      Link encap:Ethernet  HWaddr b8:27:eb:de:3a:32
+              inet addr:192.168.0.105  Bcast:192.168.0.255  Mask:255.255.255.0
+              inet6 addr: fe80::ba27:ebff:fede:3a32/64 Scope:Link
+              UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+              RX packets:160 errors:0 dropped:0 overruns:0 frame:0
+              TX packets:145 errors:0 dropped:0 overruns:0 carrier:0
+              collisions:0 txqueuelen:1000
+              RX bytes:15910 (15.5 KiB)  TX bytes:20586 (20.1 KiB)
+
+    lo        Link encap:Local Loopback
+              inet addr:127.0.0.1  Mask:255.0.0.0
+              inet6 addr: ::1/128 Scope:Host
+              UP LOOPBACK RUNNING  MTU:65536  Metric:1
+              RX packets:8 errors:0 dropped:0 overruns:0 frame:0
+              TX packets:8 errors:0 dropped:0 overruns:0 carrier:0
+              collisions:0 txqueuelen:0
+              RX bytes:1104 (1.0 KiB)  TX bytes:1104 (1.0 KiB)
+
+    vethba1941c Link encap:Ethernet  HWaddr 5a:42:7c:23:36:93
+              inet6 addr: fe80::5842:7cff:fe23:3693/64 Scope:Link
+              UP BROADCAST RUNNING  MTU:1500  Metric:1
+              RX packets:8 errors:0 dropped:0 overruns:0 frame:0
+              TX packets:48 errors:0 dropped:0 overruns:0 carrier:0
+              collisions:0 txqueuelen:0
+              RX bytes:648 (648.0 B)  TX bytes:7382 (7.2 KiB)
+
+    wlan0     Link encap:Ethernet  HWaddr 00:e0:4c:1d:4a:a0
+              UP BROADCAST MULTICAST  MTU:1500  Metric:1
+              RX packets:0 errors:0 dropped:0 overruns:0 frame:0
+              TX packets:0 errors:0 dropped:0 overruns:0 carrier:0
+              collisions:0 txqueuelen:1000
+              RX bytes:0 (0.0 B)  TX bytes:0 (0.0 B)
+
+    HypriotOS: root@dims-rpi in ~
+    $ cd /boot
+    HypriotOS: root@dims-rpi in /boot
+    $ ls
+    bcm2708-rpi-b.dtb       bcm2709-rpi-2-b.dtb  cmdline.txt    fixup_cd.dat  fixup_db.dat  kernel7.img  LICENCE.broadcom  overlays      start_db.elf  start_x.elf
+    bcm2708-rpi-b-plus.dtb  bootcode.bin         COPYING.linux  fixup.dat     fixup_x.dat   kernel.img   occidentalis.txt  start_cd.elf  start.elf
+    HypriotOS: root@dims-rpi in /boot
+    $
+    HypriotOS: root@dims-rpi in /boot
+    $ ls -lat
+    total 28530
+    -rwxr-xr-x  1 root root     153 Oct 31 23:53 occidentalis.txt
+    drwxr-xr-x  2 root root    2048 Apr 16  2015 overlays
+    -rwxr-xr-x  1 root root    9187 Apr 16  2015 fixup_x.dat
+    -rwxr-xr-x  1 root root 8723380 Apr 16  2015 kernel7.img
+    -rwxr-xr-x  1 root root 8931708 Apr 16  2015 kernel.img
+    -rwxr-xr-x  1 root root  554616 Apr 16  2015 start_cd.elf
+    -rwxr-xr-x  1 root root 2642456 Apr 16  2015 start.elf
+    -rwxr-xr-x  1 root root 3599432 Apr 16  2015 start_x.elf
+    -rwxr-xr-x  1 root root    4379 Apr 16  2015 bcm2708-rpi-b.dtb
+    -rwxr-xr-x  1 root root    4658 Apr 16  2015 bcm2708-rpi-b-plus.dtb
+    -rwxr-xr-x  1 root root    5622 Apr 16  2015 bcm2709-rpi-2-b.dtb
+    -rwxr-xr-x  1 root root   17856 Apr 16  2015 bootcode.bin
+    -rwxr-xr-x  1 root root    2345 Apr 16  2015 fixup_cd.dat
+    -rwxr-xr-x  1 root root    6135 Apr 16  2015 fixup.dat
+    -rwxr-xr-x  1 root root   18693 Apr 16  2015 COPYING.linux
+    -rwxr-xr-x  1 root root    1447 Apr 16  2015 LICENCE.broadcom
+    -rwxr-xr-x  1 root root      41 Apr 16  2015 .firmware_revision
+    -rwxr-xr-x  1 root root    9211 Apr 16  2015 fixup_db.dat
+    -rwxr-xr-x  1 root root 4637192 Apr 16  2015 start_db.elf
+    -rwxr-xr-x  1 root root     178 Apr 16  2015 cmdline.txt
+    drwxr-xr-x 22 root root    4096 Dec 31  1969 ..
+    drwxr-xr-x  3 root root   16384 Dec 31  1969 .
+    HypriotOS: root@dims-rpi in /boot
+    $ ifconfig wlan0 up
+    HypriotOS: root@dims-rpi in /boot
+    $
+    HypriotOS: root@dims-rpi in /boot
+    $ ifconfig -a
+    docker0   Link encap:Ethernet  HWaddr 56:84:7a:fe:97:99
+              inet addr:172.17.42.1  Bcast:0.0.0.0  Mask:255.255.0.0
+              inet6 addr: fe80::5484:7aff:fefe:9799/64 Scope:Link
+              UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+              RX packets:8 errors:0 dropped:0 overruns:0 frame:0
+              TX packets:40 errors:0 dropped:0 overruns:0 carrier:0
+              collisions:0 txqueuelen:0
+              RX bytes:536 (536.0 B)  TX bytes:6734 (6.5 KiB)
+
+    eth0      Link encap:Ethernet  HWaddr b8:27:eb:de:3a:32
+              inet addr:192.168.0.105  Bcast:192.168.0.255  Mask:255.255.255.0
+              inet6 addr: fe80::ba27:ebff:fede:3a32/64 Scope:Link
+              UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+              RX packets:362 errors:0 dropped:0 overruns:0 frame:0
+              TX packets:260 errors:0 dropped:0 overruns:0 carrier:0
+              collisions:0 txqueuelen:1000
+              RX bytes:29182 (28.4 KiB)  TX bytes:39174 (38.2 KiB)
+
+    lo        Link encap:Local Loopback
+              inet addr:127.0.0.1  Mask:255.0.0.0
+              inet6 addr: ::1/128 Scope:Host
+              UP LOOPBACK RUNNING  MTU:65536  Metric:1
+              RX packets:8 errors:0 dropped:0 overruns:0 frame:0
+              TX packets:8 errors:0 dropped:0 overruns:0 carrier:0
+              collisions:0 txqueuelen:0
+              RX bytes:1104 (1.0 KiB)  TX bytes:1104 (1.0 KiB)
+
+    vethba1941c Link encap:Ethernet  HWaddr 5a:42:7c:23:36:93
+              inet6 addr: fe80::5842:7cff:fe23:3693/64 Scope:Link
+              UP BROADCAST RUNNING  MTU:1500  Metric:1
+              RX packets:8 errors:0 dropped:0 overruns:0 frame:0
+              TX packets:48 errors:0 dropped:0 overruns:0 carrier:0
+              collisions:0 txqueuelen:0
+              RX bytes:648 (648.0 B)  TX bytes:7382 (7.2 KiB)
+
+    wlan0     Link encap:Ethernet  HWaddr 00:e0:4c:1d:4a:a0
+              UP BROADCAST MULTICAST  MTU:1500  Metric:1
+              RX packets:0 errors:0 dropped:0 overruns:0 frame:0
+              TX packets:0 errors:0 dropped:0 overruns:0 carrier:0
+              collisions:0 txqueuelen:1000
+              RX bytes:0 (0.0 B)  TX bytes:0 (0.0 B)
+
+    HypriotOS: root@dims-rpi in /boot
+    $ ls -lat
+    total 28530
+    -rwxr-xr-x  1 root root     153 Oct 31 23:53 occidentalis.txt
+    drwxr-xr-x  2 root root    2048 Apr 16  2015 overlays
+    -rwxr-xr-x  1 root root    9187 Apr 16  2015 fixup_x.dat
+    -rwxr-xr-x  1 root root 8723380 Apr 16  2015 kernel7.img
+    -rwxr-xr-x  1 root root 8931708 Apr 16  2015 kernel.img
+    -rwxr-xr-x  1 root root  554616 Apr 16  2015 start_cd.elf
+    -rwxr-xr-x  1 root root 2642456 Apr 16  2015 start.elf
+    -rwxr-xr-x  1 root root 3599432 Apr 16  2015 start_x.elf
+    -rwxr-xr-x  1 root root    4379 Apr 16  2015 bcm2708-rpi-b.dtb
+    -rwxr-xr-x  1 root root    4658 Apr 16  2015 bcm2708-rpi-b-plus.dtb
+    -rwxr-xr-x  1 root root    5622 Apr 16  2015 bcm2709-rpi-2-b.dtb
+    -rwxr-xr-x  1 root root   17856 Apr 16  2015 bootcode.bin
+    -rwxr-xr-x  1 root root    2345 Apr 16  2015 fixup_cd.dat
+    -rwxr-xr-x  1 root root    6135 Apr 16  2015 fixup.dat
+    -rwxr-xr-x  1 root root   18693 Apr 16  2015 COPYING.linux
+    -rwxr-xr-x  1 root root    1447 Apr 16  2015 LICENCE.broadcom
+    -rwxr-xr-x  1 root root      41 Apr 16  2015 .firmware_revision
+    -rwxr-xr-x  1 root root    9211 Apr 16  2015 fixup_db.dat
+    -rwxr-xr-x  1 root root 4637192 Apr 16  2015 start_db.elf
+    -rwxr-xr-x  1 root root     178 Apr 16  2015 cmdline.txt
+    drwxr-xr-x 22 root root    4096 Dec 31  1969 ..
+    drwxr-xr-x  3 root root   16384 Dec 31  1969 .
+    HypriotOS: root@dims-rpi in /boot
+    $ vi occidentalis.txt
+    HypriotOS: root@dims-rpi in /boot
+    $ vi cmdline.txt
+    HypriotOS: root@dims-rpi in /boot
+    $ ls
+    bcm2708-rpi-b.dtb       bcm2709-rpi-2-b.dtb  cmdline.txt    fixup_cd.dat  fixup_db.dat  kernel7.img  LICENCE.broadcom  overlays      start_db.elf  start_x.elf
+    bcm2708-rpi-b-plus.dtb  bootcode.bin         COPYING.linux  fixup.dat     fixup_x.dat   kernel.img   occidentalis.txt  start_cd.elf  start.elf
+    HypriotOS: root@dims-rpi in /boot
+    $ cd
+    HypriotOS: root@dims-rpi in ~
+    $ ls
+    firstboot_done  firstboot.sh  rpi-busybox-httpd.run
+    HypriotOS: root@dims-rpi in ~
+    $ less firstboot.sh
+    HypriotOS: root@dims-rpi in ~
+    $ i
+    iconv                ifquery              infokey              install              invoke-rc.d          ip6tables-save       iptables-apply       isosize
+    iconvconfig          ifup                 infotocap            install-info         ionice               ipcmk                iptables-restore
+    id                   in                   in.identtestd        installkernel        ip                   ipcrm                iptables-save
+    if                   info                 init                 install-keymap       ip6tables            ipcs                 iptables-xml
+    ifconfig             infobrowser          insmod               install-sgmlcatalog  ip6tables-apply      ipmaddr              iptunnel
+    ifdown               infocmp              insserv              instmodsh            ip6tables-restore    iptables             ischroot
+    HypriotOS: root@dims-rpi in ~
+    $ cd /etc/default/
+    HypriotOS: root@dims-rpi in /etc/default
+    $ ls
+    avahi-daemon  cron  devpts  fake-hwclock  hwclock  networking  ntp      rcS        rsync    ssh         tmpfs         useradd
+    bsdmainutils  dbus  docker  halt          locale   nss         ntpdate  rng-tools  rsyslog  supervisor  triggerhappy
+    HypriotOS: root@dims-rpi in /etc/default
+    $ grep wlan *
+    HypriotOS: root@dims-rpi in /etc/default
+    $ grep wlan ../*
+    grep: ../alternatives: Is a directory
+    grep: ../apt: Is a directory
+    grep: ../avahi: Is a directory
+    grep: ../bash_completion.d: Is a directory
+    grep: ../ca-certificates: Is a directory
+    grep: ../calendar: Is a directory
+    grep: ../console: Is a directory
+    grep: ../cron.d: Is a directory
+    grep: ../cron.daily: Is a directory
+    grep: ../cron.hourly: Is a directory
+    grep: ../cron.monthly: Is a directory
+    grep: ../cron.weekly: Is a directory
+    grep: ../dbus-1: Is a directory
+    grep: ../default: Is a directory
+    grep: ../dhcp: Is a directory
+    grep: ../docker: Is a directory
+    grep: ../dpkg: Is a directory
+    grep: ../fstab.d: Is a directory
+    grep: ../groff: Is a directory
+    grep: ../ifplugd: Is a directory
+    grep: ../init: Is a directory
+    grep: ../init.d: Is a directory
+    grep: ../initramfs-tools: Is a directory
+    grep: ../insserv: Is a directory
+    grep: ../insserv.conf.d: Is a directory
+    grep: ../iproute2: Is a directory
+    grep: ../kbd: Is a directory
+    grep: ../kernel: Is a directory
+    grep: ../ldap: Is a directory
+    grep: ../ld.so.conf.d: Is a directory
+    grep: ../libnl-3: Is a directory
+    grep: ../logcheck: Is a directory
+    grep: ../logrotate.d: Is a directory
+    grep: ../modprobe.d: Is a directory
+    grep: ../network: Is a directory
+    grep: ../opt: Is a directory
+    grep: ../pam.d: Is a directory
+    grep: ../perl: Is a directory
+    grep: ../plymouth: Is a directory
+    grep: ../profile.d: Is a directory
+    grep: ../python: Is a directory
+    grep: ../python2.7: Is a directory
+    grep: ../rc0.d: Is a directory
+    grep: ../rc1.d: Is a directory
+    grep: ../rc2.d: Is a directory
+    grep: ../rc3.d: Is a directory
+    grep: ../rc4.d: Is a directory
+    grep: ../rc5.d: Is a directory
+    grep: ../rc6.d: Is a directory
+    grep: ../rcS.d: Is a directory
+    grep: ../resolvconf: Is a directory
+    grep: ../rsyslog.d: Is a directory
+    grep: ../security: Is a directory
+    grep: ../selinux: Is a directory
+    grep: ../sgml: Is a directory
+    grep: ../skel: Is a directory
+    grep: ../ssh: Is a directory
+    grep: ../ssl: Is a directory
+    grep: ../sudoers.d: Is a directory
+    grep: ../supervisor: Is a directory
+    grep: ../sysctl.d: Is a directory
+    grep: ../systemd: Is a directory
+    grep: ../terminfo: Is a directory
+    grep: ../triggerhappy: Is a directory
+    grep: ../udev: Is a directory
+    grep: ../ufw: Is a directory
+    grep: ../vim: Is a directory
+    grep: ../wpa_supplicant: Is a directory
+    grep: ../xml: Is a directory
+    HypriotOS: root@dims-rpi in /etc/default
+    $
+    HypriotOS: root@dims-rpi in /etc/default
+    $ ls
+    avahi-daemon  cron  devpts  fake-hwclock  hwclock  networking  ntp      rcS        rsync    ssh         tmpfs         useradd
+    bsdmainutils  dbus  docker  halt          locale   nss         ntpdate  rng-tools  rsyslog  supervisor  triggerhappy
+    HypriotOS: root@dims-rpi in /etc/default
+    $ pwd
+    /etc/default
+    HypriotOS: root@dims-rpi in /etc/default
+    $ vi supervisor
+    HypriotOS: root@dims-rpi in /etc/default
+    $ cd ..
+    HypriotOS: root@dims-rpi in /etc
+    $ cd /etc/init.d
+    HypriotOS: root@dims-rpi in /etc/init.d
+    $ ls
+    avahi-daemon            checkroot.sh  halt         killprocs              mountdevsubfs.sh       networking    procps        README     rsyslog   sudo          umountfs
+    bootlogs                cron          hostname.sh  kmod                   mountkernfs.sh         ntp           raspi-config  reboot     sendsigs  supervisor    umountnfs.sh
+    bootmisc.sh             dbus          hwclock.sh   motd                   mountnfs-bootclean.sh  occi          rc            rmnologin  single    triggerhappy  umountroot
+    checkfs.sh              docker        kbd          mountall-bootclean.sh  mountnfs.sh            plymouth      rc.local      rng-tools  skeleton  udev          urandom
+    checkroot-bootclean.sh  fake-hwclock  keymap.sh    mountall.sh            mtab.sh                plymouth-log  rcS           rsync      ssh       udev-mtab
+    HypriotOS: root@dims-rpi in /etc/init.d
+    $ grep wlan *
+    HypriotOS: root@dims-rpi in /etc/init.d
+    $
+    HypriotOS: root@dims-rpi in /etc/init.d
+    $ /sbin/shutdown -r now
+
+    Broadcast message from root@dims-rpi (pts/0) (Sun Nov  1 00:12:55 2015):
+
+    The system is going down for reboot NOW!
+    HypriotOS: root@dims-rpi in /etc/init.d
+    $
+    HypriotOS: root@dims-rpi in /etc/init.d
+    $ Connection to 192.168.0.105 closed by remote host.
+    Connection to 192.168.0.105 closed.
+    [dimsenv] dittrich@27b:~/git/flash/Darwin (dims*) $ slogin root@192.168.0.105
+    root@192.168.0.105's password:
+    Linux dims-rpi 3.18.11-hypriotos-v7+ #2 SMP PREEMPT Sun Apr 12 16:34:20 UTC 2015 armv7l
+
+    The programs included with the Debian GNU/Linux system are free software;
+    the exact distribution terms for each program are described in the
+    individual files in /usr/share/doc/*/copyright.
+
+    Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
+    permitted by applicable law.
+    Last login: Sat Oct 31 23:55:59 2015 from 192.168.0.5
+    HypriotOS: root@dims-rpi in ~
+    $ ifconfig -a
+    docker0   Link encap:Ethernet  HWaddr 56:84:7a:fe:97:99
+              inet addr:172.17.42.1  Bcast:0.0.0.0  Mask:255.255.0.0
+              inet6 addr: fe80::5484:7aff:fefe:9799/64 Scope:Link
+              UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+              RX packets:8 errors:0 dropped:0 overruns:0 frame:0
+              TX packets:30 errors:0 dropped:0 overruns:0 carrier:0
+              collisions:0 txqueuelen:0
+              RX bytes:536 (536.0 B)  TX bytes:5121 (5.0 KiB)
+
+    eth0      Link encap:Ethernet  HWaddr b8:27:eb:de:3a:32
+              inet addr:192.168.0.105  Bcast:192.168.0.255  Mask:255.255.255.0
+              inet6 addr: fe80::ba27:ebff:fede:3a32/64 Scope:Link
+              UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+              RX packets:182 errors:0 dropped:0 overruns:0 frame:0
+              TX packets:133 errors:0 dropped:0 overruns:0 carrier:0
+              collisions:0 txqueuelen:1000
+              RX bytes:20760 (20.2 KiB)  TX bytes:17446 (17.0 KiB)
+
+    lo        Link encap:Local Loopback
+              inet addr:127.0.0.1  Mask:255.0.0.0
+              inet6 addr: ::1/128 Scope:Host
+              UP LOOPBACK RUNNING  MTU:65536  Metric:1
+              RX packets:8 errors:0 dropped:0 overruns:0 frame:0
+              TX packets:8 errors:0 dropped:0 overruns:0 carrier:0
+              collisions:0 txqueuelen:0
+              RX bytes:1104 (1.0 KiB)  TX bytes:1104 (1.0 KiB)
+
+    veth2569ed0 Link encap:Ethernet  HWaddr ba:83:08:e9:a4:74
+              inet6 addr: fe80::b883:8ff:fee9:a474/64 Scope:Link
+              UP BROADCAST RUNNING  MTU:1500  Metric:1
+              RX packets:8 errors:0 dropped:0 overruns:0 frame:0
+              TX packets:37 errors:0 dropped:0 overruns:0 carrier:0
+              collisions:0 txqueuelen:0
+              RX bytes:648 (648.0 B)  TX bytes:5679 (5.5 KiB)
+
+    wlan0     Link encap:Ethernet  HWaddr 00:e0:4c:1d:4a:a0
+              inet addr:192.168.0.105  Bcast:192.168.0.255  Mask:255.255.255.0
+              inet6 addr: fe80::2e0:4cff:fe1d:4aa0/64 Scope:Link
+              UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+              RX packets:74 errors:0 dropped:3 overruns:0 frame:0
+              TX packets:35 errors:0 dropped:3 overruns:0 carrier:0
+              collisions:0 txqueuelen:1000
+              RX bytes:10815 (10.5 KiB)  TX bytes:7681 (7.5 KiB)
+
+    HypriotOS: root@dims-rpi in ~
+    $ netstat -rn
+    Kernel IP routing table
+    Destination     Gateway         Genmask         Flags   MSS Window  irtt Iface
+    0.0.0.0         192.168.0.1     0.0.0.0         UG        0 0          0 eth0
+    172.17.0.0      0.0.0.0         255.255.0.0     U         0 0          0 docker0
+    192.168.0.0     0.0.0.0         255.255.255.0   U         0 0          0 eth0
+    192.168.0.0     0.0.0.0         255.255.255.0   U         0 0          0 wlan0
+    HypriotOS: root@dims-rpi in ~
+    $ ifconfig -a | grep inet
+              inet addr:172.17.42.1  Bcast:0.0.0.0  Mask:255.255.0.0
+              inet6 addr: fe80::5484:7aff:fefe:9799/64 Scope:Link
+              inet addr:192.168.0.105  Bcast:192.168.0.255  Mask:255.255.255.0
+              inet6 addr: fe80::ba27:ebff:fede:3a32/64 Scope:Link
+              inet addr:127.0.0.1  Mask:255.0.0.0
+              inet6 addr: ::1/128 Scope:Host
+              inet6 addr: fe80::b883:8ff:fee9:a474/64 Scope:Link
+              inet addr:192.168.0.105  Bcast:192.168.0.255  Mask:255.255.255.0
+              inet6 addr: fe80::2e0:4cff:fe1d:4aa0/64 Scope:Link
+    HypriotOS: root@dims-rpi in ~
+    $ netstat -an
+    Active Internet connections (servers and established)
+    Proto Recv-Q Send-Q Local Address           Foreign Address         State
+    tcp        0      0 0.0.0.0:22              0.0.0.0:*               LISTEN
+    tcp        0    168 192.168.0.105:22        192.168.0.5:53983       ESTABLISHED
+    tcp6       0      0 :::80                   :::*                    LISTEN
+    tcp6       0      0 :::22                   :::*                    LISTEN
+    udp        0      0 0.0.0.0:4974            0.0.0.0:*
+    udp        0      0 0.0.0.0:68              0.0.0.0:*
+    udp        0      0 0.0.0.0:68              0.0.0.0:*
+    udp        0      0 0.0.0.0:57962           0.0.0.0:*
+    udp        0      0 172.17.42.1:123         0.0.0.0:*
+    udp        0      0 192.168.0.105:123       0.0.0.0:*
+    udp        0      0 127.0.0.1:123           0.0.0.0:*
+    udp        0      0 0.0.0.0:123             0.0.0.0:*
+    udp        0      0 0.0.0.0:5353            0.0.0.0:*
+    udp        0      0 0.0.0.0:63317           0.0.0.0:*
+    udp6       0      0 :::57723                :::*
+    udp6       0      0 :::52762                :::*
+    udp6       0      0 fe80::ba27:ebff:fed:123 :::*
+    udp6       0      0 fe80::b883:8ff:fee9:123 :::*
+    udp6       0      0 fe80::2e0:4cff:fe1d:123 :::*
+    udp6       0      0 fe80::5484:7aff:fef:123 :::*
+    udp6       0      0 ::1:123                 :::*
+    udp6       0      0 :::123                  :::*
+    udp6       0      0 :::53952                :::*
+    udp6       0      0 :::5353                 :::*
+    Active UNIX domain sockets (servers and established)
+    Proto RefCnt Flags       Type       State         I-Node   Path
+    unix  2      [ ]         DGRAM                    9731     /var/run/thd.socket
+    unix  9      [ ]         DGRAM                    9743     /dev/log
+    unix  2      [ ]         DGRAM                    623      /var/run/wpa_supplicant/wlan0
+    unix  2      [ ACC ]     SEQPACKET  LISTENING     113      /run/udev/control
+    unix  2      [ ACC ]     STREAM     LISTENING     650      /var/run/dbus/system_bus_socket
+    unix  2      [ ACC ]     STREAM     LISTENING     679      /var/run/avahi-daemon/socket
+    unix  2      [ ACC ]     STREAM     LISTENING     9140     /var/run/supervisor.sock.1604
+    unix  2      [ ACC ]     STREAM     LISTENING     705      /var/run/docker.sock
+    unix  3      [ ]         DGRAM                    8655
+    unix  3      [ ]         STREAM     CONNECTED     655
+    unix  2      [ ]         DGRAM                    673
+    unix  2      [ ]         DGRAM                    643
+    unix  3      [ ]         STREAM     CONNECTED     681
+    unix  2      [ ]         DGRAM                    684
+    unix  3      [ ]         STREAM     CONNECTED     676
+    unix  2      [ ]         DGRAM                    12500
+    unix  2      [ ]         DGRAM                    9910
+    unix  3      [ ]         STREAM     CONNECTED     9861
+    unix  3      [ ]         STREAM     CONNECTED     9860
+    unix  3      [ ]         DGRAM                    8654
+    unix  3      [ ]         STREAM     CONNECTED     656
+    unix  3      [ ]         STREAM     CONNECTED     682      /var/run/dbus/system_bus_socket
+    unix  3      [ ]         STREAM     CONNECTED     675
+    unix  2      [ ]         DGRAM                    10668
+    unix  2      [ ]         DGRAM                    9781
+    unix  3      [ ]         STREAM     CONNECTED     11314    /var/run/docker.sock
+    unix  3      [ ]         STREAM     CONNECTED     12313    /var/run/docker.sock
+    HypriotOS: root@dims-rpi in ~
+    $
+    HypriotOS: root@dims-rpi in ~
+    $ vi /etc/network/interfaces
+    HypriotOS: root@dims-rpi in ~
+    $
+    HypriotOS: root@dims-rpi in ~
+    $ /sbin/shutdown -r now
+
+    Broadcast message from root@dims-rpi (pts/0) (Sun Nov  1 00:16:20 2015):
+
+    The system is going down for reboot NOW!
+    HypriotOS: root@dims-rpi in ~
+    $
+    HypriotOS: root@dims-rpi in ~
+    $ Connection to 192.168.0.105 closed by remote host.
+    Connection to 192.168.0.105 closed.
+    [dimsenv] dittrich@27b:~/git/flash/Darwin (dims*) $
+    [dimsenv] dittrich@27b:~/git/flash/Darwin (dims*) $ ./flash -c occidentalis.txt http://downloads.hypriot.com/hypriot-rpi-20151004-132414.img.zip
+
+    Using cached image /tmp/hypriot-rpi-20151004-132414.img
+    Filesystem    512-blocks      Used Available Capacity   iused   ifree %iused  Mounted on
+    /dev/disk1     974749472 907733888  66503584    94% 113530734 8312948   93%   /
+    devfs                682       682         0   100%      1181       0  100%   /dev
+    map -hosts             0         0         0   100%         0       0  100%   /net
+    map auto_home          0         0         0   100%         0       0  100%   /home
+    /dev/disk2s2    15328216   5155592  10172624    34%    644447 1271578   34%   /Users/dittrich/dims/git
+    /dev/disk3s1      130780     57112     73668    44%       512       0  100%   /Volumes/NO NAME
+
+    Is /dev/disk3s1 correct? y
+    Unmounting disk3 ...
+    Unmount of all volumes on disk3 was successful
+    Unmount of all volumes on disk3 was successful
+    Flashing /tmp/hypriot-rpi-20151004-132414.img to disk3 ...
+    Password:
+     1.4GiB 0:01:45 [13.5MiB/s] [=============================================================================================================================================>] 100%
+
+    dd: /dev/rdisk3: Invalid argument
+    0+22889 records in
+    0+22888 records out
+    1499938816 bytes transferred in 105.905196 secs (14163033 bytes/sec)
+    Copying occidentalis.txt to /Volumes/NO NAME/occidentalis.txt ...
+    Unmounting and ejecting disk3 ...
+    Unmount of all volumes on disk3 was successful
+    Unmount of all volumes on disk3 was successful
+    Disk /dev/disk3 ejected
+    🍺  Finished.
+    [dimsenv] dittrich@27b:~/git/flash/Darwin (dims*) $ vi flash
+    [dimsenv] dittrich@27b:~/git/flash/Darwin (dims*) $
+    [dimsenv] dittrich@27b:~/git/flash/Darwin (dims*) $ ssh-copy-id -i ~/.ssh/dims_dittrich_rsa.pub root@192.168.0.105
+
+    /opt/local/bin/ssh-copy-id: INFO: attempting to log in with the new key(s), to filter out any that are already installed
+
+    /opt/local/bin/ssh-copy-id: ERROR: @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+    ERROR: @    WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED!     @
+    ERROR: @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+    ERROR: IT IS POSSIBLE THAT SOMEONE IS DOING SOMETHING NASTY!
+    ERROR: Someone could be eavesdropping on you right now (man-in-the-middle attack)!
+    ERROR: It is also possible that a host key has just been changed.
+    ERROR: The fingerprint for the ECDSA key sent by the remote host is
+    ERROR: MD5:c5:b2:71:e1:a7:95:e4:bf:8b:ec:74:52:c9:71:3e:da.
+    ERROR: Please contact your system administrator.
+    ERROR: Add correct host key in /Users/dittrich/.ssh/known_hosts to get rid of this message.
+    ERROR: Offending ECDSA key in /Users/dittrich/.ssh/known_hosts:240
+    ERROR: ECDSA host key for 192.168.0.105 has changed and you have requested strict checking.
+    ERROR: Host key verification failed.
+
+    [dimsenv] dittrich@27b:~/git/flash/Darwin (dims*) $ vi +240 ~/.ssh/config
+    [dimsenv] dittrich@27b:~/git/flash/Darwin (dims*) $ vi +240 ~/.ssh/known_hosts
+    [dimsenv] dittrich@27b:~/git/flash/Darwin (dims*) $ ssh-copy-id -i ~/.ssh/dims_dittrich_rsa.pub root@192.168.0.105
+
+    The authenticity of host '192.168.0.105 (192.168.0.105)' can't be established.
+    ECDSA key fingerprint is MD5:c5:b2:71:e1:a7:95:e4:bf:8b:ec:74:52:c9:71:3e:da.
+    Are you sure you want to continue connecting (yes/no)? yes
+    /opt/local/bin/ssh-copy-id: INFO: attempting to log in with the new key(s), to filter out any that are already installed
+    /opt/local/bin/ssh-copy-id: INFO: 1 key(s) remain to be installed -- if you are prompted now it is to install the new keys
+    root@192.168.0.105's password:
+
+    Number of key(s) added:        1
+
+    Now try logging into the machine, with:   "ssh 'root@192.168.0.105'"
+    and check to make sure that only the key(s) you wanted were added.
+
+    [dimsenv] dittrich@27b:~/git/flash/Darwin (dims*) $ ssh -i ~/.ssh/dims_dittrich_rsa root@192.168.0.105
+
+
+    The programs included with the Debian GNU/Linux system are free software;
+    the exact distribution terms for each program are described in the
+    individual files in /usr/share/doc/*/copyright.
+
+    Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
+    permitted by applicable law.
+    HypriotOS: root@dims-rpi in ~
+    $ docker ps
+    CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES
+    HypriotOS: root@dims-rpi in ~
+    $ aptitude update
+    ^C
+    HypriotOS: root@dims-rpi in ~
+    $ ifconfig -a
+    docker0   Link encap:Ethernet  HWaddr 02:42:51:9e:9a:22
+              inet addr:172.17.42.1  Bcast:0.0.0.0  Mask:255.255.0.0
+              UP BROADCAST MULTICAST  MTU:1500  Metric:1
+              RX packets:0 errors:0 dropped:0 overruns:0 frame:0
+              TX packets:0 errors:0 dropped:0 overruns:0 carrier:0
+              collisions:0 txqueuelen:0
+              RX bytes:0 (0.0 B)  TX bytes:0 (0.0 B)
+
+    eth0      Link encap:Ethernet  HWaddr b8:27:eb:de:3a:32
+              inet addr:192.168.0.105  Bcast:192.168.0.255  Mask:255.255.255.0
+              inet6 addr: fe80::ba27:ebff:fede:3a32/64 Scope:Link
+              UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+              RX packets:442 errors:0 dropped:0 overruns:0 frame:0
+              TX packets:289 errors:0 dropped:0 overruns:0 carrier:0
+              collisions:0 txqueuelen:1000
+              RX bytes:30512 (29.7 KiB)  TX bytes:40719 (39.7 KiB)
+
+    lo        Link encap:Local Loopback
+              inet addr:127.0.0.1  Mask:255.0.0.0
+              inet6 addr: ::1/128 Scope:Host
+              UP LOOPBACK RUNNING  MTU:65536  Metric:1
+              RX packets:8 errors:0 dropped:0 overruns:0 frame:0
+              TX packets:8 errors:0 dropped:0 overruns:0 carrier:0
+              collisions:0 txqueuelen:0
+              RX bytes:1104 (1.0 KiB)  TX bytes:1104 (1.0 KiB)
+
+    wlan0     Link encap:Ethernet  HWaddr 00:e0:4c:1d:4a:a0
+              inet addr:192.168.0.105  Bcast:192.168.0.255  Mask:255.255.255.0
+              inet6 addr: fe80::2e0:4cff:fe1d:4aa0/64 Scope:Link
+              UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+              RX packets:522 errors:0 dropped:1 overruns:0 frame:0
+              TX packets:42 errors:0 dropped:1 overruns:0 carrier:0
+              collisions:0 txqueuelen:1000
+              RX bytes:69431 (67.8 KiB)  TX bytes:8553 (8.3 KiB)
+
+    HypriotOS: root@dims-rpi in ~
+    $ ifdown wlan0
+    Killed old client process
+    Internet Systems Consortium DHCP Client 4.3.1
+    Copyright 2004-2014 Internet Systems Consortium.
+    All rights reserved.
+    For info, please visit https://www.isc.org/software/dhcp/
+
+    Listening on LPF/wlan0/00:e0:4c:1d:4a:a0
+    Sending on   LPF/wlan0/00:e0:4c:1d:4a:a0
+    Sending on   Socket/fallback
+    DHCPRELEASE on wlan0 to 192.168.0.1 port 67
+    HypriotOS: root@dims-rpi in ~
+    $
+    config -a
+
+    HypriotOS: root@dims-rpi in ~
+    $ ifconfig -a
+    docker0   Link encap:Ethernet  HWaddr 02:42:51:9e:9a:22
+              inet addr:172.17.42.1  Bcast:0.0.0.0  Mask:255.255.0.0
+              UP BROADCAST MULTICAST  MTU:1500  Metric:1
+              RX packets:0 errors:0 dropped:0 overruns:0 frame:0
+              TX packets:0 errors:0 dropped:0 overruns:0 carrier:0
+              collisions:0 txqueuelen:0
+              RX bytes:0 (0.0 B)  TX bytes:0 (0.0 B)
+
+    eth0      Link encap:Ethernet  HWaddr b8:27:eb:de:3a:32
+              inet addr:192.168.0.105  Bcast:192.168.0.255  Mask:255.255.255.0
+              inet6 addr: fe80::ba27:ebff:fede:3a32/64 Scope:Link
+              UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+              RX packets:508 errors:0 dropped:0 overruns:0 frame:0
+              TX packets:358 errors:0 dropped:0 overruns:0 carrier:0
+              collisions:0 txqueuelen:1000
+              RX bytes:34276 (33.4 KiB)  TX bytes:52752 (51.5 KiB)
+
+    lo        Link encap:Local Loopback
+              inet addr:127.0.0.1  Mask:255.0.0.0
+              inet6 addr: ::1/128 Scope:Host
+              UP LOOPBACK RUNNING  MTU:65536  Metric:1
+              RX packets:8 errors:0 dropped:0 overruns:0 frame:0
+              TX packets:8 errors:0 dropped:0 overruns:0 carrier:0
+              collisions:0 txqueuelen:0
+              RX bytes:1104 (1.0 KiB)  TX bytes:1104 (1.0 KiB)
+
+    wlan0     Link encap:Ethernet  HWaddr 00:e0:4c:1d:4a:a0
+              BROADCAST MULTICAST  MTU:1500  Metric:1
+              RX packets:586 errors:0 dropped:1 overruns:0 frame:0
+              TX packets:43 errors:0 dropped:1 overruns:0 carrier:0
+              collisions:0 txqueuelen:1000
+              RX bytes:76265 (74.4 KiB)  TX bytes:8623 (8.4 KiB)
+
+    HypriotOS: root@dims-rpi in ~
+    $ netstat -rn
+    Kernel IP routing table
+    Destination     Gateway         Genmask         Flags   MSS Window  irtt Iface
+    0.0.0.0         192.168.0.1     0.0.0.0         UG        0 0          0 eth0
+    172.17.0.0      0.0.0.0         255.255.0.0     U         0 0          0 docker0
+    192.168.0.0     0.0.0.0         255.255.255.0   U         0 0          0 eth0
+
+    HypriotOS: root@dims-rpi in ~
+    $ ping 192.168.0.1
+    PING 192.168.0.1 (192.168.0.1) 56(84) bytes of data.
+    64 bytes from 192.168.0.1: icmp_seq=1 ttl=64 time=0.878 ms
+    64 bytes from 192.168.0.1: icmp_seq=2 ttl=64 time=0.627 ms
+    ^C
+    --- 192.168.0.1 ping statistics ---
+    2 packets transmitted, 2 received, 0% packet loss, time 1001ms
+    rtt min/avg/max/mdev = 0.627/0.752/0.878/0.128 ms
+
+    HypriotOS: root@dims-rpi in ~
+    $ ping 8.8.8.8
+    PING 8.8.8.8 (8.8.8.8) 56(84) bytes of data.
+    64 bytes from 8.8.8.8: icmp_seq=1 ttl=57 time=3.86 ms
+    64 bytes from 8.8.8.8: icmp_seq=2 ttl=57 time=3.49 ms
+    ^C
+    --- 8.8.8.8 ping statistics ---
+    2 packets transmitted, 2 received, 0% packet loss, time 1001ms
+    rtt min/avg/max/mdev = 3.493/3.678/3.863/0.185 ms
+
+    HypriotOS: root@dims-rpi in ~
+    $ apt-get update
+    Get:1 http://mirrordirector.raspbian.org jessie InRelease [15.0 kB]
+    Get:2 https://packagecloud.io wheezy InRelease [20.1 kB]
+    Get:3 http://mirrordirector.raspbian.org jessie/main armhf Packages [8,961 kB]
+    Get:4 https://packagecloud.io wheezy/main armhf Packages [4,082 B]
+    Get:5 https://packagecloud.io wheezy/main Translation-en_US [162 B]
+    Get:6 https://packagecloud.io wheezy/main Translation-en [162 B]
+    Get:7 https://packagecloud.io wheezy/main Translation-en_US [162 B]
+    Get:8 https://packagecloud.io wheezy/main Translation-en [162 B]
+    Get:9 https://packagecloud.io wheezy/main Translation-en_US [162 B]
+    Get:10 https://packagecloud.io wheezy/main Translation-en [162 B]
+    Get:11 https://packagecloud.io wheezy/main Translation-en_US [162 B]
+    Get:12 https://packagecloud.io wheezy/main Translation-en [162 B]
+    Get:13 https://packagecloud.io wheezy/main Translation-en_US [162 B]
+    Ign https://packagecloud.io wheezy/main Translation-en_US
+    Get:14 https://packagecloud.io wheezy/main Translation-en [162 B]
+    Ign https://packagecloud.io wheezy/main Translation-en
+    Get:15 http://mirrordirector.raspbian.org jessie/contrib armhf Packages [37.5 kB]
+
+    Get:16 http://mirrordirector.raspbian.org jessie/non-free armhf Packages [70.2 kB]
+
+    Get:17 http://mirrordirector.raspbian.org jessie/rpi armhf Packages [1,356 B]
+
+    Ign http://mirrordirector.raspbian.org jessie/contrib Translation-en_US
+
+    Ign http://mirrordirector.raspbian.org jessie/contrib Translation-en
+
+    Ign http://mirrordirector.raspbian.org jessie/main Translation-en_US
+
+    Ign http://mirrordirector.raspbian.org jessie/main Translation-en
+
+    Ign http://mirrordirector.raspbian.org jessie/non-free Translation-en_US
+
+    Ign http://mirrordirector.raspbian.org jessie/non-free Translation-en
+
+    Ign http://mirrordirector.raspbian.org jessie/rpi Translation-en_US
+
+    Ign http://mirrordirector.raspbian.org jessie/rpi Translation-en
+
+    Fetched 9,110 kB in 32s (276 kB/s)
+
+    Reading package lists... Done
+
+    HypriotOS: root@dims-rpi in ~
+    $ docker ps
+    CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES
+
+    HypriotOS: root@dims-rpi in ~
+    $ aptitude safe-upgrade
+    The following packages will be upgraded:
+      docker-hypriot
+    The following packages are RECOMMENDED but will NOT be installed:
+      cgroupfs-mount
+    1 packages upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
+    Need to get 7,091 kB of archives. After unpacking 20.5 kB will be freed.
+    Do you want to continue? [Y/n/?] y
+    Get: 1 https://packagecloud.io/Hypriot/Schatzkiste/debian/ wheezy/main docker-hypriot armhf 1.8.3-1 [7,091 kB]
+    Fetched 7,091 kB in 5s (1,413 kB/s)
+    (Reading database ... 53188 files and directories currently installed.)
+    Preparing to unpack .../docker-hypriot_1.8.3-1_armhf.deb ...
+    Warning: Stopping docker.service, but it can still be activated by:
+      docker.socket
+    Unpacking docker-hypriot (1.8.3-1) over (1.8.2-1) ...
+    Processing triggers for systemd (215-17+deb8u2) ...
+    Setting up docker-hypriot (1.8.3-1) ...
+
+    Current status: 0 updates [-1].
+
+    HypriotOS: root@dims-rpi in ~
+    $ aptitude update
+    Hit http://mirrordirector.raspbian.org jessie InRelease
+    Hit https://packagecloud.io wheezy InRelease
+    Hit http://mirrordirector.raspbian.org jessie/main armhf Packages
+    Hit https://packagecloud.io wheezy/main armhf Packages
+    Get: 1 https://packagecloud.io wheezy/main Translation-en_US [162 B]
+    Hit http://mirrordirector.raspbian.org jessie/contrib armhf Packages
+    Get: 2 https://packagecloud.io wheezy/main Translation-en [162 B]
+    Get: 3 https://packagecloud.io wheezy/main Translation-en_US [162 B]
+    Hit http://mirrordirector.raspbian.org jessie/non-free armhf Packages
+    Get: 4 https://packagecloud.io wheezy/main Translation-en [162 B]
+    Get: 5 https://packagecloud.io wheezy/main Translation-en_US [162 B]
+    Get: 6 https://packagecloud.io wheezy/main Translation-en [162 B]
+    Get: 7 https://packagecloud.io wheezy/main Translation-en_US [162 B]
+    Get: 8 https://packagecloud.io wheezy/main Translation-en [162 B]
+    Get: 9 https://packagecloud.io wheezy/main Translation-en_US [162 B]
+    Ign https://packagecloud.io wheezy/main Translation-en_US
+    Hit http://mirrordirector.raspbian.org jessie/rpi armhf Packages
+    Get: 10 https://packagecloud.io wheezy/main Translation-en [162 B]
+    Ign https://packagecloud.io wheezy/main Translation-en
+    Ign http://mirrordirector.raspbian.org jessie/contrib Translation-en_US
+    Ign http://mirrordirector.raspbian.org jessie/contrib Translation-en
+    Ign http://mirrordirector.raspbian.org jessie/main Translation-en_US
+    Ign http://mirrordirector.raspbian.org jessie/main Translation-en
+    Ign http://mirrordirector.raspbian.org jessie/non-free Translation-en_US
+    Ign http://mirrordirector.raspbian.org jessie/non-free Translation-en
+    Ign http://mirrordirector.raspbian.org jessie/rpi Translation-en_US
+    Ign http://mirrordirector.raspbian.org jessie/rpi Translation-en
+
+    HypriotOS: root@dims-rpi in ~
+    $ aptitude safe-upgrade
+    No packages will be installed, upgraded, or removed.
+    0 packages upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
+    Need to get 0 B of archives. After unpacking 0 B will be used.
+
+    HypriotOS: root@dims-rpi in ~
+    $ dpkg-reconfigure tzdata
+
+    Current default time zone: 'US/Pacific-New'
+    Local time is now:      Sun Nov  1 12:23:08 PST 2015.
+    Universal Time is now:  Sun Nov  1 20:23:08 UTC 2015.
+
+    HypriotOS: root@dims-rpi in ~
+    $ docker run -d -p 80:80 hypriot/rpi-busybox-httpd
+    Unable to find image 'hypriot/rpi-busybox-httpd:latest' locally
+    latest: Pulling from hypriot/rpi-busybox-httpd
+    af1721be47cc: Pull complete
+    6ace3cef50ed: Pull complete
+    27616286225e: Pull complete
+    c7278d0bf2e2: Pull complete
+    Digest: sha256:c00342f952d97628bf5dda457d3b409c37df687c859df82b9424f61264f54cd1
+    Status: Downloaded newer image for hypriot/rpi-busybox-httpd:latest
+    753a53ca86410b241f83a16257a0e0778f3d06b8233ae4c41a7d86fb7dce7f07
+
+    HypriotOS: root@dims-rpi in ~
+    $ docker ps
+    CONTAINER ID        IMAGE                       COMMAND                  CREATED             STATUS              PORTS                NAMES
+    753a53ca8641        hypriot/rpi-busybox-httpd   "/bin/busybox httpd -"   11 seconds ago      Up 10 seconds       0.0.0.0:80->80/tcp   drunk_hodgkin
+    HypriotOS: root@dims-rpi in ~
+    $ netstat -an
+    Active Internet connections (servers and established)
+    Proto Recv-Q Send-Q Local Address           Foreign Address         State
+    tcp        0      0 0.0.0.0:22              0.0.0.0:*               LISTEN
+    tcp        0      0 192.168.0.105:42351     54.230.69.65:443        TIME_WAIT
+    tcp        0      0 192.168.0.105:52283     54.230.71.204:443       TIME_WAIT
+    tcp        0      0 192.168.0.105:60060     54.230.70.238:443       TIME_WAIT
+    tcp        0      0 192.168.0.105:60071     54.230.70.238:443       TIME_WAIT
+    tcp        0      0 192.168.0.105:51414     54.230.68.133:443       TIME_WAIT
+    tcp        0      0 192.168.0.105:53849     54.230.71.107:443       TIME_WAIT
+    tcp        0      0 192.168.0.105:58626     54.230.71.57:443        TIME_WAIT
+    tcp        0    172 192.168.0.105:22        192.168.0.5:56426       ESTABLISHED
+    tcp        0      0 192.168.0.105:52284     54.230.71.204:443       TIME_WAIT
+    tcp6       0      0 :::80                   :::*                    LISTEN
+    tcp6       0      0 :::22                   :::*                    LISTEN
+    udp        0      0 0.0.0.0:68              0.0.0.0:*
+    udp        0      0 172.17.42.1:123         0.0.0.0:*
+    udp        0      0 192.168.0.105:123       0.0.0.0:*
+    udp        0      0 127.0.0.1:123           0.0.0.0:*
+    udp        0      0 0.0.0.0:123             0.0.0.0:*
+    udp        0      0 0.0.0.0:5353            0.0.0.0:*
+    udp        0      0 0.0.0.0:12799           0.0.0.0:*
+    udp        0      0 0.0.0.0:60454           0.0.0.0:*
+    udp6       0      0 :::42099                :::*
+    udp6       0      0 fe80::58cb:cbff:fe4:123 :::*
+    udp6       0      0 fe80::42:51ff:fe9e::123 :::*
+    udp6       0      0 fe80::ba27:ebff:fed:123 :::*
+    udp6       0      0 ::1:123                 :::*
+    udp6       0      0 :::123                  :::*
+    udp6       0      0 :::5353                 :::*
+    udp6       0      0 :::47505                :::*
+    Active UNIX domain sockets (servers and established)
+    Proto RefCnt Flags       Type       State         I-Node   Path
+    unix  2      [ ACC ]     STREAM     LISTENING     13058    /var/run/docker.sock
+    unix  2      [ ]         DGRAM                    11291    /var/run/thd.socket
+    unix  2      [ ACC ]     STREAM     LISTENING     10823    /var/run/avahi-daemon/socket
+    unix  2      [ ACC ]     STREAM     LISTENING     10826    /var/run/dbus/system_bus_socket
+    unix  2      [ ]         DGRAM                    1479     /run/systemd/journal/syslog
+    unix  2      [ ]         DGRAM                    1259     /run/systemd/notify
+    unix  2      [ ]         DGRAM                    8684     /run/systemd/shutdownd
+    unix  2      [ ACC ]     STREAM     LISTENING     1261     /run/systemd/private
+    unix  8      [ ]         DGRAM                    8689     /run/systemd/journal/dev-log
+    unix  2      [ ACC ]     SEQPACKET  LISTENING     8693     /run/udev/control
+    unix  2      [ ACC ]     STREAM     LISTENING     8697     /run/systemd/journal/stdout
+    unix  7      [ ]         DGRAM                    8699     /run/systemd/journal/socket
+    unix  2      [ ]         DGRAM                    15085
+    unix  3      [ ]         STREAM     CONNECTED     15957
+    unix  3      [ ]         STREAM     CONNECTED     14456
+    unix  3      [ ]         STREAM     CONNECTED     10977
+    unix  3      [ ]         STREAM     CONNECTED     11576    /run/systemd/journal/stdout
+    unix  3      [ ]         STREAM     CONNECTED     11575
+    unix  3      [ ]         STREAM     CONNECTED     15092
+    unix  3      [ ]         STREAM     CONNECTED     12351
+    unix  3      [ ]         STREAM     CONNECTED     12480    /var/run/dbus/system_bus_socket
+    unix  3      [ ]         STREAM     CONNECTED     2046
+    unix  3      [ ]         DGRAM                    10558
+    unix  3      [ ]         STREAM     CONNECTED     9696
+    unix  2      [ ]         DGRAM                    10991
+    unix  2      [ ]         DGRAM                    13054
+    unix  3      [ ]         STREAM     CONNECTED     12395
+    unix  3      [ ]         STREAM     CONNECTED     12396    /var/run/dbus/system_bus_socket
+    unix  3      [ ]         STREAM     CONNECTED     13093
+    unix  2      [ ]         DGRAM                    10555
+    unix  2      [ ]         DGRAM                    9693
+    unix  3      [ ]         STREAM     CONNECTED     9150
+    unix  2      [ ]         DGRAM                    9594
+    unix  2      [ ]         DGRAM                    15187
+    unix  3      [ ]         STREAM     CONNECTED     9600
+    unix  3      [ ]         STREAM     CONNECTED     16393    /run/systemd/journal/stdout
+    unix  2      [ ]         DGRAM                    14102
+    unix  3      [ ]         STREAM     CONNECTED     15960    /var/run/dbus/system_bus_socket
+    unix  2      [ ]         DGRAM                    10829
+    unix  2      [ ]         DGRAM                    10979
+    unix  3      [ ]         STREAM     CONNECTED     9695
+    unix  3      [ ]         STREAM     CONNECTED     12397    /var/run/dbus/system_bus_socket
+    unix  3      [ ]         DGRAM                    10559
+    unix  3      [ ]         STREAM     CONNECTED     9700
+    unix  3      [ ]         STREAM     CONNECTED     11284    /run/systemd/journal/stdout
+    unix  3      [ ]         STREAM     CONNECTED     9554     /run/systemd/journal/stdout
+    unix  3      [ ]         STREAM     CONNECTED     12645    /run/systemd/journal/stdout
+    unix  3      [ ]         STREAM     CONNECTED     12394
+    unix  3      [ ]         STREAM     CONNECTED     16034    /var/run/dbus/system_bus_socket
+    unix  2      [ ]         DGRAM                    9643
+    unix  3      [ ]         STREAM     CONNECTED     10832    /run/systemd/journal/stdout
+    HypriotOS: root@dims-rpi in ~
+    $ apt-get install supervisor
+    Reading package lists... Done
+    Building dependency tree
+    Reading state information... Done
+    The following extra packages will be installed:
+      file libmagic1 libpython-stdlib libpython2.7-minimal libpython2.7-stdlib mime-support python python-meld3 python-minimal python-pkg-resources python2.7 python2.7-minimal
+    Suggested packages:
+      python-doc python-tk python-distribute python-distribute-doc python2.7-doc binfmt-support
+    The following NEW packages will be installed:
+      file libmagic1 libpython-stdlib libpython2.7-minimal libpython2.7-stdlib mime-support python python-meld3 python-minimal python-pkg-resources python2.7 python2.7-minimal supervisor
+    0 upgraded, 13 newly installed, 0 to remove and 0 not upgraded.
+    Need to get 4,508 kB of archives.
+    After this operation, 20.2 MB of additional disk space will be used.
+    Do you want to continue? [Y/n] y
+    Get:1 http://mirrordirector.raspbian.org/raspbian/ jessie/main libmagic1 armhf 1:5.22+15-2 [244 kB]
+    Get:2 http://mirrordirector.raspbian.org/raspbian/ jessie/main libpython2.7-minimal armhf 2.7.9-2 [376 kB]
+    Get:3 http://mirrordirector.raspbian.org/raspbian/ jessie/main python2.7-minimal armhf 2.7.9-2 [1,150 kB]
+    Get:4 http://mirrordirector.raspbian.org/raspbian/ jessie/main python-minimal armhf 2.7.9-1 [40.1 kB]
+    Get:5 http://mirrordirector.raspbian.org/raspbian/ jessie/main mime-support all 3.58 [36.0 kB]
+    Get:6 http://mirrordirector.raspbian.org/raspbian/ jessie/main libpython2.7-stdlib armhf 2.7.9-2 [1,812 kB]
+    Get:7 http://mirrordirector.raspbian.org/raspbian/ jessie/main python2.7 armhf 2.7.9-2 [251 kB]
+    Get:8 http://mirrordirector.raspbian.org/raspbian/ jessie/main libpython-stdlib armhf 2.7.9-1 [19.6 kB]
+    Get:9 http://mirrordirector.raspbian.org/raspbian/ jessie/main python armhf 2.7.9-1 [151 kB]
+    Get:10 http://mirrordirector.raspbian.org/raspbian/ jessie/main file armhf 1:5.22+15-2 [59.9 kB]
+    Get:11 http://mirrordirector.raspbian.org/raspbian/ jessie/main python-pkg-resources all 5.5.1-1 [64.4 kB]
+    Get:12 http://mirrordirector.raspbian.org/raspbian/ jessie/main python-meld3 armhf 1.0.0-1 [37.0 kB]
+    Get:13 http://mirrordirector.raspbian.org/raspbian/ jessie/main supervisor all 3.0r1-1 [267 kB]
+    Fetched 4,508 kB in 4s (1,062 kB/s)
+    Selecting previously unselected package libmagic1:armhf.
+    (Reading database ... 53188 files and directories currently installed.)
+    Preparing to unpack .../libmagic1_1%3a5.22+15-2_armhf.deb ...
+    Unpacking libmagic1:armhf (1:5.22+15-2) ...
+    Selecting previously unselected package libpython2.7-minimal:armhf.
+    Preparing to unpack .../libpython2.7-minimal_2.7.9-2_armhf.deb ...
+    Unpacking libpython2.7-minimal:armhf (2.7.9-2) ...
+    Selecting previously unselected package python2.7-minimal.
+    Preparing to unpack .../python2.7-minimal_2.7.9-2_armhf.deb ...
+    Unpacking python2.7-minimal (2.7.9-2) ...
+    Selecting previously unselected package python-minimal.
+    Preparing to unpack .../python-minimal_2.7.9-1_armhf.deb ...
+    Unpacking python-minimal (2.7.9-1) ...
+    Selecting previously unselected package mime-support.
+    Preparing to unpack .../mime-support_3.58_all.deb ...
+    Unpacking mime-support (3.58) ...
+    Selecting previously unselected package libpython2.7-stdlib:armhf.
+    Preparing to unpack .../libpython2.7-stdlib_2.7.9-2_armhf.deb ...
+    Unpacking libpython2.7-stdlib:armhf (2.7.9-2) ...
+    Selecting previously unselected package python2.7.
+    Preparing to unpack .../python2.7_2.7.9-2_armhf.deb ...
+    Unpacking python2.7 (2.7.9-2) ...
+    Selecting previously unselected package libpython-stdlib:armhf.
+    Preparing to unpack .../libpython-stdlib_2.7.9-1_armhf.deb ...
+    Unpacking libpython-stdlib:armhf (2.7.9-1) ...
+    Processing triggers for man-db (2.7.0.2-5) ...
+    Setting up libpython2.7-minimal:armhf (2.7.9-2) ...
+    Setting up python2.7-minimal (2.7.9-2) ...
+    Linking and byte-compiling packages for runtime python2.7...
+    Setting up python-minimal (2.7.9-1) ...
+    Selecting previously unselected package python.
+    (Reading database ... 53980 files and directories currently installed.)
+    Preparing to unpack .../python_2.7.9-1_armhf.deb ...
+    Unpacking python (2.7.9-1) ...
+    Selecting previously unselected package file.
+    Preparing to unpack .../file_1%3a5.22+15-2_armhf.deb ...
+    Unpacking file (1:5.22+15-2) ...
+    Selecting previously unselected package python-pkg-resources.
+    Preparing to unpack .../python-pkg-resources_5.5.1-1_all.deb ...
+    Unpacking python-pkg-resources (5.5.1-1) ...
+    Selecting previously unselected package python-meld3.
+    Preparing to unpack .../python-meld3_1.0.0-1_armhf.deb ...
+    Unpacking python-meld3 (1.0.0-1) ...
+    Selecting previously unselected package supervisor.
+    Preparing to unpack .../supervisor_3.0r1-1_all.deb ...
+    Unpacking supervisor (3.0r1-1) ...
+    Processing triggers for man-db (2.7.0.2-5) ...
+    Processing triggers for systemd (215-17+deb8u2) ...
+    Setting up libmagic1:armhf (1:5.22+15-2) ...
+    Setting up mime-support (3.58) ...
+    Setting up libpython2.7-stdlib:armhf (2.7.9-2) ...
+    Setting up python2.7 (2.7.9-2) ...
+    Setting up libpython-stdlib:armhf (2.7.9-1) ...
+    Setting up python (2.7.9-1) ...
+    Setting up file (1:5.22+15-2) ...
+    Setting up python-pkg-resources (5.5.1-1) ...
+    Setting up python-meld3 (1.0.0-1) ...
+    Setting up supervisor (3.0r1-1) ...
+    Processing triggers for libc-bin (2.19-18+deb8u1) ...
+    Processing triggers for systemd (215-17+deb8u2) ...
+    HypriotOS: root@dims-rpi in ~
+    $ service supervisor status
+    ● supervisor.service - LSB: Start/stop supervisor
+       Loaded: loaded (/etc/init.d/supervisor)
+       Active: active (running) since Sun 2015-11-01 12:25:52 PST; 2min 55s ago
+       CGroup: /system.slice/supervisor.service
+               └─11647 /usr/bin/python /usr/bin/supervisord -c /etc/supervisor/supervisord.conf
+
+    Nov 01 12:25:52 dims-rpi supervisor[11644]: Starting supervisor: supervisord.
+    Nov 01 12:25:52 dims-rpi systemd[1]: Started LSB: Start/stop supervisor.
+    HypriotOS: root@dims-rpi in ~
+    $ cat > /etc/supervisor/conf.d/run.rpi-busybox-httpd
+    #!/bin/bash
+
+    NAME=${1:-rpi-busybox-httpd}
+
+    # Remove any stopped container with the specified name.
+    /usr/bin/docker rm $NAME 2>/dev/null
+
+    # Run the container with the specified name.
+    /usr/bin/docker run \
+            -a stdout \
+            --rm \
+            --name $NAME \
+            -p 80:80 \
+            hypriot/rpi-busybox-httpd
+    HypriotOS: root@dims-rpi in ~
+    $ mv /etc/supervisor/conf.d/run.rpi-busybox-httpd /root
+    HypriotOS: root@dims-rpi in ~
+    $ vi /etc/supervisor/conf.d/rpi-busybox-httpd.conf
+    HypriotOS: root@dims-rpi in ~
+    $ chmod +x /root/run.rpi-busybox-httpd
+    HypriotOS: root@dims-rpi in ~
+    $ cat /etc/supervisor/conf.d/rpi-busybox-httpd.conf
+    [program:rpi-busybox-httpd]
+    command=/root/run.rpi-busybox-httpd "%(program_name)s_%(process_num)02d"
+    autostart=true
+    autorestart=true
+    startretries=100
+    numprocs=1
+    process_name=%(program_name)s_%(process_num)02d
+    user=root
+    env=HOSTNAME="dims-rpi",SHELL="/bin/bash",USER="root",PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",LANG="en_US"
+    HypriotOS: root@dims-rpi in ~
+    $ service supervisor restart
+    HypriotOS: root@dims-rpi in ~
+    $ netstat -an
+    Active Internet connections (servers and established)
+    Proto Recv-Q Send-Q Local Address           Foreign Address         State
+    tcp        0      0 0.0.0.0:22              0.0.0.0:*               LISTEN
+    tcp        0    208 192.168.0.105:22        192.168.0.5:56426       ESTABLISHED
+    tcp6       0      0 :::80                   :::*                    LISTEN
+    tcp6       0      0 :::22                   :::*                    LISTEN
+    udp        0      0 0.0.0.0:68              0.0.0.0:*
+    udp        0      0 172.17.42.1:123         0.0.0.0:*
+    udp        0      0 192.168.0.105:123       0.0.0.0:*
+    udp        0      0 127.0.0.1:123           0.0.0.0:*
+    udp        0      0 0.0.0.0:123             0.0.0.0:*
+    udp        0      0 0.0.0.0:5353            0.0.0.0:*
+    udp        0      0 0.0.0.0:12799           0.0.0.0:*
+    udp        0      0 0.0.0.0:60454           0.0.0.0:*
+    udp6       0      0 :::42099                :::*
+    udp6       0      0 fe80::58cb:cbff:fe4:123 :::*
+    udp6       0      0 fe80::42:51ff:fe9e::123 :::*
+    udp6       0      0 fe80::ba27:ebff:fed:123 :::*
+    udp6       0      0 ::1:123                 :::*
+    udp6       0      0 :::123                  :::*
+    udp6       0      0 :::5353                 :::*
+    udp6       0      0 :::47505                :::*
+    Active UNIX domain sockets (servers and established)
+    Proto RefCnt Flags       Type       State         I-Node   Path
+    unix  2      [ ACC ]     STREAM     LISTENING     13058    /var/run/docker.sock
+    unix  2      [ ]         DGRAM                    11291    /var/run/thd.socket
+    unix  2      [ ACC ]     STREAM     LISTENING     10823    /var/run/avahi-daemon/socket
+    unix  2      [ ACC ]     STREAM     LISTENING     10826    /var/run/dbus/system_bus_socket
+    unix  2      [ ACC ]     STREAM     LISTENING     27798    /var/run/supervisor.sock.11752
+    unix  2      [ ]         DGRAM                    1479     /run/systemd/journal/syslog
+    unix  2      [ ]         DGRAM                    1259     /run/systemd/notify
+    unix  2      [ ]         DGRAM                    8684     /run/systemd/shutdownd
+    unix  2      [ ACC ]     STREAM     LISTENING     1261     /run/systemd/private
+    unix  8      [ ]         DGRAM                    8689     /run/systemd/journal/dev-log
+    unix  2      [ ACC ]     SEQPACKET  LISTENING     8693     /run/udev/control
+    unix  2      [ ACC ]     STREAM     LISTENING     8697     /run/systemd/journal/stdout
+    unix  8      [ ]         DGRAM                    8699     /run/systemd/journal/socket
+    unix  3      [ ]         STREAM     CONNECTED     26407    /var/run/docker.sock
+    unix  2      [ ]         STREAM     CONNECTED     26332    /var/run/docker.sock
+    unix  2      [ ]         DGRAM                    15085
+    unix  3      [ ]         STREAM     CONNECTED     15957
+    unix  3      [ ]         STREAM     CONNECTED     14456
+    unix  2      [ ]         STREAM     CONNECTED     25164    /var/run/docker.sock
+    unix  3      [ ]         STREAM     CONNECTED     10977
+    unix  3      [ ]         STREAM     CONNECTED     11576    /run/systemd/journal/stdout
+    unix  2      [ ]         STREAM     CONNECTED     27091    /var/run/docker.sock
+    unix  3      [ ]         STREAM     CONNECTED     11575
+    unix  3      [ ]         STREAM     CONNECTED     15092
+    unix  3      [ ]         STREAM     CONNECTED     27133
+    unix  3      [ ]         STREAM     CONNECTED     12351
+    unix  3      [ ]         STREAM     CONNECTED     12480    /var/run/dbus/system_bus_socket
+    unix  3      [ ]         STREAM     CONNECTED     2046
+    unix  3      [ ]         DGRAM                    10558
+    unix  3      [ ]         STREAM     CONNECTED     9696
+    unix  2      [ ]         DGRAM                    10991
+    unix  3      [ ]         STREAM     CONNECTED     12395
+    unix  3      [ ]         STREAM     CONNECTED     12396    /var/run/dbus/system_bus_socket
+    unix  3      [ ]         STREAM     CONNECTED     27134    /var/run/docker.sock
+    unix  3      [ ]         STREAM     CONNECTED     13093
+    unix  2      [ ]         DGRAM                    10555
+    unix  2      [ ]         DGRAM                    9693
+    unix  3      [ ]         STREAM     CONNECTED     9150
+    unix  3      [ ]         STREAM     CONNECTED     27132
+    unix  2      [ ]         STREAM     CONNECTED     26997    /var/run/docker.sock
+    unix  2      [ ]         DGRAM                    9594
+    unix  2      [ ]         DGRAM                    26255
+    unix  2      [ ]         DGRAM                    15187
+    unix  3      [ ]         STREAM     CONNECTED     9600
+    unix  2      [ ]         DGRAM                    27131
+    unix  3      [ ]         STREAM     CONNECTED     16393    /run/systemd/journal/stdout
+    unix  2      [ ]         DGRAM                    14102
+    unix  3      [ ]         STREAM     CONNECTED     15960    /var/run/dbus/system_bus_socket
+    unix  2      [ ]         DGRAM                    10829
+    unix  2      [ ]         DGRAM                    10979
+    unix  3      [ ]         STREAM     CONNECTED     9695
+    unix  3      [ ]         STREAM     CONNECTED     12397    /var/run/dbus/system_bus_socket
+    unix  3      [ ]         DGRAM                    10559
+    unix  3      [ ]         STREAM     CONNECTED     9700
+    unix  3      [ ]         STREAM     CONNECTED     11284    /run/systemd/journal/stdout
+    unix  3      [ ]         STREAM     CONNECTED     9554     /run/systemd/journal/stdout
+    unix  3      [ ]         STREAM     CONNECTED     12645    /run/systemd/journal/stdout
+    unix  3      [ ]         STREAM     CONNECTED     12394
+    unix  3      [ ]         STREAM     CONNECTED     16034    /var/run/dbus/system_bus_socket
+    unix  2      [ ]         DGRAM                    9643
+    unix  3      [ ]         STREAM     CONNECTED     10832    /run/systemd/journal/stdout
+    HypriotOS: root@dims-rpi in ~
+    $ netstat -pan
+    Active Internet connections (servers and established)
+    Proto Recv-Q Send-Q Local Address           Foreign Address         State       PID/Program name
+    tcp        0      0 0.0.0.0:22              0.0.0.0:*               LISTEN      752/sshd
+    tcp        0    188 192.168.0.105:22        192.168.0.5:56426       ESTABLISHED 1510/0
+    tcp6       0      0 :::80                   :::*                    LISTEN      2070/docker-proxy
+    tcp6       0      0 :::22                   :::*                    LISTEN      752/sshd
+    udp        0      0 0.0.0.0:68              0.0.0.0:*                           445/dhclient
+    udp        0      0 172.17.42.1:123         0.0.0.0:*                           322/ntpd
+    udp        0      0 192.168.0.105:123       0.0.0.0:*                           322/ntpd
+    udp        0      0 127.0.0.1:123           0.0.0.0:*                           322/ntpd
+    udp        0      0 0.0.0.0:123             0.0.0.0:*                           322/ntpd
+    udp        0      0 0.0.0.0:5353            0.0.0.0:*                           372/avahi-daemon: r
+    udp        0      0 0.0.0.0:12799           0.0.0.0:*                           445/dhclient
+    udp        0      0 0.0.0.0:60454           0.0.0.0:*                           372/avahi-daemon: r
+    udp6       0      0 :::42099                :::*                                445/dhclient
+    udp6       0      0 fe80::58cb:cbff:fe4:123 :::*                                322/ntpd
+    udp6       0      0 fe80::42:51ff:fe9e::123 :::*                                322/ntpd
+    udp6       0      0 fe80::ba27:ebff:fed:123 :::*                                322/ntpd
+    udp6       0      0 ::1:123                 :::*                                322/ntpd
+    udp6       0      0 :::123                  :::*                                322/ntpd
+    udp6       0      0 :::5353                 :::*                                372/avahi-daemon: r
+    udp6       0      0 :::47505                :::*                                372/avahi-daemon: r
+    Active UNIX domain sockets (servers and established)
+    Proto RefCnt Flags       Type       State         I-Node   PID/Program name    Path
+    unix  2      [ ACC ]     STREAM     LISTENING     13058    1/init              /var/run/docker.sock
+    unix  2      [ ]         DGRAM                    11291    312/thd             /var/run/thd.socket
+    unix  2      [ ACC ]     STREAM     LISTENING     10823    1/init              /var/run/avahi-daemon/socket
+    unix  2      [ ACC ]     STREAM     LISTENING     10826    1/init              /var/run/dbus/system_bus_socket
+    unix  2      [ ACC ]     STREAM     LISTENING     27798    11756/python        /var/run/supervisor.sock.11752
+    unix  2      [ ]         DGRAM                    1479     1/init              /run/systemd/journal/syslog
+    unix  2      [ ]         DGRAM                    1259     1/init              /run/systemd/notify
+    unix  2      [ ]         DGRAM                    8684     1/init              /run/systemd/shutdownd
+    unix  2      [ ACC ]     STREAM     LISTENING     1261     1/init              /run/systemd/private
+    unix  8      [ ]         DGRAM                    8689     1/init              /run/systemd/journal/dev-log
+    unix  2      [ ACC ]     SEQPACKET  LISTENING     8693     1/init              /run/udev/control
+    unix  2      [ ACC ]     STREAM     LISTENING     8697     1/init              /run/systemd/journal/stdout
+    unix  7      [ ]         DGRAM                    8699     1/init              /run/systemd/journal/socket
+    unix  2      [ ]         STREAM     CONNECTED     26332    1909/docker         /var/run/docker.sock
+    unix  2      [ ]         DGRAM                    15085    1909/docker
+    unix  3      [ ]         STREAM     CONNECTED     15957    1909/docker
+    unix  3      [ ]         STREAM     CONNECTED     14456    752/sshd
+    unix  2      [ ]         STREAM     CONNECTED     25164    1909/docker         /var/run/docker.sock
+    unix  3      [ ]         STREAM     CONNECTED     10977    303/dbus-daemon
+    unix  3      [ ]         STREAM     CONNECTED     11576    107/systemd-journal /run/systemd/journal/stdout
+    unix  2      [ ]         STREAM     CONNECTED     27091    1909/docker         /var/run/docker.sock
+    unix  3      [ ]         STREAM     CONNECTED     11575    372/avahi-daemon: r
+    unix  3      [ ]         STREAM     CONNECTED     15092    1909/docker
+    unix  3      [ ]         STREAM     CONNECTED     12351    1/init
+    unix  3      [ ]         STREAM     CONNECTED     12480    303/dbus-daemon     /var/run/dbus/system_bus_socket
+    unix  3      [ ]         STREAM     CONNECTED     2046     279/cron
+    unix  3      [ ]         DGRAM                    10558    109/systemd-udevd
+    unix  3      [ ]         STREAM     CONNECTED     9696     373/avahi-daemon: c
+    unix  2      [ ]         DGRAM                    10991    322/ntpd
+    unix  3      [ ]         STREAM     CONNECTED     12395    303/dbus-daemon
+    unix  3      [ ]         STREAM     CONNECTED     12396    303/dbus-daemon     /var/run/dbus/system_bus_socket
+    unix  2      [ ]         STREAM     CONNECTED     27134    1909/docker         /var/run/docker.sock
+    unix  3      [ ]         STREAM     CONNECTED     13093    1909/docker
+    unix  2      [ ]         DGRAM                    10555    109/systemd-udevd
+    unix  2      [ ]         DGRAM                    9693     372/avahi-daemon: r
+    unix  3      [ ]         STREAM     CONNECTED     9150     285/systemd-logind
+    unix  2      [ ]         STREAM     CONNECTED     26997    1909/docker         /var/run/docker.sock
+    unix  2      [ ]         DGRAM                    9594     285/systemd-logind
+    unix  2      [ ]         DGRAM                    26255    1/init
+    unix  2      [ ]         DGRAM                    15187    2070/docker-proxy
+    unix  3      [ ]         STREAM     CONNECTED     9600     285/systemd-logind
+    unix  3      [ ]         STREAM     CONNECTED     16393    107/systemd-journal /run/systemd/journal/stdout
+    unix  2      [ ]         DGRAM                    14102    1510/0
+    unix  3      [ ]         STREAM     CONNECTED     15960    303/dbus-daemon     /var/run/dbus/system_bus_socket
+    unix  2      [ ]         DGRAM                    10829    445/dhclient
+    unix  2      [ ]         STREAM     CONNECTED     26427    1909/docker         /var/run/docker.sock
+    unix  2      [ ]         DGRAM                    10979    304/rngd
+    unix  3      [ ]         STREAM     CONNECTED     9695     372/avahi-daemon: r
+    unix  3      [ ]         STREAM     CONNECTED     12397    303/dbus-daemon     /var/run/dbus/system_bus_socket
+    unix  3      [ ]         DGRAM                    10559    109/systemd-udevd
+    unix  3      [ ]         STREAM     CONNECTED     9700     372/avahi-daemon: r
+    unix  3      [ ]         STREAM     CONNECTED     11284    107/systemd-journal /run/systemd/journal/stdout
+    unix  3      [ ]         STREAM     CONNECTED     9554     107/systemd-journal /run/systemd/journal/stdout
+    unix  3      [ ]         STREAM     CONNECTED     12645    107/systemd-journal /run/systemd/journal/stdout
+    unix  3      [ ]         STREAM     CONNECTED     12394    303/dbus-daemon
+    unix  3      [ ]         STREAM     CONNECTED     16034    303/dbus-daemon     /var/run/dbus/system_bus_socket
+    unix  2      [ ]         DGRAM                    9643     303/dbus-daemon
+    unix  3      [ ]         STREAM     CONNECTED     10832    107/systemd-journal /run/systemd/journal/stdout
+    HypriotOS: root@dims-rpi in ~
+    $ cat /var/log/supervisor/supervisord.log
+    2015-11-01 12:25:51,480 CRIT Supervisor running as root (no user in config file)
+    2015-11-01 12:25:51,565 INFO RPC interface 'supervisor' initialized
+    2015-11-01 12:25:51,567 CRIT Server 'unix_http_server' running without any HTTP authentication checking
+    2015-11-01 12:25:51,571 INFO daemonizing the supervisord process
+    2015-11-01 12:25:51,576 INFO supervisord started with pid 11647
+    2015-11-01 12:33:18,025 WARN received SIGTERM indicating exit request
+    2015-11-01 12:33:19,044 CRIT Supervisor running as root (no user in config file)
+    2015-11-01 12:33:19,044 WARN Included extra file "/etc/supervisor/conf.d/rpi-busybox-httpd.conf" during parsing
+    2015-11-01 12:33:19,141 INFO RPC interface 'supervisor' initialized
+    2015-11-01 12:33:19,142 CRIT Server 'unix_http_server' running without any HTTP authentication checking
+    2015-11-01 12:33:19,146 INFO daemonizing the supervisord process
+    2015-11-01 12:33:19,151 INFO supervisord started with pid 11756
+    2015-11-01 12:33:20,163 INFO spawned: 'rpi-busybox-httpd_00' with pid 11759
+    2015-11-01 12:33:21,114 INFO exited: rpi-busybox-httpd_00 (exit status 1; not expected)
+    2015-11-01 12:33:22,124 INFO spawned: 'rpi-busybox-httpd_00' with pid 11793
+    2015-11-01 12:33:23,110 INFO exited: rpi-busybox-httpd_00 (exit status 1; not expected)
+    2015-11-01 12:33:25,121 INFO spawned: 'rpi-busybox-httpd_00' with pid 11817
+    2015-11-01 12:33:26,125 INFO success: rpi-busybox-httpd_00 entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+    2015-11-01 12:33:27,195 INFO exited: rpi-busybox-httpd_00 (exit status 1; not expected)
+    2015-11-01 12:33:28,204 INFO spawned: 'rpi-busybox-httpd_00' with pid 11844
+    2015-11-01 12:33:29,096 INFO exited: rpi-busybox-httpd_00 (exit status 1; not expected)
+    2015-11-01 12:33:30,105 INFO spawned: 'rpi-busybox-httpd_00' with pid 11875
+    2015-11-01 12:33:31,039 INFO exited: rpi-busybox-httpd_00 (exit status 1; not expected)
+    2015-11-01 12:33:33,049 INFO spawned: 'rpi-busybox-httpd_00' with pid 11903
+    2015-11-01 12:33:33,977 INFO exited: rpi-busybox-httpd_00 (exit status 1; not expected)
+    2015-11-01 12:33:36,989 INFO spawned: 'rpi-busybox-httpd_00' with pid 11930
+    2015-11-01 12:33:37,901 INFO exited: rpi-busybox-httpd_00 (exit status 1; not expected)
+    2015-11-01 12:33:41,915 INFO spawned: 'rpi-busybox-httpd_00' with pid 11956
+    2015-11-01 12:33:42,864 INFO exited: rpi-busybox-httpd_00 (exit status 1; not expected)
+    2015-11-01 12:33:47,879 INFO spawned: 'rpi-busybox-httpd_00' with pid 11982
+    2015-11-01 12:33:48,814 INFO exited: rpi-busybox-httpd_00 (exit status 1; not expected)
+    2015-11-01 12:33:54,831 INFO spawned: 'rpi-busybox-httpd_00' with pid 12009
+    2015-11-01 12:33:55,835 INFO success: rpi-busybox-httpd_00 entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+    2015-11-01 12:33:55,939 INFO exited: rpi-busybox-httpd_00 (exit status 1; not expected)
+    2015-11-01 12:33:56,948 INFO spawned: 'rpi-busybox-httpd_00' with pid 12035
+    2015-11-01 12:33:57,905 INFO exited: rpi-busybox-httpd_00 (exit status 1; not expected)
+    2015-11-01 12:33:58,914 INFO spawned: 'rpi-busybox-httpd_00' with pid 12058
+    2015-11-01 12:33:59,918 INFO success: rpi-busybox-httpd_00 entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+    2015-11-01 12:34:00,083 INFO exited: rpi-busybox-httpd_00 (exit status 1; not expected)
+    2015-11-01 12:34:01,092 INFO spawned: 'rpi-busybox-httpd_00' with pid 12081
+    2015-11-01 12:34:02,054 INFO exited: rpi-busybox-httpd_00 (exit status 1; not expected)
+    2015-11-01 12:34:03,062 INFO spawned: 'rpi-busybox-httpd_00' with pid 12108
+    2015-11-01 12:34:04,066 INFO success: rpi-busybox-httpd_00 entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+    2015-11-01 12:34:04,145 INFO exited: rpi-busybox-httpd_00 (exit status 1; not expected)
+    2015-11-01 12:34:05,154 INFO spawned: 'rpi-busybox-httpd_00' with pid 12132
+    2015-11-01 12:34:06,109 INFO exited: rpi-busybox-httpd_00 (exit status 1; not expected)
+    2015-11-01 12:34:07,118 INFO spawned: 'rpi-busybox-httpd_00' with pid 12156
+    2015-11-01 12:34:08,077 INFO exited: rpi-busybox-httpd_00 (exit status 1; not expected)
+    2015-11-01 12:34:10,087 INFO spawned: 'rpi-busybox-httpd_00' with pid 12184
+    2015-11-01 12:34:11,027 INFO exited: rpi-busybox-httpd_00 (exit status 1; not expected)
+    2015-11-01 12:34:14,039 INFO spawned: 'rpi-busybox-httpd_00' with pid 12207
+    2015-11-01 12:34:14,970 INFO exited: rpi-busybox-httpd_00 (exit status 1; not expected)
+    2015-11-01 12:34:18,984 INFO spawned: 'rpi-busybox-httpd_00' with pid 12235
+    2015-11-01 12:34:19,935 INFO exited: rpi-busybox-httpd_00 (exit status 1; not expected)
+    HypriotOS: root@dims-rpi in ~
+    $ docker ps
+    CONTAINER ID        IMAGE                       COMMAND                  CREATED             STATUS              PORTS                NAMES
+    753a53ca8641        hypriot/rpi-busybox-httpd   "/bin/busybox httpd -"   11 minutes ago      Up 11 minutes       0.0.0.0:80->80/tcp   drunk_hodgkin
+    HypriotOS: root@dims-rpi in ~
+    $ docker stop drunk_hidgkin
+    Error response from daemon: no such id: drunk_hidgkin
+    Error: failed to stop containers: [drunk_hidgkin]
+    HypriotOS: root@dims-rpi in ~
+    $ docker stop drunk_hodgkin
+    drunk_hodgkin
+    HypriotOS: root@dims-rpi in ~
+    $ docker rm drunk_hodgkin
+    drunk_hodgkin
+    HypriotOS: root@dims-rpi in ~
+    $ service supervisor stop
+    HypriotOS: root@dims-rpi in ~
+    $ vi /var/log/supervisor/supervisord.log
+    HypriotOS: root@dims-rpi in ~
+    $ service supervisor start
+    HypriotOS: root@dims-rpi in ~
+    $ cat /var/log/supervisor/supervisord.log
+    2015-11-01 12:25:51,480 CRIT Supervisor running as root (no user in config file)
+    2015-11-01 12:25:51,565 INFO RPC interface 'supervisor' initialized
+    2015-11-01 12:25:51,567 CRIT Server 'unix_http_server' running without any HTTP authentication checking
+    2015-11-01 12:25:51,571 INFO daemonizing the supervisord process
+    2015-11-01 12:25:51,576 INFO supervisord started with pid 11647
+    2015-11-01 12:36:40,461 CRIT Supervisor running as root (no user in config file)
+    2015-11-01 12:36:40,461 WARN Included extra file "/etc/supervisor/conf.d/rpi-busybox-httpd.conf" during parsing
+    2015-11-01 12:36:40,558 INFO RPC interface 'supervisor' initialized
+    2015-11-01 12:36:40,559 CRIT Server 'unix_http_server' running without any HTTP authentication checking
+    2015-11-01 12:36:40,564 INFO daemonizing the supervisord process
+    2015-11-01 12:36:40,569 INFO supervisord started with pid 12712
+    2015-11-01 12:36:41,581 INFO spawned: 'rpi-busybox-httpd_00' with pid 12715
+    2015-11-01 12:36:42,088 INFO exited: rpi-busybox-httpd_00 (exit status 1; not expected)
+    2015-11-01 12:36:43,097 INFO spawned: 'rpi-busybox-httpd_00' with pid 12731
+    2015-11-01 12:36:43,593 INFO exited: rpi-busybox-httpd_00 (exit status 1; not expected)
+    2015-11-01 12:36:45,603 INFO spawned: 'rpi-busybox-httpd_00' with pid 12740
+    2015-11-01 12:36:46,095 INFO exited: rpi-busybox-httpd_00 (exit status 1; not expected)
+    2015-11-01 12:36:49,107 INFO spawned: 'rpi-busybox-httpd_00' with pid 12749
+    2015-11-01 12:36:49,604 INFO exited: rpi-busybox-httpd_00 (exit status 1; not expected)
+    HypriotOS: root@dims-rpi in ~
+    $ service supervisor stop
+    HypriotOS: root@dims-rpi in ~
+    $ pushd /var/log/supervisor/
+    /var/log/supervisor ~
+    HypriotOS: root@dims-rpi in /var/log/supervisor
+    $ ls
+    rpi-busybox-httpd_00-stderr---supervisor-EAfpcu.log  rpi-busybox-httpd_00-stdout---supervisor-nvoWb0.log  supervisord.log
+    HypriotOS: root@dims-rpi in /var/log/supervisor
+    $ cat *stderr*
+    Error response from daemon: Conflict. The name "rpi-busybox-httpd_00" is already in use by container c2624e1d678e. You have to delete (or rename) that container to be able to reuse tha
+    t name.
+    Error response from daemon: Conflict. The name "rpi-busybox-httpd_00" is already in use by container c2624e1d678e. You have to delete (or rename) that container to be able to reuse tha
+    t name.
+    Error response from daemon: Conflict. The name "rpi-busybox-httpd_00" is already in use by container c2624e1d678e. You have to delete (or rename) that container to be able to reuse tha
+    t name.
+    Error response from daemon: Conflict. The name "rpi-busybox-httpd_00" is already in use by container c2624e1d678e. You have to delete (or rename) that container to be able to reuse tha
+    t name.
+    Error response from daemon: Conflict. The name "rpi-busybox-httpd_00" is already in use by container c2624e1d678e. You have to delete (or rename) that container to be able to reuse tha
+    t name.
+    Error response from daemon: Conflict. The name "rpi-busybox-httpd_00" is already in use by container c2624e1d678e. You have to delete (or rename) that container to be able to reuse tha
+    t name.
+    Error response from daemon: Conflict. The name "rpi-busybox-httpd_00" is already in use by container c2624e1d678e. You have to delete (or rename) that container to be able to reuse tha
+    t name.
+    Error response from daemon: Conflict. The name "rpi-busybox-httpd_00" is already in use by container c2624e1d678e. You have to delete (or rename) that container to be able to reuse tha
+    t name.
+    HypriotOS: root@dims-rpi in /var/log/supervisor
+    $ docker rm rpi-busybox-httpd_00
+    Error response from daemon: Cannot destroy container rpi-busybox-httpd_00: Conflict, You cannot remove a running container. Stop the container before attempting removal or use -f
+    Error: failed to remove containers: [rpi-busybox-httpd_00]
+    HypriotOS: root@dims-rpi in /var/log/supervisor
+    $ docker stop rpi-busybox-httpd_00
+    rpi-busybox-httpd_00
+    HypriotOS: root@dims-rpi in /var/log/supervisor
+    $ docker rm rpi-busybox-httpd_00
+    Error response from daemon: no such id: rpi-busybox-httpd_00
+    Error: failed to remove containers: [rpi-busybox-httpd_00]
+    HypriotOS: root@dims-rpi in /var/log/supervisor
+    $ vi /root/run.rpi-busybox-httpd
+    HypriotOS: root@dims-rpi in /var/log/supervisor
+    $ /root/run.rpi-busybox-httpd -x
+    Error response from daemon: Invalid container name (-x), only [a-zA-Z0-9][a-zA-Z0-9_.-] are allowed
+    HypriotOS: root@dims-rpi in /var/log/supervisor
+    $ bash -x /root/run.rpi-busybox-httpd
+    + NAME=rpi-busybox-httpd
+    + /usr/bin/docker rm rpi-busybox-httpd
+    + /usr/bin/docker run -a stdout --rm --name rpi-busybox-httpd -p 80:80 hypriot/rpi-busybox-httpd
+    ^C
+    ^Z
+    [1]+  Stopped                 bash -x /root/run.rpi-busybox-httpd
+    HypriotOS: root@dims-rpi in /var/log/supervisor
+    $ docker ps
+    CONTAINER ID        IMAGE                       COMMAND                  CREATED             STATUS              PORTS                NAMES
+    7dd07b1b1a98        hypriot/rpi-busybox-httpd   "/bin/busybox httpd -"   20 seconds ago      Up 18 seconds       0.0.0.0:80->80/tcp   rpi-busybox-httpd
+    HypriotOS: root@dims-rpi in /var/log/supervisor
+    $ docker stop rpi-busybox-httpd
+    rpi-busybox-httpd
+    HypriotOS: root@dims-rpi in /var/log/supervisor
+    $ service supervisor start
+    docker psHypriotOS: root@dims-rpi in /var/log/supervisor
+    $ docker ps
+    CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES
+    HypriotOS: root@dims-rpi in /var/log/supervisor
+    $ docker ps
+    CONTAINER ID        IMAGE                       COMMAND                  CREATED             STATUS              PORTS                NAMES
+    9210add1682e        hypriot/rpi-busybox-httpd   "/bin/busybox httpd -"   3 seconds ago       Up 1 seconds        0.0.0.0:80->80/tcp   rpi-busybox-httpd_00
+    HypriotOS: root@dims-rpi in /var/log/supervisor
+    $ !!
+    docker ps
+    CONTAINER ID        IMAGE                       COMMAND                  CREATED             STATUS              PORTS                NAMES
+    9210add1682e        hypriot/rpi-busybox-httpd   "/bin/busybox httpd -"   15 seconds ago      Up 13 seconds       0.0.0.0:80->80/tcp   rpi-busybox-httpd_00
+    HypriotOS: root@dims-rpi in /var/log/supervisor
+    $ pwd
+    /var/log/supervisor
+    HypriotOS: root@dims-rpi in /var/log/supervisor
+    $ ls -lat
+    total 12
+    -rw-r--r-- 1 root root 2965 Nov  1 12:39 supervisord.log
+    drwxr-xr-x 2 root root 4096 Nov  1 12:39 .
+    -rw------- 1 root root    0 Nov  1 12:39 rpi-busybox-httpd_00-stderr---supervisor-V0aa94.log
+    -rw------- 1 root root    0 Nov  1 12:39 rpi-busybox-httpd_00-stdout---supervisor-XzSjqe.log
+    drwxr-xr-x 6 root root 4096 Nov  1 12:25 ..
+    HypriotOS: root@dims-rpi in /var/log/supervisor
+    $ cat supervisord.log
+    2015-11-01 12:25:51,480 CRIT Supervisor running as root (no user in config file)
+    2015-11-01 12:25:51,565 INFO RPC interface 'supervisor' initialized
+    2015-11-01 12:25:51,567 CRIT Server 'unix_http_server' running without any HTTP authentication checking
+    2015-11-01 12:25:51,571 INFO daemonizing the supervisord process
+    2015-11-01 12:25:51,576 INFO supervisord started with pid 11647
+    2015-11-01 12:36:40,461 CRIT Supervisor running as root (no user in config file)
+    2015-11-01 12:36:40,461 WARN Included extra file "/etc/supervisor/conf.d/rpi-busybox-httpd.conf" during parsing
+    2015-11-01 12:36:40,558 INFO RPC interface 'supervisor' initialized
+    2015-11-01 12:36:40,559 CRIT Server 'unix_http_server' running without any HTTP authentication checking
+    2015-11-01 12:36:40,564 INFO daemonizing the supervisord process
+    2015-11-01 12:36:40,569 INFO supervisord started with pid 12712
+    2015-11-01 12:36:41,581 INFO spawned: 'rpi-busybox-httpd_00' with pid 12715
+    2015-11-01 12:36:42,088 INFO exited: rpi-busybox-httpd_00 (exit status 1; not expected)
+    2015-11-01 12:36:43,097 INFO spawned: 'rpi-busybox-httpd_00' with pid 12731
+    2015-11-01 12:36:43,593 INFO exited: rpi-busybox-httpd_00 (exit status 1; not expected)
+    2015-11-01 12:36:45,603 INFO spawned: 'rpi-busybox-httpd_00' with pid 12740
+    2015-11-01 12:36:46,095 INFO exited: rpi-busybox-httpd_00 (exit status 1; not expected)
+    2015-11-01 12:36:49,107 INFO spawned: 'rpi-busybox-httpd_00' with pid 12749
+    2015-11-01 12:36:49,604 INFO exited: rpi-busybox-httpd_00 (exit status 1; not expected)
+    2015-11-01 12:36:53,617 INFO spawned: 'rpi-busybox-httpd_00' with pid 12762
+    2015-11-01 12:36:54,105 INFO exited: rpi-busybox-httpd_00 (exit status 1; not expected)
+    2015-11-01 12:36:59,120 INFO spawned: 'rpi-busybox-httpd_00' with pid 12771
+    2015-11-01 12:36:59,612 INFO exited: rpi-busybox-httpd_00 (exit status 1; not expected)
+    2015-11-01 12:37:05,628 INFO spawned: 'rpi-busybox-httpd_00' with pid 12780
+    2015-11-01 12:37:06,127 INFO exited: rpi-busybox-httpd_00 (exit status 1; not expected)
+    2015-11-01 12:37:13,145 INFO spawned: 'rpi-busybox-httpd_00' with pid 12789
+    2015-11-01 12:37:13,635 INFO exited: rpi-busybox-httpd_00 (exit status 1; not expected)
+    2015-11-01 12:37:14,387 WARN received SIGTERM indicating exit request
+    2015-11-01 12:39:49,234 CRIT Supervisor running as root (no user in config file)
+    2015-11-01 12:39:49,235 WARN Included extra file "/etc/supervisor/conf.d/rpi-busybox-httpd.conf" during parsing
+    2015-11-01 12:39:49,331 INFO RPC interface 'supervisor' initialized
+    2015-11-01 12:39:49,332 CRIT Server 'unix_http_server' running without any HTTP authentication checking
+    2015-11-01 12:39:49,336 INFO daemonizing the supervisord process
+    2015-11-01 12:39:49,342 INFO supervisord started with pid 12998
+    2015-11-01 12:39:50,352 INFO spawned: 'rpi-busybox-httpd_00' with pid 13001
+    2015-11-01 12:39:51,356 INFO success: rpi-busybox-httpd_00 entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+    HypriotOS: root@dims-rpi in /var/log/supervisor
+    $ service supervisor stop
+    HypriotOS: root@dims-rpi in /var/log/supervisor
+    $ !vi
+    vi /root/run.rpi-busybox-httpd
+    HypriotOS: root@dims-rpi in /var/log/supervisor
+    $ vi supervisord.log
+    HypriotOS: root@dims-rpi in /var/log/supervisor
+    $ docker ps
+    CONTAINER ID        IMAGE                       COMMAND                  CREATED             STATUS              PORTS                NAMES
+    9210add1682e        hypriot/rpi-busybox-httpd   "/bin/busybox httpd -"   2 minutes ago       Up 2 minutes        0.0.0.0:80->80/tcp   rpi-busybox-httpd_00
+    HypriotOS: root@dims-rpi in /var/log/supervisor
+    $ docker stop rpi-busybox-httpd_00
+    rpi-busybox-httpd_00
+    HypriotOS: root@dims-rpi in /var/log/supervisor
+    $ !vi
+    vi supervisord.log
+    HypriotOS: root@dims-rpi in /var/log/supervisor
+    $ /sbin/shutdown -r now
+    packet_write_wait: Connection to 192.168.0.105: Broken pipe
+    [dimsenv] dittrich@27b:~/git/flash/Darwin (dims*) $
+    [dimsenv] dittrich@27b:~/git/flash/Darwin (dims*) $ ssh -i ~/.ssh/dims_dittrich_rsa root@192.168.0.105
+
+    The programs included with the Debian GNU/Linux system are free software;
+    the exact distribution terms for each program are described in the
+    individual files in /usr/share/doc/*/copyright.
+
+    Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
+    permitted by applicable law.
+    Last login: Sun Nov  1 11:58:01 2015 from 192.168.0.5
+    HypriotOS: root@dims-rpi in ~
+    $ vi run.rpi-busybox-httpd
+    HypriotOS: root@dims-rpi in ~
+    $ docker ps
+    CONTAINER ID        IMAGE                       COMMAND                  CREATED             STATUS              PORTS                NAMES
+    66b585ad0fe0        hypriot/rpi-busybox-httpd   "/bin/busybox httpd -"   4 minutes ago       Up 4 minutes        0.0.0.0:80->80/tcp   rpi-busybox-httpd_00
+    HypriotOS: root@dims-rpi in ~
+    $ docker stop rpi-busybox-httpd_00
+    rpi-busybox-httpd_00
+    HypriotOS: root@dims-rpi in ~
+    $ docker ps
+    CONTAINER ID        IMAGE                       COMMAND                  CREATED             STATUS                  PORTS                NAMES
+    c84c81a0cebd        hypriot/rpi-busybox-httpd   "/bin/busybox httpd -"   1 seconds ago       Up Less than a second   0.0.0.0:80->80/tcp   rpi-busybox-httpd_00
+    HypriotOS: root@dims-rpi in ~
+    $ service supervisor stop
+    HypriotOS: root@dims-rpi in ~
+    $ docker stop rpi-busybox-httpd_00
+    docker ps
+    rpi-busybox-httpd_00
+    HypriotOS: root@dims-rpi in ~
+    $ docker ps
+    CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES
+    HypriotOS: root@dims-rpi in ~
+    $ run.rpi-busybox-httpd test
+    -bash: run.rpi-busybox-httpd: command not found
+    HypriotOS: root@dims-rpi in ~
+    $ ./!!
+    ./run.rpi-busybox-httpd test
+    ^Z
+    [1]+  Stopped                 ./run.rpi-busybox-httpd test
+    HypriotOS: root@dims-rpi in ~
+    $ docker ps
+    CONTAINER ID        IMAGE                       COMMAND                  CREATED             STATUS              PORTS                NAMES
+    4b0db8238ebe        hypriot/rpi-busybox-httpd   "/bin/busybox httpd -"   7 seconds ago       Up 5 seconds        0.0.0.0:80->80/tcp   test
+    HypriotOS: root@dims-rpi in ~
+    $ fg
+    ./run.rpi-busybox-httpd test
+    ^C
+    ^Z
+    [1]+  Stopped                 ./run.rpi-busybox-httpd test
+    HypriotOS: root@dims-rpi in ~
+    $
+    HypriotOS: root@dims-rpi in ~
+    $ kill -TERM %1
+    HypriotOS: root@dims-rpi in ~
+    $
+    HypriotOS: root@dims-rpi in ~
+    $ docker ps
+    CONTAINER ID        IMAGE                       COMMAND                  CREATED             STATUS              PORTS                NAMES
+    4b0db8238ebe        hypriot/rpi-busybox-httpd   "/bin/busybox httpd -"   28 seconds ago      Up 26 seconds       0.0.0.0:80->80/tcp   test
+    HypriotOS: root@dims-rpi in ~
+    $ ps
+      PID TTY          TIME CMD
+      615 pts/0    00:00:00 bash
+      809 pts/0    00:00:00 run.rpi-busybox
+      814 pts/0    00:00:00 docker
+      879 pts/0    00:00:00 ps
+    HypriotOS: root@dims-rpi in ~
+    $ kill -HUP 809
+    HypriotOS: root@dims-rpi in ~
+    $
+    HypriotOS: root@dims-rpi in ~
+    $ vi run.rpi-busybox-httpd
+    HypriotOS: root@dims-rpi in ~
+    $ ps
+      PID TTY          TIME CMD
+      615 pts/0    00:00:00 bash
+      809 pts/0    00:00:00 run.rpi-busybox
+      814 pts/0    00:00:00 docker
+      901 pts/0    00:00:00 ps
+    HypriotOS: root@dims-rpi in ~
+    $ kill -TERM 809
+    HypriotOS: root@dims-rpi in ~
+    $
+    HypriotOS: root@dims-rpi in ~
+    $ ps
+      PID TTY          TIME CMD
+      615 pts/0    00:00:01 bash
+      809 pts/0    00:00:00 run.rpi-busybox
+      814 pts/0    00:00:00 docker
+      911 pts/0    00:00:00 ps
+    HypriotOS: root@dims-rpi in ~
+    $ pstree
+    -bash: pstree: command not found
+    HypriotOS: root@dims-rpi in ~
+    $ kill -9 809
+    [1]+  Killed                  ./run.rpi-busybox-httpd test
+    HypriotOS: root@dims-rpi in ~
+    $
+    HypriotOS: root@dims-rpi in ~
+    $ vi run.rpi-busybox-httpd
+    HypriotOS: root@dims-rpi in ~
+    $ ps
+      PID TTY          TIME CMD
+      615 pts/0    00:00:01 bash
+      814 pts/0    00:00:00 docker
+      937 pts/0    00:00:00 ps
+    HypriotOS: root@dims-rpi in ~
+    $ docker ps
+    CONTAINER ID        IMAGE                       COMMAND                  CREATED             STATUS              PORTS                NAMES
+    4b0db8238ebe        hypriot/rpi-busybox-httpd   "/bin/busybox httpd -"   2 minutes ago       Up 2 minutes        0.0.0.0:80->80/tcp   test
+    HypriotOS: root@dims-rpi in ~
+    $ docker kill test
+    test
+    HypriotOS: root@dims-rpi in ~
+    $ docker ps
+    CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES
+    HypriotOS: root@dims-rpi in ~
+    $ vi run.rpi-busybox-httpd
+    HypriotOS: root@dims-rpi in ~
+    $ bash -x run.rpi-busybox-httpd &
+    [1] 993
+    + NAME=rpi-busybox-httpd
+    + DOCKER=/usr/bin/docker
+    + trap '/usr/bin/docker kill rpi-busybox-httpd' EXIT SIGHUP SIGINT SIGQUIT SIGTERM
+    + /usr/bin/docker rm rpi-busybox-httpd
+    HypriotOS: root@dims-rpi in ~
+    $ + /usr/bin/docker run -a stdout --rm --name rpi-busybox-httpd -p 80:80 hypriot/rpi-busybox-httpd
+
+    HypriotOS: root@dims-rpi in ~
+    $ ps
+      PID TTY          TIME CMD
+      615 pts/0    00:00:01 bash
+      993 pts/0    00:00:00 bash
+     1001 pts/0    00:00:00 docker
+     1040 pts/0    00:00:00 ps
+    HypriotOS: root@dims-rpi in ~
+    $ kill -HUP 809
+    -bash: kill: (809) - No such process
+    HypriotOS: root@dims-rpi in ~
+    $ kill -HUP 993
+    HypriotOS: root@dims-rpi in ~
+    $
+    HypriotOS: root@dims-rpi in ~
+    $ ps
+      PID TTY          TIME CMD
+      615 pts/0    00:00:01 bash
+      993 pts/0    00:00:00 bash
+     1001 pts/0    00:00:00 docker
+     1053 pts/0    00:00:00 ps
+    HypriotOS: root@dims-rpi in ~
+    $ docker ps
+    CONTAINER ID        IMAGE                       COMMAND                  CREATED             STATUS              PORTS                NAMES
+    9fdaf8ef9c85        hypriot/rpi-busybox-httpd   "/bin/busybox httpd -"   38 seconds ago      Up 36 seconds       0.0.0.0:80->80/tcp   rpi-busybox-httpd
+    HypriotOS: root@dims-rpi in ~
+    $ fg
+    bash -x run.rpi-busybox-httpd
+    ^C
+    ^X
+    ^Z
+    [1]+  Stopped                 bash -x run.rpi-busybox-httpd
+    HypriotOS: root@dims-rpi in ~
+    $
+    HypriotOS: root@dims-rpi in ~
+    $ kill -HUP %1
+    HypriotOS: root@dims-rpi in ~
+    $
+    HypriotOS: root@dims-rpi in ~
+    $ ps
+      PID TTY          TIME CMD
+      615 pts/0    00:00:01 bash
+      993 pts/0    00:00:00 bash
+     1001 pts/0    00:00:00 docker
+     1076 pts/0    00:00:00 ps
+    HypriotOS: root@dims-rpi in ~
+    $ fg
+    bash -x run.rpi-busybox-httpd
+
+    ^C
+
+    ^Z
+    [1]+  Stopped                 bash -x run.rpi-busybox-httpd
+    HypriotOS: root@dims-rpi in ~
+    $
+    HypriotOS: root@dims-rpi in ~
+    $ sudo kill -9 993
+    [1]+  Killed                  bash -x run.rpi-busybox-httpd
+    HypriotOS: root@dims-rpi in ~
+    $
+    HypriotOS: root@dims-rpi in ~
+    $
+    HypriotOS: root@dims-rpi in ~
+    $ ps
+      PID TTY          TIME CMD
+      615 pts/0    00:00:01 bash
+     1001 pts/0    00:00:00 docker
+     1109 pts/0    00:00:00 ps
+    HypriotOS: root@dims-rpi in ~
+    $ docker ps
+    CONTAINER ID        IMAGE                       COMMAND                  CREATED              STATUS              PORTS                NAMES
+    9fdaf8ef9c85        hypriot/rpi-busybox-httpd   "/bin/busybox httpd -"   About a minute ago   Up About a minute   0.0.0.0:80->80/tcp   rpi-busybox-httpd
+    HypriotOS: root@dims-rpi in ~
+    $ docker kill rpi-busybox-httpd
+    rpi-busybox-httpd
+    HypriotOS: root@dims-rpi in ~
+    $ docker ps
+    CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES
+    HypriotOS: root@dims-rpi in ~
+    $
+    HypriotOS: root@dims-rpi in ~
+    $
+    HypriotOS: root@dims-rpi in ~
+    $ !vi
+    vi run.rpi-busybox-httpd
+    HypriotOS: root@dims-rpi in ~
+    $ cat run.rpi-busybox-httpd
+    #!/bin/bash
+
+    NAME=${1:-rpi-busybox-httpd}
+    DOCKER=/usr/bin/docker
+
+    trap "$DOCKER kill $NAME" EXIT SIGHUP SIGINT SIGQUIT SIGTERM
+
+    # Remove any stopped container with the specified name.
+    $DOCKER rm $NAME 2>/dev/null
+
+    # Run the container with the specified name.
+    $DOCKER run \
+            -a stdout \
+            --rm \
+            --name $NAME \
+            -p 80:80 \
+            hypriot/rpi-busybox-httpd
+    HypriotOS: root@dims-rpi in ~
+    $
