@@ -1,0 +1,31 @@
+digraph tools {
+    "DEPLOYING" [shape=rectangle];
+	"DEVELOPING" [shape=rectangle];
+	"CONFIGURING" [shape=rectangle];
+	"OS-ISOs" [shape=rectangle];
+	"dims-ci-utils" -> "jenkins";
+	"dims-ci-utils" -> "ansible";
+	"dims-ci-utils" -> "packer";
+	"dims-ci-utils" -> "vagrant";
+	"dims-ci-utils" -> "sphinx";
+	"dims-ci-utils" -> "git";
+	"git-extras" -> "git";
+	"git-flow" -> "git";
+	"tig" -> "git";
+	"hub" -> "git";
+	"OS-ISOs" -> "packer";
+	"packer" -> "vagrant";
+    "vagrant" -> "ansible";
+    "vagrant" -> "DEVELOPING";
+	"git" -> "DEVELOPING";
+	"sphinx" -> "DEVELOPING";
+	"jira" -> "DEVELOPING";
+	"jira" -> "DEPLOYING";
+	"jira" -> "CONFIGURING";
+	"jenkins" -> "DEVELOPING";
+	"ansible" -> "DEPLOYING";
+	"jenkins" -> "DEPLOYING";
+	"dims-ci-utils" -> "CONFIGURING";
+	"ansible" -> "CONFIGURING";
+	"jenkins" -> "CONFIGURING";
+}
