@@ -33,6 +33,7 @@ administration of DIMS components from an administrator's perspective.
    installation
    rabbitmq
    rpidocker
+   diagnosis
    appendices
 
 .. note::
