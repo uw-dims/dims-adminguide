@@ -1,0 +1,6 @@
+.. _appendices:
+
+Appendices
+==========
+
+.. EOF
