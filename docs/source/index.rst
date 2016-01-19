@@ -1,7 +1,7 @@
 .. DIMS Administrator Guide  master file, created by
    copying from dims-devguide source tree on Mon Oct 26 21:02:14 PDT 2015.
 
-.. _dimsadminrguide:
+.. _dimsadminguide:
 
 ====================================
 DIMS Administrator Guide v |release|
@@ -30,6 +30,7 @@ administration of DIMS components from an administrator's perspective.
 
    introduction
    referenceddocs
+   installingbaremetal
    installation
    rabbitmq
    rpidocker
