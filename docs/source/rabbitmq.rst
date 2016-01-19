@@ -97,7 +97,7 @@ and settings are found in ``/etc/rabbitmq`` and
     and `mozilla/opsec-puppet`_ and `Increase RabbitMQ file descriptor limit
     and memory watermark without restart`_.
 
-    .. code-block:: json
+    .. code-block:: none
 
         root@b52:/etc/rabbitmq# rabbitmqctl status | grep -A 4 file_descriptors
          {file_descriptors,
