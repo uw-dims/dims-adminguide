@@ -1,0 +1,48 @@
+[dimsenv] mboggess@dimsdev2:~/core-local () $ vagrant ssh core-03
+VM name: core-03 - IP: 172.17.8.103
+Last login: Tue Jan 26 15:49:34 2016 from 10.0.2.2
+CoreOS beta (877.1.0)
+core@core-03 ~ $ systemctl status
+● core-03
+    State: starting
+     Jobs: 4 queued
+   Failed: 0 units
+    Since: Wed 2016-01-27 12:40:52 EST; 1min 0s ago
+   CGroup: /
+           ├─1 /usr/lib/systemd/systemd --switched-root --system --
+           └─system.slice
+             ├─dbus.service
+             │ └─509 /usr/bin/dbus-daemon --system --address=system
+             ├─update-engine.service
+             │ └─502 /usr/sbin/update_engine -foreground -logtostde
+             ├─system-sshd.slice
+             │ └─sshd@2-10.0.2.15:22-10.0.2.2:58499.service
+             │   ├─869 sshd: core [priv]
+             │   ├─871 sshd: core@pts/0
+             │   ├─872 -bash
+             │   ├─878 systemctl status
+             │   └─879 systemctl status
+             ├─systemd-journald.service
+             │ └─387 /usr/lib/systemd/systemd-journald
+             ├─systemd-resolved.service
+             │ └─543 /usr/lib/systemd/systemd-resolved
+             ├─systemd-timesyncd.service
+             │ └─476 /usr/lib/systemd/systemd-timesyncd
+             ├─systemd-logind.service
+             │ └─505 /usr/lib/systemd/systemd-logind
+             ├─systemd-networkd.service
+             │ └─837 /usr/lib/systemd/systemd-networkd
+             ├─system-getty.slice
+             │ └─getty@tty1.service
+             │   └─507 /sbin/agetty --noclear tty1 linux
+             ├─system-user\x2dcloudinit.slice
+             │ └─user-cloudinit@var-lib-coreos\x2dvagrant-vagrantfi
+             │   └─658 /usr/bin/coreos-cloudinit --from-file=/var/l
+             ├─systemd-udevd.service
+             │ └─414 /usr/lib/systemd/systemd-udevd
+             ├─locksmithd.service
+             │ └─504 /usr/lib/locksmith/locksmithd
+             └─docker.service
+               ├─547 docker daemon --dns 172.18.0.1 --dns 8.8.8.8 -
+               └─control
+                 └─742 /usr/bin/systemctl stop docker
