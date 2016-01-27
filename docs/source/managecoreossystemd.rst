@@ -11,6 +11,21 @@ CoreOS uses `systemd`_ as both a system and service manager and
 as an init system. The tool `systemctl`_ has many commands 
 which allow a user to look at and control the state of systemd.
 
+This is by no means an exhaustive list or description of the
+potential of any of the tools described here, merely an overview
+of tools and their most useful services. See the links provided
+within this chapter for more information. For more debugging
+information relevant to DIMS, see "Debugging CoreOS" section 
+of :ref:`dimsdockerfiles:dockerincoreos`.
+
+.. TODO(mboggess)
+.. todo::
+
+   Replace "Debugging CoreOS" with intersphinx link when dims-617
+   feature branch has been merged into develop branch.
+
+..
+
 .. _systemd: http://www.freedesktop.org/wiki/Software/systemd/
 .. _systemctl: http://www.freedesktop.org/software/systemd/man/systemctl.html
 
