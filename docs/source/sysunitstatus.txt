@@ -1,0 +1,64 @@
+core@core-01 ~ $ systemctl status consul.service -l
+● consul.service - Consul bootstrap
+   Loaded: loaded (/run/systemd/system/consul.service; disabled; ve
+ndor preset: disabled)
+   Active: active (running) since Wed 2016-01-27 12:41:56 EST; 37mi
+n ago
+  Process: 941 ExecStartPost=/bin/sh -c /usr/bin/etcdctl set "/serv
+ices/consul/bootstrap/servers/$COREOS_PUBLIC_IPV4" "$COREOS_PUBLIC_
+IPV4" (code=exited, status=0/SUCCESS)
+  Process: 932 ExecStartPre=/bin/sh -c /usr/bin/etcdctl mk /service
+s/consul/bootstrap/host $COREOS_PUBLIC_IPV4 || sleep 10 (code=exite
+d, status=0/SUCCESS)
+  Process: 926 ExecStartPre=/usr/bin/docker rm consul-%H (code=exit
+ed, status=0/SUCCESS)
+  Process: 921 ExecStartPre=/usr/bin/docker kill consul-%H (code=ex
+ited, status=1/FAILURE)
+ Main PID: 940 (sh)
+   Memory: 28.0M
+      CPU: 117ms
+   CGroup: /system.slice/consul.service
+           ├─940 /bin/sh -c NUM_SERVERS=$(fleetctl list-machines |
+grep -v "MACHINE" |wc -l)       && EXPECT=$(if [ $NUM_SERVERS -lt 3
+ ] ; then echo 1; else echo 3; fi)       && JOIN_IP=$(etcdctl ls /s
+ervices/consul/bootstrap/servers          | grep -v $COREOS_PUBLIC_
+IPV4          | cut -d '/' -f 6          | head -n 1)       && JOIN
+=$(if [ "$JOIN_IP" != "" ] ; then sleep 10; echo "-join $JOIN_IP";
+else echo "-bootstrap-expect $EXPECT"; fi)       && /usr/bin/docker
+ run --name=consul-core-01 -v /mnt:/data            -p 172.17.8.101
+:8300:8300            -p 172.17.8.101:8301:8301            -p 172.1
+7.8.101:8301:8301/udp            -p 172.17.8.101:8302:8302
+   -p 172.17.8.101:8302:8302/udp            -p 172.17.8.101:8400:84
+00            -p 172.17.8.101:8500:8500            -p 172.17.8.101:
+8600:8600            -p 172.18.0.1:53:53/udp            progrium/co
+nsul -node core-01 -server -dc=local -advertise 172.17.8.101 $JOIN
+           └─973 /usr/bin/docker run --name=consul-core-01 -v /mnt:
+/data -p 172.17.8.101:8300:8300 -p 172.17.8.101:8301:8301 -p 172.17
+.8.101:8301:8301/udp -p 172.17.8.101:8302:8302 -p 172.17.8.101:8302
+:8302/udp -p 172.17.8.101:8400:8400 -p 172.17.8.101:8500:8500 -p 17
+2.17.8.101:8600:8600 -p 172.18.0.1:53:53/udp progrium/consul -node
+core-01 -server -dc=local -advertise 172.17.8.101 -bootstrap-expect
+ 1
+
+Jan 27 12:43:35 core-01 sh[940]: 2016/01/27 17:43:35 [WARN] raft: R
+ejecting vote from 172.17.8.103:8300 since our last term is greater
+ (43, 1)
+Jan 27 12:43:35 core-01 sh[940]: 2016/01/27 17:43:35 [WARN] raft: H
+eartbeat timeout reached, starting election
+Jan 27 12:43:35 core-01 sh[940]: 2016/01/27 17:43:35 [INFO] raft: N
+ode at 172.17.8.101:8300 [Candidate] entering Candidate state
+Jan 27 12:43:35 core-01 sh[940]: 2016/01/27 17:43:35 [INFO] raft: E
+lection won. Tally: 2
+Jan 27 12:43:35 core-01 sh[940]: 2016/01/27 17:43:35 [INFO] raft: N
+ode at 172.17.8.101:8300 [Leader] entering Leader state
+Jan 27 12:43:35 core-01 sh[940]: 2016/01/27 17:43:35 [INFO] consul:
+ cluster leadership acquired
+Jan 27 12:43:35 core-01 sh[940]: 2016/01/27 17:43:35 [INFO] consul:
+ New leader elected: core-01
+Jan 27 12:43:35 core-01 sh[940]: 2016/01/27 17:43:35 [WARN] raft: A
+ppendEntries to 172.17.8.103:8300 rejected, sending older logs (nex
+t: 479)
+Jan 27 12:43:35 core-01 sh[940]: 2016/01/27 17:43:35 [INFO] raft: p
+ipelining replication to peer 172.17.8.102:8300
+Jan 27 12:43:35 core-01 sh[940]: 2016/01/27 17:43:35 [INFO] raft: p
+ipelining replication to peer 172.17.8.103:8300

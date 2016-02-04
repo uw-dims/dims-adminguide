@@ -1,0 +1,185 @@
+core@core-01 ~ $ docker logs consul-core-01
+==> WARNING: BootstrapExpect Mode is specified as 1; this is the sa
+me as Bootstrap mode.
+==> WARNING: Bootstrap mode enabled! Do not enable unless necessary
+==> WARNING: It is highly recommended to set GOMAXPROCS higher than
+ 1
+==> Starting raft data migration...
+==> Starting Consul agent...
+==> Starting Consul agent RPC...
+==> Consul agent running!
+         Node name: 'core-01'
+        Datacenter: 'local'
+            Server: true (bootstrap: true)
+       Client Addr: 0.0.0.0 (HTTP: 8500, HTTPS: -1, DNS: 53, RPC: 8
+400)
+      Cluster Addr: 172.17.8.101 (LAN: 8301, WAN: 8302)
+    Gossip encrypt: false, RPC-TLS: false, TLS-Incoming: false
+             Atlas: <disabled>
+
+==> Log data will now stream in as it occurs:
+
+    2016/01/27 17:42:39 [INFO] serf: EventMemberJoin: core-01 172.1
+7.8.101
+    2016/01/27 17:42:39 [INFO] serf: EventMemberJoin: core-01.local
+ 172.17.8.101
+    2016/01/27 17:42:39 [INFO] raft: Node at 172.17.8.101:8300 [Fol
+lower] entering Follower state
+    2016/01/27 17:42:39 [WARN] serf: Failed to re-join any previous
+ly known node
+    2016/01/27 17:42:39 [WARN] serf: Failed to re-join any previous
+ly known node
+    2016/01/27 17:42:39 [INFO] consul: adding server core-01 (Addr:
+ 172.17.8.101:8300) (DC: local)
+    2016/01/27 17:42:39 [INFO] consul: adding server core-01.local
+(Addr: 172.17.8.101:8300) (DC: local)
+    2016/01/27 17:42:39 [ERR] agent: failed to sync remote state: N
+o cluster leader
+    2016/01/27 17:42:39 [ERR] http: Request /v1/kv/docker/nodes/172
+.19.0.1:2376, error: No cluster leader
+    2016/01/27 17:42:39 [ERR] http: Request /v1/kv/docker/nodes/172
+.19.0.1:2376, error: No cluster leader
+    2016/01/27 17:42:39 [INFO] serf: EventMemberJoin: core-02 172.1
+7.8.102
+    2016/01/27 17:42:39 [INFO] consul: adding server core-02 (Addr:
+ 172.17.8.102:8300) (DC: local)
+    2016/01/27 17:42:39 [ERR] http: Request /v1/kv/docker/nodes/172
+.19.0.1:2376, error: No cluster leader
+    2016/01/27 17:42:39 [ERR] http: Request /v1/kv/docker/nodes/172
+.19.0.1:2376, error: No cluster leader
+    2016/01/27 17:42:40 [WARN] raft: Heartbeat timeout reached, sta
+rting election
+    2016/01/27 17:42:40 [INFO] raft: Node at 172.17.8.101:8300 [Can
+didate] entering Candidate state
+    2016/01/27 17:42:40 [ERR] raft: Failed to make RequestVote RPC
+to 172.17.8.103:8300: dial tcp 172.17.8.103:8300: connection refuse
+d
+    2016/01/27 17:42:40 [INFO] raft: Election won. Tally: 2
+    2016/01/27 17:42:40 [INFO] raft: Node at 172.17.8.101:8300 [Lea
+der] entering Leader state
+    2016/01/27 17:42:40 [INFO] consul: cluster leadership acquired
+    2016/01/27 17:42:40 [INFO] consul: New leader elected: core-01
+    2016/01/27 17:42:40 [INFO] raft: Disabling EnableSingleNode (bo
+otstrap)
+    2016/01/27 17:42:40 [ERR] raft: Failed to AppendEntries to 172.
+17.8.103:8300: dial tcp 172.17.8.103:8300: connection refused
+    2016/01/27 17:42:40 [INFO] raft: pipelining replication to peer
+ 172.17.8.102:8300
+    2016/01/27 17:42:40 [ERR] raft: Failed to AppendEntries to 172.
+17.8.103:8300: dial tcp 172.17.8.103:8300: connection refused
+    2016/01/27 17:42:40 [INFO] consul: member 'core-03' reaped, der
+egistering
+    2016/01/27 17:42:41 [ERR] raft: Failed to AppendEntries to 172.
+17.8.103:8300: dial tcp 172.17.8.103:8300: connection refused
+    2016/01/27 17:42:41 [ERR] raft: Failed to heartbeat to 172.17.8
+.103:8300: dial tcp 172.17.8.103:8300: connection refused
+    2016/01/27 17:42:41 [ERR] raft: Failed to AppendEntries to 172.
+17.8.103:8300: dial tcp 172.17.8.103:8300: connection refused
+    2016/01/27 17:42:41 [ERR] raft: Failed to heartbeat to 172.17.8
+.103:8300: dial tcp 172.17.8.103:8300: connection refused
+    2016/01/27 17:42:41 [ERR] raft: Failed to AppendEntries to 172.
+17.8.103:8300: dial tcp 172.17.8.103:8300: connection refused
+    2016/01/27 17:42:41 [ERR] raft: Failed to heartbeat to 172.17.8
+.103:8300: dial tcp 172.17.8.103:8300: connection refused
+    2016/01/27 17:42:41 [ERR] raft: Failed to AppendEntries to 172.
+17.8.103:8300: dial tcp 172.17.8.103:8300: connection refused
+    2016/01/27 17:42:41 [WARN] raft: Failed to contact 172.17.8.103
+:8300 in 509.786599ms
+    2016/01/27 17:42:41 [ERR] raft: Failed to heartbeat to 172.17.8
+.103:8300: dial tcp 172.17.8.103:8300: connection refused
+    2016/01/27 17:42:41 [ERR] raft: Failed to heartbeat to 172.17.8
+.103:8300: dial tcp 172.17.8.103:8300: connection refused
+    2016/01/27 17:42:41 [ERR] raft: Failed to AppendEntries to 172.
+17.8.103:8300: dial tcp 172.17.8.103:8300: connection refused
+    2016/01/27 17:42:41 [ERR] raft: Failed to heartbeat to 172.17.8
+.103:8300: dial tcp 172.17.8.103:8300: connection refused
+    2016/01/27 17:42:41 [WARN] raft: Failed to contact 172.17.8.103
+:8300 in 981.100031ms
+    2016/01/27 17:42:42 [ERR] raft: Failed to AppendEntries to 172.
+17.8.103:8300: dial tcp 172.17.8.103:8300: connection refused
+    2016/01/27 17:42:42 [ERR] raft: Failed to heartbeat to 172.17.8
+.103:8300: dial tcp 172.17.8.103:8300: connection refused
+    2016/01/27 17:42:42 [WARN] raft: Failed to contact 172.17.8.103
+:8300 in 1.480625817s
+    2016/01/27 17:42:42 [ERR] raft: Failed to heartbeat to 172.17.8
+.103:8300: dial tcp 172.17.8.103:8300: connection refused
+    2016/01/27 17:42:42 [ERR] raft: Failed to AppendEntries to 172.
+17.8.103:8300: dial tcp 172.17.8.103:8300: connection refused
+    2016/01/27 17:42:43 [ERR] raft: Failed to heartbeat to 172.17.8
+.103:8300: dial tcp 172.17.8.103:8300: connection refused
+    2016/01/27 17:42:44 [ERR] raft: Failed to AppendEntries to 172.
+17.8.103:8300: dial tcp 172.17.8.103:8300: connection refused
+    2016/01/27 17:42:44 [ERR] raft: Failed to heartbeat to 172.17.8
+.103:8300: dial tcp 172.17.8.103:8300: connection refused
+    2016/01/27 17:42:46 [ERR] raft: Failed to AppendEntries to 172.
+17.8.103:8300: dial tcp 172.17.8.103:8300: connection refused
+    2016/01/27 17:42:47 [ERR] raft: Failed to heartbeat to 172.17.8
+.103:8300: dial tcp 172.17.8.103:8300: connection refused
+    2016/01/27 17:42:51 [ERR] raft: Failed to AppendEntries to 172.
+17.8.103:8300: dial tcp 172.17.8.103:8300: connection refused
+    2016/01/27 17:42:52 [ERR] raft: Failed to heartbeat to 172.17.8
+.103:8300: dial tcp 172.17.8.103:8300: connection refused
+    2016/01/27 17:43:02 [ERR] raft: Failed to AppendEntries to 172.
+17.8.103:8300: dial tcp 172.17.8.103:8300: no route to host
+    2016/01/27 17:43:05 [ERR] raft: Failed to heartbeat to 172.17.8
+.103:8300: dial tcp 172.17.8.103:8300: no route to host
+    2016/01/27 17:43:14 [ERR] raft: Failed to AppendEntries to 172.
+17.8.103:8300: dial tcp 172.17.8.103:8300: no route to host
+    2016/01/27 17:43:17 [ERR] raft: Failed to heartbeat to 172.17.8
+.103:8300: dial tcp 172.17.8.103:8300: no route to host
+    2016/01/27 17:43:23 [INFO] serf: EventMemberJoin: core-03 172.1
+7.8.103
+    2016/01/27 17:43:23 [INFO] consul: adding server core-03 (Addr:
+ 172.17.8.103:8300) (DC: local)
+    2016/01/27 17:43:23 [INFO] consul: member 'core-03' joined, mar
+king health alive
+    2016/01/27 17:43:24 [WARN] raft: AppendEntries to 172.17.8.103:
+8300 rejected, sending older logs (next: 479)
+    2016/01/27 17:43:24 [WARN] raft: Rejecting vote from 172.17.8.1
+03:8300 since we have a leader: 172.17.8.101:8300
+    2016/01/27 17:43:24 [WARN] raft: Failed to contact 172.17.8.103
+:8300 in 500.297851ms
+    2016/01/27 17:43:25 [WARN] raft: Failed to contact 172.17.8.103
+:8300 in 938.153601ms
+    2016/01/27 17:43:25 [WARN] raft: Rejecting vote from 172.17.8.1
+03:8300 since we have a leader: 172.17.8.101:8300
+    2016/01/27 17:43:25 [WARN] raft: Failed to contact 172.17.8.103
+:8300 in 1.424666193s
+    2016/01/27 17:43:27 [WARN] raft: Rejecting vote from 172.17.8.1
+03:8300 since we have a leader: 172.17.8.101:8300
+    2016/01/27 17:43:28 [WARN] raft: Rejecting vote from 172.17.8.1
+03:8300 since we have a leader: 172.17.8.101:8300
+    2016/01/27 17:43:30 [WARN] raft: Rejecting vote from 172.17.8.1
+03:8300 since we have a leader: 172.17.8.101:8300
+    2016/01/27 17:43:31 [WARN] raft: Rejecting vote from 172.17.8.1
+03:8300 since we have a leader: 172.17.8.101:8300
+    2016/01/27 17:43:33 [WARN] raft: Rejecting vote from 172.17.8.1
+03:8300 since we have a leader: 172.17.8.101:8300
+    2016/01/27 17:43:34 [WARN] raft: Rejecting vote from 172.17.8.1
+03:8300 since we have a leader: 172.17.8.101:8300
+    2016/01/27 17:43:34 [ERR] raft: peer 172.17.8.103:8300 has newe
+r term, stopping replication
+    2016/01/27 17:43:34 [INFO] raft: Node at 172.17.8.101:8300 [Fol
+lower] entering Follower state
+    2016/01/27 17:43:34 [INFO] consul: cluster leadership lost
+    2016/01/27 17:43:34 [INFO] raft: aborting pipeline replication
+to peer 172.17.8.102:8300
+    2016/01/27 17:43:35 [WARN] raft: Rejecting vote from 172.17.8.1
+03:8300 since our last term is greater (43, 1)
+    2016/01/27 17:43:35 [WARN] raft: Heartbeat timeout reached, sta
+rting election
+    2016/01/27 17:43:35 [INFO] raft: Node at 172.17.8.101:8300 [Can
+didate] entering Candidate state
+    2016/01/27 17:43:35 [INFO] raft: Election won. Tally: 2
+    2016/01/27 17:43:35 [INFO] raft: Node at 172.17.8.101:8300 [Lea
+der] entering Leader state
+    2016/01/27 17:43:35 [INFO] consul: cluster leadership acquired
+    2016/01/27 17:43:35 [INFO] consul: New leader elected: core-01
+    2016/01/27 17:43:35 [WARN] raft: AppendEntries to 172.17.8.103:
+8300 rejected, sending older logs (next: 479)
+    2016/01/27 17:43:35 [INFO] raft: pipelining replication to peer
+ 172.17.8.102:8300
+    2016/01/27 17:43:35 [INFO] raft: pipelining replication to peer
+ 172.17.8.103:8300
+    2016/01/27 18:30:47 [INFO] agent.rpc: Accepted client: 127.0.0.
+1:44510

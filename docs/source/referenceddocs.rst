@@ -9,6 +9,8 @@ Referenced documents
 
 #. :ref:`dimsdockerfiles:usingdockerindims`
 
+#. :ref:`dimsdockerfiles:dockerincoreos`
+
 #. :ref:`dimspacker:dimspacker`
 
 #. :ref:`dimsciutils:dimsciutilities`

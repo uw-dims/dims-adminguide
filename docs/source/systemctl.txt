@@ -1,0 +1,127 @@
+core@core-01 ~ $ systemctl
+UNIT                      LOAD   ACTIVE     SUB          DESCRIPTIO
+boot.automount            loaded active     waiting      Boot parti
+sys-devices-pci0000:00-0000:00:01.1-ata1-host0-target0:0:0-0:0:0:0-
+sys-devices-pci0000:00-0000:00:01.1-ata1-host0-target0:0:0-0:0:0:0-
+sys-devices-pci0000:00-0000:00:01.1-ata1-host0-target0:0:0-0:0:0:0-
+sys-devices-pci0000:00-0000:00:01.1-ata1-host0-target0:0:0-0:0:0:0-
+sys-devices-pci0000:00-0000:00:01.1-ata1-host0-target0:0:0-0:0:0:0-
+sys-devices-pci0000:00-0000:00:01.1-ata1-host0-target0:0:0-0:0:0:0-
+sys-devices-pci0000:00-0000:00:01.1-ata1-host0-target0:0:0-0:0:0:0-
+sys-devices-pci0000:00-0000:00:01.1-ata1-host0-target0:0:0-0:0:0:0-
+sys-devices-pci0000:00-0000:00:03.0-virtio0-net-eth0.device loaded
+sys-devices-pci0000:00-0000:00:08.0-virtio1-net-eth1.device loaded
+sys-devices-platform-serial8250-tty-ttyS0.device loaded active
+sys-devices-platform-serial8250-tty-ttyS1.device loaded active
+sys-devices-platform-serial8250-tty-ttyS2.device loaded active
+sys-devices-platform-serial8250-tty-ttyS3.device loaded active
+sys-devices-virtual-net-docker0.device loaded active     plugged
+sys-devices-virtual-net-vethcbb3671.device loaded active     plugge
+sys-devices-virtual-tty-ttyprintk.device loaded active     plugged
+sys-subsystem-net-devices-docker0.device loaded active     plugged
+sys-subsystem-net-devices-eth0.device loaded active     plugged
+sys-subsystem-net-devices-eth1.device loaded active     plugged
+sys-subsystem-net-devices-vethcbb3671.device loaded active     plug
+-.mount                   loaded active     mounted      /
+boot.mount                loaded active     mounted      Boot parti
+dev-hugepages.mount       loaded active     mounted      Huge Pages
+dev-mqueue.mount          loaded active     mounted      POSIX Mess
+media.mount               loaded active     mounted      External M
+sys-kernel-debug.mount    loaded active     mounted      Debug File
+tmp.mount                 loaded active     mounted      Temporary
+usr-share-oem.mount       loaded active     mounted      /usr/share
+usr.mount                 loaded active     mounted      /usr
+coreos-cloudinit-vagrant-user.path loaded active     running      c
+motdgen.path              loaded active     waiting      Watch for
+systemd-ask-password-console.path loaded active     waiting      Di
+systemd-ask-password-wall.path loaded active     waiting      Forwa
+user-cloudinit@var-lib-coreos\x2dinstall-user_data.path loaded acti
+user-configdrive.path     loaded active     waiting      Watch for
+docker-201c7bd05ea49b654aa8b02a92dbb739a06dd3e8a4cc7813dcdc15aa4282
+docker-5f41c7d23012a856462d3a7876d7165715164d2b2c6edf3f94449c21d594
+docker-8323ab8192308e5a65102dffb109466c6a7c7f43ff28f356ea154a668b5f
+app-overlay.service       loaded activating auto-restart App overla
+audit-rules.service       loaded active     exited       Load Secur
+consul.service            loaded active     running      Consul boo
+coreos-setup-environment.service loaded active     exited       Mod
+data-overlay.service      loaded activating auto-restart Data overl
+dbus.service              loaded active     running      D-Bus Syst
+docker.service            loaded active     running      Docker App
+etcd2.service             loaded active     running      etcd2
+fleet.service             loaded active     running      fleet daem
+getty@tty1.service        loaded active     running      Getty on t
+kmod-static-nodes.service loaded active     exited       Create lis
+locksmithd.service        loaded active     running      Cluster re
+settimezone.service       loaded active     exited       Set the ti
+sshd-keygen.service       loaded active     exited       Generate s
+sshd@2-10.0.2.15:22-10.0.2.2:33932.service loaded active     runnin
+swarm-agent.service       loaded active     running      Swarm agen
+swarm-manager.service     loaded active     running      Swarm mana
+system-cloudinit@usr-share-oem-cloud\x2dconfig.yml.service loaded a
+system-cloudinit@var-tmp-hostname.yml.service loaded active     exi
+system-cloudinit@var-tmp-networks.yml.service loaded active     exi
+systemd-journal-flush.service loaded active     exited       Flush
+systemd-journald.service  loaded active     running      Journal Se
+systemd-logind.service    loaded active     running      Login Serv
+systemd-networkd.service  loaded active     running      Network Se
+systemd-random-seed.service loaded active     exited       Load/Sav
+systemd-resolved.service  loaded active     running      Network Na
+systemd-sysctl.service    loaded active     exited       Apply Kern
+systemd-timesyncd.service loaded active     running      Network Ti
+systemd-tmpfiles-setup-dev.service loaded active     exited       C
+...skipping...
+systemd-udev-trigger.service loaded active     exited       udev Co
+systemd-udevd.service     loaded active     running      udev Kerne
+systemd-update-utmp.service loaded active     exited       Update U
+systemd-vconsole-setup.service loaded active     exited       Setup
+update-engine.service     loaded active     running      Update Eng
+user-cloudinit@var-lib-coreos\x2dvagrant-vagrantfile\x2duser\x2ddat
+-.slice                   loaded active     active       Root Slice
+system-addon\x2dconfig.slice loaded active     active       system-
+system-addon\x2drun.slice loaded active     active       system-add
+system-getty.slice        loaded active     active       system-get
+system-sshd.slice         loaded active     active       system-ssh
+system-system\x2dcloudinit.slice loaded active     active       sys
+system-user\x2dcloudinit.slice loaded active     active       syste
+system.slice              loaded active     active       System Sli
+user.slice                loaded active     active       User and S
+dbus.socket               loaded active     running      D-Bus Syst
+docker-tcp.socket         loaded active     running      Docker Soc
+docker.socket             loaded active     running      Docker Soc
+fleet.socket              loaded active     running      Fleet API
+rkt-metadata.socket       loaded active     listening    rkt metada
+sshd.socket               loaded active     listening    OpenSSH Se
+systemd-initctl.socket    loaded active     listening    /dev/initc
+systemd-journald-audit.socket loaded active     running      Journa
+systemd-journald-dev-log.socket loaded active     running      Jour
+systemd-journald.socket   loaded active     running      Journal So
+systemd-networkd.socket   loaded active     running      networkd r
+systemd-udevd-control.socket loaded active     running      udev Co
+systemd-udevd-kernel.socket loaded active     running      udev Ker
+basic.target              loaded active     active       Basic Syst
+cryptsetup.target         loaded active     active       Encrypted
+getty.target              loaded active     active       Login Prom
+local-fs-pre.target       loaded active     active       Local File
+local-fs.target           loaded active     active       Local File
+multi-user.target         loaded active     active       Multi-User
+network.target            loaded active     active       Network
+paths.target              loaded active     active       Paths
+remote-fs.target          loaded active     active       Remote Fil
+slices.target             loaded active     active       Slices
+sockets.target            loaded active     active       Sockets
+swap.target               loaded active     active       Swap
+sysinit.target            loaded active     active       System Ini
+system-config.target      loaded active     active       Load syste
+time-sync.target          loaded active     active       System Tim
+timers.target             loaded active     active       Timers
+user-config.target        loaded active     active       Load user-
+logrotate.timer           loaded active     waiting      Daily Log
+rkt-gc.timer              loaded active     waiting      Periodic G
+systemd-tmpfiles-clean.timer loaded active     waiting      Daily C
+
+LOAD   = Reflects whether the unit definition was properly loaded.
+ACTIVE = The high-level unit activation state, i.e. generalization
+SUB    = The low-level unit activation state, values depend on unit
+
+119 loaded units listed. Pass --all to see loaded but inactive unit
+To show all installed unit files use 'systemctl list-unit-files'.
