@@ -214,9 +214,11 @@ latex_elements = {
 # https://github.com/rtfd/readthedocs.org/issues/416
 #
 'preamble': "".join((
+    '\usepackage{pifont}',                # To get Dingbats
     '\DeclareUnicodeCharacter{00A0}{ }',  # NO-BREAK SPACE
     '\DeclareUnicodeCharacter{251C}{+}',  # BOX DRAWINGS LIGHT VERTICAL AND RIGHT
     '\DeclareUnicodeCharacter{2514}{+}',  # BOX DRAWINGS LIGHT UP AND RIGHT
+    '\DeclareUnicodeCharacter{25CF}{\ding{108}}',  # Dingbat 108 (black circle)
     '\DeclareUnicodeCharacter{1F37A}{ }', # Beer emoji (just turn into space for now)
 )),
 }
