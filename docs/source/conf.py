@@ -196,7 +196,7 @@ html_static_path = ['_static']
 #html_file_suffix = None
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'DIMSDevGuide'
+htmlhelp_basename = 'DIMSAdminGuide'
 
 
 # -- Options for LaTeX output ---------------------------------------------
@@ -227,7 +227,7 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-  ('index', 'DIMSDevGuide.tex', u'DIMS Administrator Guide',
+  ('index', 'DIMSAdminGuide.tex', u'DIMS Administrator Guide',
    u'David Dittrich', 'manual'),
 ]
 
@@ -271,8 +271,8 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-  ('index', 'DIMSDevGuide', u'DIMS Administrator Guide',
-   u'David Dittrich', 'DIMSDevGuide', 'Guide for software development of DIMS components.',
+  ('index', 'DIMSAdminGuide', u'DIMS Administrator Guide',
+   u'David Dittrich', 'DIMSAdminGuide', 'Guide for system administration of DIMS components.',
    'Miscellaneous'),
 ]
 
