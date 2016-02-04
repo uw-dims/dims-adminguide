@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
-#
+
+
 # DIMS Administrator Guide
 # (Copied from dims-devguide source tree on Mon Oct 26 21:02:14 PDT 2015.)
 #
@@ -216,6 +217,7 @@ latex_elements = {
     '\DeclareUnicodeCharacter{00A0}{ }',  # NO-BREAK SPACE
     '\DeclareUnicodeCharacter{251C}{+}',  # BOX DRAWINGS LIGHT VERTICAL AND RIGHT
     '\DeclareUnicodeCharacter{2514}{+}',  # BOX DRAWINGS LIGHT UP AND RIGHT
+    '\DeclareUnicodeCharacter{1F37A}{ }', # Beer emoji (just turn into space for now)
 )),
 }
 
