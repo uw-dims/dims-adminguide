@@ -34,6 +34,7 @@ administration of DIMS components from an administrator's perspective.
    installation
    rabbitmq
    rpidocker
+   dockerdatacenter
    diagnosis
    managecoreossystemd
    appendices
