@@ -36,6 +36,7 @@ administration of DIMS components from an administrator's perspective.
    rpidocker
    diagnosis
    managecoreossystemd
+   managevms
    appendices
 
 .. note::
