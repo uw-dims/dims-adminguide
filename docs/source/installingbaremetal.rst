@@ -31,7 +31,7 @@ Setting up a DIMS Developer Laptop
        ``Subject: [dims general] Documentation for provisioning new DIMS developers``.
        Those, and other details, are found in Section :ref:`dimsciutils:appendices`
        of :ref:`dimsciutils:dimsciutilities`.
-    
+
        The emails were cut/pasted here and are being turned into instructions
        that can be followed to perform an install.
 
@@ -45,7 +45,7 @@ Setting up a DIMS Developer Laptop
 
    Maybe we can delete the following notes..
 
-   .. note:: 
+   .. note::
 
       Our ansible playbooks have been updated so more tools are installed into
       the ``dimsenv`` virtual environment: ``git``, ``git-extras`` from our
@@ -104,14 +104,14 @@ Control Machine Prerequisites
 
 For the **control machine**, the following must be true:
 
-    #. Must be able to run DIMS ansible playbooks (i.e. be an existing developer 
-       workstation). 
+    #. Must be able to run DIMS ansible playbooks (i.e. be an existing developer
+       workstation).
 
-    #. Has the latest dims-ci-utils installed. That is, the latest 
+    #. Has the latest dims-ci-utils installed. That is, the latest
        ``dims.remote.setupworkstation``
        script should be in ``/opt/dims/bin``.
 
-    #. Has the DIMS VPN enabled (so it can retrieve DIMS git repos and artifacts on 
+    #. Has the DIMS VPN enabled (so it can retrieve DIMS git repos and artifacts on
        Jenkins requested by playbooks)
 
 We are assuming the control machine is an existing workstation that has been
@@ -261,9 +261,9 @@ Steps
 ~~~~~
 
 On the control machine:
-    
+
     #. Create a temporary SSH key-pair for the control to use to connect via
-       SSH to the target. Private key path on control is ``$PRIVKEY`` 
+       SSH to the target. Private key path on control is ``$PRIVKEY``
        and public key path is ``$PUBKEY``.
 
        For example:
@@ -272,8 +272,8 @@ On the control machine:
 
             $ ssh-keygen -t rsa -C "Temporary provisioning key" -f provisioning_key_rsa
             Generating public/private rsa key pair.
-            Enter passphrase (empty for no passphrase): 
-            Enter same passphrase again: 
+            Enter passphrase (empty for no passphrase):
+            Enter same passphrase again:
             Your identification has been saved in provisioning_key_rsa.
             Your public key has been saved in provisioning_key_rsa.pub.
             The key fingerprint is:
@@ -371,13 +371,13 @@ On the control machine:
 At this point all provisioning we can currently do via Ansible playbooks is done.
 Steps in the process need to be added for the following:
 
-     #. Putting DIMS user(s) private key(s) on the target machine. 
+     #. Putting DIMS user(s) private key(s) on the target machine.
 
         .. note::
 
             Private keys
             are not currently controlled. The private key is generated via a script
-            in the ``dims-keys.git`` repo, the corresponding public key is pushed to the 
+            in the ``dims-keys.git`` repo, the corresponding public key is pushed to the
             remote repo, and the private key is manually transferred to the new user via some
             secure method. See :ref:`ansibleplaybooks:publickeys` to see the
             current method of creating/updating/maintaining DIMS user SSH key pairs.
@@ -401,11 +401,11 @@ First, the tester activated the ``dimsenv`` virtual environment:
 
     $ workon dimsenv
 
-.. 
+..
 
-A desktop VM had previously been created by the tester following the instructions 
+A desktop VM had previously been created by the tester following the instructions
 in :ref:`dimspacker:vmquickstart`. The tester had named the VM ``dimsdesktop``, so that is how
-it is referenced here. 
+it is referenced here.
 
 The tester navigated to the VM's home directory (i.e., the
 directory containing the VM's Vagrantfile) and destroyed the existing VM in order
@@ -435,8 +435,8 @@ Next the tester created the temporary SSH key pair:
 
     $ ssh-keygen -t rsa -C "Temporary provisioning key" -f provisioning_key_rsa
     Generating public/private rsa key pair.
-    Enter passphrase (empty for no passphrase): 
-    Enter same passphrase again: 
+    Enter passphrase (empty for no passphrase):
+    Enter same passphrase again:
     Your identification has been saved in provisioning_key_rsa.
     Your public key has been saved in provisioning_key_rsa.pub.
     The key fingerprint is:
@@ -480,7 +480,7 @@ statement. You would substitute your user's home folder for the tester's (e.g.,
     config.vm.provision :shell, :inline => "cat /home/lcolby/provisioning_key_rsa.pub >> /home/lcolby/.ssh/authorized_keys"
     config.vm.provision :shell, :inline => "rm /home/lcolby/provisioning_key_rsa.pub"
 
-.. 
+..
 
 The VM was instantiated:
 
@@ -540,8 +540,8 @@ The test ran the script:
 
 .. code-block:: none
 
-    $ sh ./provision-desktop.sh 
-    [+++] dims.remote.setupworkstation: Starting... 
+    $ sh ./provision-desktop.sh
+    [+++] dims.remote.setupworkstation: Starting...
     [+++] dims.remote.setupworkstation: Variables
     [+++] IP=192.168.56.87
     [+++] PRIVKEY=/Users/lcolby/git/dims-vagrant/ubuntu-14.04.2-amd64/dimsdesktop/provisioning_key_rsa
@@ -558,13 +558,13 @@ The test ran the script:
     - Any changes from origin/develop have been pulled into branch 'develop'
     [+++] Running the playbooks...
 
-    PLAY [Install base OS packages on all machines] ******************************* 
+    PLAY [Install base OS packages on all machines] *******************************
 
-    GATHERING FACTS *************************************************************** 
+    GATHERING FACTS ***************************************************************
     <192.168.56.87> REMOTE_MODULE setup
     ok: [192.168.56.87]
 
-    TASK: [base-os | Disable Ubuntu oneconf (DD)] ********************************* 
+    TASK: [base-os | Disable Ubuntu oneconf (DD)] *********************************
     <192.168.56.87> REMOTE_MODULE command if [ -f /usr/share/oneconf/oneconf-service ]; then chmod a-x /usr/share/oneconf/oneconf-service; fi #USE_SHELL
     changed: [192.168.56.87] => (item=/usr/share/oneconf/oneconf-service) => {"changed": true, "cmd": "if [ -f /usr/share/oneconf/oneconf-service ]; then chmod a-x /usr/share/oneconf/oneconf-service; fi", "delta": "0:00:00.003086", "end": "2015-06-25 16:38:58.469152", "item": "/usr/share/oneconf/oneconf-service", "rc": 0, "start": "2015-06-25 16:38:58.466066", "stderr": "", "stdout": ""}
     <192.168.56.87> REMOTE_MODULE command if [ -f /usr/share/oneconf/oneconf-query ]; then chmod a-x /usr/share/oneconf/oneconf-query; fi #USE_SHELL
@@ -581,22 +581,22 @@ The test ran the script:
 
 .. todo::
 
-    The following is the original text for provisioning a new workstation using a Jenkins 
-    job to do the provisioning. After it was written, it was realized that 
+    The following is the original text for provisioning a new workstation using a Jenkins
+    job to do the provisioning. After it was written, it was realized that
     there were connection issues which prevented Jenkins VM from connecting to a new
-    workstation. We don't want to lose the info below at the moment.. 
+    workstation. We don't want to lose the info below at the moment..
 
     ORIGINAL TEXT
 
     To provision a new workstation, your script (or scripts) must do the following:
 
         #. Install the ansible public key in the root user's ``authorized keys`` file.
-           The ansible public key on Jenkins has been copied to the ``dims-keys`` repo so it can 
-           be more easily obtained. It is located in ``dims-keys.git/ansible-pub/id_dsa.pub``, 
+           The ansible public key on Jenkins has been copied to the ``dims-keys`` repo so it can
+           be more easily obtained. It is located in ``dims-keys.git/ansible-pub/id_dsa.pub``,
            using either ``master`` or ``develop`` branch.
         #. Set up networking on the workstation so it is reachable by the Jenkins
            VM.
-        #. Obtain the IP of the workstation 
+        #. Obtain the IP of the workstation
         #. Execute the following command, where ``$IP`` refers to the IP address you obtained
            in the previous step:
 
@@ -630,7 +630,7 @@ The test ran the script:
     propagated to the Jenkins server via our CI process.
 
     The playbooks executed in the script have been tested against a desktop VM. The Jenkins
-    job (and thus the playbooks) has been tested against a machine on our infrastructure: 
+    job (and thus the playbooks) has been tested against a machine on our infrastructure:
     ``u12-dev-ws-1.prisem.washington.edu``
 
     The job can also be run manually via the UI if needed. Go to its URL
@@ -638,7 +638,7 @@ The test ran the script:
     Click on the "Build with Parameters" link, enter the IP or FQDN of the machine and run.
 
     You can view more information about the job's configuration by clicking the ``Configure``
-    link. 
+    link.
 
 ..
 
