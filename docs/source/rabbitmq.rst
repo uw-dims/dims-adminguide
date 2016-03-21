@@ -185,7 +185,7 @@ Figure :ref:`rabbitmqmanagementhome`.
 
 .. _rabbitmqmanagementlogin:
 
-.. figure:: _images/rabbitmq-management-login.png
+.. figure:: images/rabbitmq-management-login.png
    :width: 85%
    :align: center
 
@@ -195,7 +195,7 @@ Figure :ref:`rabbitmqmanagementhome`.
 
 .. _rabbitmqmanagementhome:
 
-.. figure:: _images/rabbitmq-management-home.png
+.. figure:: images/rabbitmq-management-home.png
    :width: 85%
    :align: center
 

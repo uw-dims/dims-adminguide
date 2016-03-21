@@ -326,7 +326,7 @@ If you can connect to the server, you will see Hypriot's page:
 
 .. _hypriottestpage:
 
-.. figure:: _images/hypriot_test_page.png
+.. figure:: images/hypriot_test_page.png
    :alt: Hypriot test page
    :width: 70%
    :align: center

@@ -16,24 +16,44 @@ Initial Inquiry
 
 This section includes the pdf showing the basics of Docker Datacenter. 
 
-.. image:: _images/GettingStarted4.png
-  :target: _images/GettingStarted4.png 
+.. figure:: images/GettingStarted4.png
+   :width: 90%
+   :align: center
+
+   Basics of Docker Datacenter pdf.
+
+..
 
 :download:`pdf <../UW.DockerProposal3.2.16.pdf>`
 
 This pdf was sent along with the response to our initial inquiry to 
 Docker about evaluating Docker Datcenter on 3/2/16.
 
-.. image:: _images/GettingStarted1.png
-  :target: _images/GettingStarted1.png 
-.. image:: _images/GettingStarted2.png
-  :target: _images/GettingStarted2.png 
+.. figure:: images/GettingStarted1.png
+   :width: 90%
+   :align: center
+
+   Image 1 of email.
+
+..
+
+.. figure:: images/GettingStarted2.png
+   :width: 90%
+   :align: center
+
+   Image 2 of email
+
+..
 
 Jeremy also set up a call with other Docker engineers on 3/2/16.
 
-.. image:: _images/GettingStarted3.png
-  :target: _images/GettingStarted3.png 
+.. figure:: images/GettingStarted3.png
+   :width: 90%
+   :align: center
 
+   Email re: call with Docker engineers.
+
+..
 
 .. _DTR:
 
@@ -43,8 +63,13 @@ Docker Trusted Repository Issues
 This section documents issues Megan was having when trying to set up a 
 `Docker Trusted Registry`_ as part of a local Docker Datacenter.
 
-.. image:: _images/DTRissues.png
-  :target: _images/DTRissues.png
+.. figure:: images/DTRissues.png
+   :width: 90%
+   :align: center
+
+   DTR issues.
+
+..
 
 .. _Docker Trusted Registry: https://www.docker.com/products/docker-trusted-registry
 
