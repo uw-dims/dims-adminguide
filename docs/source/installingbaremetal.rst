@@ -142,7 +142,7 @@ drive.
 ..
 
 
-.. figure:: images/GParted.png
+.. figure:: _images/GParted.png
    :width: 85%
    :align: center
 
@@ -150,7 +150,7 @@ drive.
 
 ..
 
-.. figure:: images/Make_Startup_Disk.png
+.. figure:: _images/Make_Startup_Disk.png
    :width: 85%
    :align: center
 
