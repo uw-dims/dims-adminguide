@@ -1,12 +1,21 @@
 .. _installingbaremetal:
 
-Installation of Workstations and Collectors
-===========================================
+Installation of "Bare-metal" Workstations and Collectors
+========================================================
 
-This section describes installation of developer workstations
-and collector devices, both of which are customized Linux
-operating system installs followed by installation of packages
-and configuration using Ansible.
+This section describes installation of core Virtual Machine
+hypervisor servers, developer workstations, or collector
+devices on physical hardware. The initial operating system
+installation is handled using operating system installation
+media along with Kickstart auto-installation, followed by
+a second-stage pre-configuration step, and lastly by
+installation of required packages and configuration using
+Ansible.
+
+A similar process is used to create Virtual Machines, though
+using Packer instead of stock OS installation ISO media plus
+Kickstart.  This is covered in the :ref:`dimspacker:lifecycle`
+section of the :ref:`dimspacker:dimspacker` document.
 
 .. _setupdevlaptop:
 
@@ -112,7 +121,7 @@ instructions for setting environment variables and installing ``dims-ci-utils``.
 .. _prepareinstallusb:
 
 Preparation of Ubuntu installation USB drive
-""""""""""""""""""""""""""""""""""""""""""""
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 This section describes the manual steps used to create a two-partition
 8GB Ubuntu installation USB drive. The following section describes
@@ -168,7 +177,27 @@ drive.
 
 #. Download copy of DIMS Ubuntu 14.04 compressed install USB drive image.
 
-#. 
+#. Use the Ubuntu **Startup Disk Creator** to write the Ubuntu Desktop
+   amd64 install ISO image to the ``DIMSINSTALL`` partition on the
+   USB drive.
+
+.. note::
+
+    If you have to re-create the ``DIMSINSTALL`` partition with the
+    Startup Disk Creator, it will erase the entire partition (which
+    removes the label). To manually change the label, use GNU's GParted
+    Partition Editor as described in the Ubuntu `RenameUSBDrive`_ page.
+
+..
+
+.. _RenameUSBDrive: https://help.ubuntu.com/community/RenameUSBDrive
+
+.. TODO(dittrich): Stopped here - finish these instructions
+.. todo::
+
+    Stopped here. Finish these instructions...
+
+..
 
 .. _cloningdimsinstallusb:
 
@@ -266,10 +295,55 @@ On the control machine:
 
 On the target machine:
 
-    #. Set up the networking of the target so it is accessible by the control. 
-    #. Obtain the IP address (``$IP``) of the target.
-    #. Copy the contents of ``$PUBKEY`` on the control to the file on
-       the target at ``/home/$REMOTEUSER/.ssh/authorized_keys``
+    #. For initial install, must have a wired ethernet connection.
+       Preferably, one that is accessible from the internet (for Ansible
+       configuration step).
+
+    #. Install OS from USB thumb drive. (Second phase of install is done by
+       remotely downloaded script.)
+
+    #. From a control system, run the ``dims.ansible-playbooks`` script with the
+       name of the laptop.  This may have to be done by someone else who has a
+       fully-configured DIMS system to act as the Ansible control host.
+
+    #. Log into the ``ansible`` account using the password generated for your
+       laptop. (Keep this password secure.)
+
+    #. Create a password for your personal account.
+
+    #. Copy your DIMS private SSH key into the ``~/.ssh/`` directory. This is
+       required for access to Git repositories.
+
+       .. todo::
+
+          [FIX: copy required Git repos to USB drive, then install them in
+          the ansible account, so they are available for use for local
+          configuration.]
+
+       ..
+
+    #. Open a Terminal window. You should see something like the following:
+
+       .. code-block:: none
+
+           [+++] DIMS shell initialization
+           [+++] Sourcing /opt/dims/etc/bashrc.dims.d/bashrc.dims.virtualenv ...
+           [+++] Activating DIMS virtual environment (dimsenv) [ansible-playbooks v1.2.63]
+           [+++] (Create file /Users/dittrich/.DIMS_NO_DIMSENV_ACTIVATE to disable)
+           [+++] Virtual environment 'dimsenv' activated [ansible-playbooks v1.2.63]
+
+       ..
+
+    #. Run the command ``dims.git.syncrepos`` to download the full set of Git
+       source repositories for the DIMS project.  Use this same command on a
+       regular basis to keep Git repositories up to date (especially before
+       starting to make code changes that you want to push, as it decreases
+       the chance you will have a conflict that requires manually merging.)
+
+
+    #. Manualy load the Broadcom WiFi interface driver using "Additional Drivers"
+       on the Dell laptops purchased for DIMS development.
+
 
 On the control machine:
 
