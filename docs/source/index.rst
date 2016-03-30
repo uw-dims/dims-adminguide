@@ -31,6 +31,7 @@ administration of DIMS components from an administrator's perspective.
    introduction
    referenceddocs
    installingbaremetal
+   installingvirtualmachines
    installation
    rabbitmq
    rpidocker
