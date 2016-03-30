@@ -32,7 +32,7 @@ administration of DIMS components from an administrator's perspective.
    referenceddocs
    installingbaremetal
    installingvirtualmachines
-   installation
+   installingdimsinstance
    rabbitmq
    rpidocker
    dockerdatacenter

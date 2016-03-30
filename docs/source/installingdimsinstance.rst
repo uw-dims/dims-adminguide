@@ -1,7 +1,7 @@
 .. _installation:
 
-Installation of a DIMS Instance
-===============================
+Installation of a Complete DIMS Instance
+========================================
 
 The Distributred Incident Management System (DIMS) is a system comprised of
 many sub-systems. That is to say, there are many inter-related and
