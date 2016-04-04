@@ -1,16 +1,17 @@
 .. _installingbaremetal:
 
-Installation of "Bare-metal" Workstations and Collectors
-========================================================
+Installation of DIMS Components on "Bare-metal"
+===============================================
 
-This section describes installation of core Virtual Machine
-hypervisor servers, developer workstations, or collector
-devices on physical hardware. The initial operating system
-installation is handled using operating system installation
-media along with Kickstart auto-installation, followed by
-a second-stage pre-configuration step, and lastly by
-installation of required packages and configuration using
-Ansible.
+This section describes installation of core Virtual Machine hypervisor servers,
+developer workstations, or collector devices on **physical hardware**. Installation
+of DIMS component systems in Virtual Machines is covered in Section
+:ref:`installingvirtualmachines`.
+
+The initial operating system installation is handled using operating system
+installation media along with Kickstart auto-installation, followed by a
+second-stage pre-configuration step, and lastly by installation of required
+packages and configuration using Ansible.
 
 A similar process is used to create Virtual Machines, though
 using Packer instead of stock OS installation ISO media plus
