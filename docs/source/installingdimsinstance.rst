@@ -3,7 +3,7 @@
 Installation of a Complete DIMS Instance
 ========================================
 
-The Distributred Incident Management System (DIMS) is a system comprised of
+The Distributed Incident Management System (DIMS) is a system comprised of
 many sub-systems. That is to say, there are many inter-related and
 inter-dependent services that work together to provide a coherent whole which
 is called a *DIMS instance*. These subsytems may be provided by daemons running

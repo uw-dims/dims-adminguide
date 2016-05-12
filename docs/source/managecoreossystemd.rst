@@ -9,7 +9,7 @@ on a CoreOS system.
 
 CoreOS uses `systemd`_ as both a system and service manager and
 as an init system. The tool `systemctl`_ has many commands 
-which allow a user to look at and control the state of systemd.
+which allow a user to look at and control the state of ``systemd``.
 
 This is by no means an exhaustive list or description of the
 potential of any of the tools described here, merely an overview
@@ -25,7 +25,7 @@ information relevant to DIMS, see :ref:`dimsdockerfiles:debuggingcoreos`.
 State of systemd
 ----------------
 
-There are a few ways to check on the state of systemd, as a whole system.
+There are a few ways to check on the state of ``systemd``, as a whole system.
 
 #. Check all running units and their state on a node at once.
 
@@ -62,7 +62,7 @@ There are a few ways to check on the state of systemd, as a whole system.
 
       If ``docker ps`` seems to "hang", this generally means there is one
       or more Docker containers trying to get started. Just be patient, 
-      and it/they should show up. To check that the Docker daemon is
+      and they should show up. To check that the Docker daemon is
       indeed running, try to run "docker info". It might also hang until
       whatever activating container starts up, but as long as it doesn't
       return immediately with "Cannot connect to the Docker daemon. Is the
@@ -76,8 +76,8 @@ There are a few ways to check on the state of systemd, as a whole system.
 
    .. 
 
-#. systemd logs output to its `journal`_. The journal is queried by a tool called
-   ``journalctl``. To see all journal output of all systemd processes since the
+#. ``systemd`` logs output to its `journal`_. The journal is queried by a tool called
+   ``journalctl``. To see all journal output of all ``systemd`` processes since the
    node was created, run
 
    ``journalctl``
@@ -99,7 +99,7 @@ There are a few ways to check on the state of systemd, as a whole system.
 State of systemd units
 ----------------------
 
-All services run on a node with systemd are referred to as units. You can 
+All services run on a node with ``systemd`` are referred to as units. You can 
 check the state of these units individually.
 
 #. Check the status of a unit and get the tail of its log output.
@@ -114,22 +114,22 @@ check the state of these units individually.
    state as well as from what unit file location a unit is run. Unit
    files can be placed in multiple locations, and they are run according
    to a hierarchy, but the file shown by here (line 3) is the one that
-   systemd actually runs.
+   ``systemd`` actually runs.
 
    This command also shows the status of any commands used in the
-   stopping or starting of a service (i.e., all the ExecStart* or 
-   ExecStop* directives in a unit file). See lines 9, 12, 14, 16. This
-   is particularly useful if you have Exec* directives that could be
+   stopping or starting of a service (i.e., all the ``ExecStart*`` or 
+   ``ExecStop*`` directives in a unit file). See lines 9, 12, 14, 16. This
+   is particularly useful if you have ``Exec*`` directives that could be
    the cause of a unit failure. 
 
-   The command run from the ExecStart directive is shown, starting at
+   The command run from the ``ExecStart`` directive is shown, starting at
    line 20.
 
    Finally, this command gives essentially the tail of the service's
    journal output. As you can see at line 57, a Consul leader was 
    elected!
 
-#. To see the unit file systemd runs, run 
+#. To see the unit file ``systemd`` runs, run 
 
    .. literalinclude:: sysunitcat.txt
       :emphasize-lines: 1, 2, 3, 8, 40
@@ -156,7 +156,7 @@ check the state of these units individually.
 
    ``systemctl edit --full consul.service``
 
-#. systemd unit files have many `directives`_ used to configure the 
+#. ``systemd`` unit files have many `directives`_ used to configure the 
    units. Some of these are set or have defaults that you may not be
    aware of. To see a list of the directives for a given unit and
    what these directives are set to, run
@@ -206,7 +206,7 @@ check the state of these units individually.
 
    .. note::
    
-      The name of the systemd service and the name of the Docker 
+      The name of the ``systemd`` service and the name of the Docker 
       container might NOT be the same. They *can* be the same.
       However, if, as in this example, you name your service
       "foo" so the service is "foo.service", and you name your
