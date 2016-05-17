@@ -21,12 +21,15 @@ Remotely Managing Virtualbox
 
 Virtualbox can be managed remotely using X11 ("X Window System") clients
 like those in `virt tools`_. From a system running an X11 server, you
-can use SSH with 
+can use SSH with:
 
-`How to forward X over SSH from Ubuntu machine?`_
-`Use the virt-manager X11 GUI`_
-`Use virt-install and connect by using a local VNC client`_
-`virt-manager won’t release the mouse when using ssh forwarding from OS X`_
+  * `How to forward X over SSH from Ubuntu machine?`_
+
+  * `Use the virt-manager X11 GUI`_
+
+  * `Use virt-install and connect by using a local VNC client`_
+
+  * `virt-manager won’t release the mouse when using ssh forwarding from OS X`_
 
 .. todo::
 
