@@ -33,6 +33,7 @@ administration of DIMS components from an administrator's perspective.
    installingbaremetal
    installingvirtualmachines
    installingdimsinstance
+   trident
    rabbitmq
    rpidocker
    dockerdatacenter

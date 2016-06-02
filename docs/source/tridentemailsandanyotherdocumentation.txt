@@ -1,0 +1,75 @@
+To: Megan Boggess <mboggess@uw.edu>
+From: Linda Parsons <linda.parsons@nextcentury.com>
+Date: April 13, 2016
+Subject: Trident emails and any other documentation
+
+Hi Megan,
+
+Yes, the new project is fun, and I hope things are going well for you too... 
+There isn't any documentation on Trident other than what they provide at 
+trident.li and on their github pages - have Dave get you access to their repo. 
+I relied on that documentation to do all the Docker and Ansible stuff.
+
+
+The README in the dims-dockerfiles repo is the one that describes what I did. 
+I may have comments in Ansible files as well that are descriptive - I don't 
+have access to the code at the moment. I had the deployment done (or at least 
+a working version to get you started) from build through Ansible deployment of 
+two docker containers... but there is still work to be done and you will need 
+to make the Ansible deployment fit with how you guys are doing things now.
+
+the Postgresql container, and one to actually create the .deb build files to 
+install Trident. The "build-trident" (or "trident-build" - not sure but it has 
+"build" in the name of the directory) has a script that will pull the current 
+source in our git repo (which in turn is from their trident repo - someone needs
+to keep that synchronized) and will create the .deb files and push them to our 
+sources repo. That is so the actual Docker images can be created using them.  
+I made a change to the file that controls the packaging so that it didn't require 
+additional software like nginx, postfix, etc. - this is better for docker since 
+we may not want all the services on all the containers that need this software. 
+For example, to create the database on the postgresql container, you need trident 
+installed as well just so you can run their scripts.  Anyway, the .deb packages 
+don't force the user to install those services, but of course you will install 
+them if you need them. So, I've got nginx and trident on the main trident image. 
+The one thing that needs to be done is to also install and configure postfix on 
+that image. I had been hoping we could use a separate docker container for that, 
+but it would require changes to their source code. So you will need to modify that
+Dockerfile to install and configure postfix.
+
+Maybe you could look through the dims-dockerfile stuff and the Ansible playbooks 
+and then get back to me if you have questions. I could do a quick hangout to answer 
+them.  Also note there are two docker images for the postgresql container - one for 
+the default one that is installed in a new environment, and one to install a copy of 
+our ops-trust database. The second was used to get the trident system up and running 
+on hub.prisem.washington.edu so we could use it and have the Dashboard be able to 
+get data from that database. It was also necessary at the time since there apparently 
+is a bug in a new install and the sysadmin can't create trust groups from within the 
+UI (I have an issue in github for that but no one has responded). However, it cannot 
+be used for new systems.
+
+Another thing that needs to be worked out is how to do the certificates for the 
+machine running the trident docker containers. Also, if you look at the Ansible 
+playbooks, there are commands to start the containers in a development mode and in 
+secure (production) mode.  We are currently using development mode since we don't have 
+the certs - production mode for the docker containers hasn't been tested.
+
+I don't really have any emails to the trident guys... we had talked about emailing 
+Vixie about the bug I mentioned above but I had to leave before that was done. 
+I'm not sure why they haven't responded to the bug report on github.  Anyway, what 
+I knew was from reading through their docs many times and also from what I knew about 
+Postgres databases in general, and then from actually building the system. So I think 
+from reading the Dockerfiles and the Ansible playbooks you will get a good brain dump.
+
+You should be able to build and deploy the trident system locally as long as you 
+have a VM to install it on and a consul cluster running as well (need the consul 
+stuff so the docker containers can talk to each other on the overlay network). 
+Its better to use just the regular postgres-trident docker container for postgres 
+(which creates a new database) - then you'll see the bug I mentioned. It is 
+imperitive that they fix that or let us know what we're doing wrong if anything 
+(I posted a log to the github issue that shows the database errors that are 
+being produced). It will also allow you to be able to test adding postfix to the mix.
+
+Last I looked to they had not fixed the firewall issue that was preventing us from 
+accessing the old ops-trust machines - not sure if that has been fixed yet.
+
+Linda
