@@ -220,7 +220,7 @@ Postfix
 
    The following is a template of ``aliases``:
 
-   .. listeralinclude:: aliases.j2
+   .. literalinclude:: aliases.j2
 
 #. Might have to configure Postfix's master config file at ``/etc/postfix/master.cf``
 
