@@ -18,6 +18,74 @@ features will be covered in a different section.
      :ref:`tbd:tbd`
 ..
 
+.. _ansiblemanagedtrident:
+
+Installing Trident with Ansible
+-------------------------------
+
+Prerequisites
+^^^^^^^^^^^^^
+
+The following items are necessary before installing Trident via
+Ansible:
+
+     * Access to and knowledge of how to use Ansible roles
+       foundational to provisioning DIMS systems. More information
+       about these roles can be found at tbd:tbd.
+
+     * Host(s) provisioned by Ansible roles foundational to 
+       DIMS systems. If using multiple hosts for a Trident
+       instance, they must all be provisioned with these roles.
+
+     * Access to and knowledge of how to use Ansible roles
+       specific to standing up a working Trident instance. More 
+       information about these roles can be found below, and 
+       information about how to provision a host with them can
+       be found at tbd:tbd.
+       
+
+.. TODO(mboggess)
+.. todo::
+
+     Add intersphinx link in the above points to indicate
+     where to find instructions on foundational DIMS Ansible
+     roles and how to provision hosts with those roles.
+     :ref:`tbd:tbd`
+..
+
+Provisioning Process
+^^^^^^^^^^^^^^^^^^^^
+
+The following section outlines the steps needed to
+provision a host to stand up a working Trident instance.
+
+#. Ensure all variables for your deployment are set to
+   the correct values. In particular, ensure any 
+   Trident-Postgres-Nginx-Postfix networking
+   variables are set correctly.
+
+#. Apply the ``postgres-trident`` Ansible role.
+
+#. Apply the ``nginx-trident`` Ansible role.
+
+#. Apply the ``postfix-trident`` Ansible role.
+
+#. Apply the ``trident`` Ansible role.
+
+Once all the roles have been applied, on the nginx host,
+you should be able to browse to the proxy address and see
+the Trident homepage. Instructions about how to actually
+use Trident and set up trust groups, etc. can be found
+at tbd:tbd.
+
+.. TODO(mboggess)
+.. todo::
+
+     Add intersphinx link in the above points to indicate
+     where to find instructions on how to use Trident.
+     :ref:`tbd:tbd`
+..
+
 .. _tridentprerequisites:
 
 Trident Prerequisites
