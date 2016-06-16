@@ -1,9 +1,9 @@
-.. _trident:
+.. _tridentguide:
 
 Trident
 =======
 
-This chapter introduces `Trident`_, a "Tristed Information Exchange
+This chapter introduces `Trident`_, a "Trusted Information Exchange
 Toolkit" that facilitates the formation of trust groups, 
 communication between members of trust groups, among other things.
 This chapter will walk through the installation and configuration 
@@ -86,7 +86,7 @@ Essentially, the following steps would need to occur on the remote target:
        retrieves the debian packages from ``source.prisem.washington.edu`` and then uses
        ``dpkg`` to install them.
 
-       However, in the `Trident documenation`_ section "Quick and Dirty", a command
+       However, in the `Trident documentation`_ section "Quick and Dirty", a command
        ``dpkg -i trident-VERSION.deb`` is given, without any indication anywhere as to what
        ``VERSION`` is.
 
@@ -254,7 +254,7 @@ Postfix
 
 .. note::
 
-    The `Trident documenation`_ gave the information used to configure
+    The `Trident documentation`_ gave the information used to configure
     the ``/etc/aliases`` file and the ``/etc/postfix/virtual`` file, 
     but then just said "Of course do configure the rest of Postfix
     properly." I don't really know what that means, so that's why
@@ -266,7 +266,7 @@ Postfix
 ..
 
 
-.. _tridentinstall
+.. _tridentinstall:
 
 Install Trident
 ---------------
@@ -305,7 +305,7 @@ Now we can install the Trident server and the Trident CLI.
 
    ..
 
-.. _runningtrident
+.. _runningtrident:
 
 Running Trident
 ---------------
