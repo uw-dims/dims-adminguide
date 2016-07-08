@@ -43,6 +43,7 @@ Ansible:
        information about how to provision a host with them can
        be found at tbd:tbd.
        
+     * Latest Trident package
 
 .. TODO(mboggess)
 .. todo::
@@ -52,6 +53,60 @@ Ansible:
      roles and how to provision hosts with those roles.
      :ref:`tbd:tbd`
 ..
+
+Trident Artifact Build Process
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The following section outlines the steps needed to
+obtain/update the Trident source code and build a Debian
+package from it so that artifact is available for
+use by the Ansible role.
+
+#. If you have a copy of the Trident source code, determine
+   which version it is by running
+
+   .. code-block:: none
+
+        $ /usr/sbin/tridentd --version
+
+   ..
+
+#. Compare this with the latest version of Trident source
+   code on GitHub. TBD as to how to actually do this as
+   it's a quite unclear on Trident's GitHub page what
+   version the master branch actually is.
+
+   .. todo::
+
+        Once Trident guys respond to Issue 356, update
+        this section
+
+   ..
+
+#. Update or retrieve source code from GitHub. This may be
+   a ``git clone`` or a ``git pull`` depending on how you
+   are utilizing the Trident source (whether you need it
+   once or if you are forking the repo).
+
+#. Prerequisite packages for building a debian package:
+
+     * dh-golang
+
+     * dh-systemd
+
+     * golang-go
+
+#. In directory of Trident git source, run
+
+   .. code-block:: none
+
+        $ dpkg-buildpackage -b -uc -us
+
+   ..
+
+#. Place debian package wherever your Ansible role retrieves
+   the package from for installation.
+
 
 Provisioning Process
 ^^^^^^^^^^^^^^^^^^^^
@@ -64,11 +119,11 @@ provision a host to stand up a working Trident instance.
    Trident-Postgres-Nginx-Postfix networking
    variables are set correctly.
 
-#. Apply the ``postgres-trident`` Ansible role.
+#. Apply the ``postgresql`` Ansible role.
 
-#. Apply the ``nginx-trident`` Ansible role.
+#. Apply the ``nginx`` Ansible role.
 
-#. Apply the ``postfix-trident`` Ansible role.
+#. Apply the ``postfix`` Ansible role.
 
 #. Apply the ``trident`` Ansible role.
 
