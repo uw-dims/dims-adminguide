@@ -43,7 +43,9 @@ Ansible:
        information about how to provision a host with them can
        be found at tbd:tbd.
        
-     * Latest Trident package
+     * Latest Trident package OR
+
+     * Access to the github.com Trident repo
 
 .. TODO(mboggess)
 .. todo::
@@ -57,10 +59,53 @@ Ansible:
 Trident Artifact Build Process
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+.. note::
+
+     You must have access to the Trident github repo
+     in order to build Debian packages. You must be
+     able to clone the repo.
+
+..
+
 The following section outlines the steps needed to
 obtain/update the Trident source code and build a Debian
 package from it so that artifact is available for
 use by the Ansible role.
+
+#. Prerequisite environment, per Trident documentation
+   on their ``DEV-1.3`` branch:
+
+     * Debian Jessie
+
+#. Prerequisite packages, per Trident documentation
+   on their ``DEV-1.3`` branch:
+
+     * build-essential
+
+     * git
+
+     * pbuilder
+
+#. Additional packages required, not listed in Trident's
+   documentation:
+
+     * dh-systemd
+
+     * golang-go
+
+#. Also, not listed in Trident's "build" requirements list,
+   you must have Go installed. In Trident's "runtime"
+   requirements list, it says version 1.5.1+, so I have
+   downloaded and installed version 1.5.1.
+
+   .. code-block:: none
+
+        $ cd /usr/local
+        $ wget https://storage.googleapis.com/golang/go1.5.1.linux-amd64.tar.gz
+        $ sudo tar -xzf go1.5.5.linux-amd64.tar.gz
+        $ export PATH=$PATH:/usr/local/go/bin
+
+   ..
 
 #. If you have a copy of the Trident source code, determine
    which version it is by running
@@ -72,35 +117,45 @@ use by the Ansible role.
    ..
 
 #. Compare this with the latest version of Trident source
-   code on GitHub. TBD as to how to actually do this as
-   it's a quite unclear on Trident's GitHub page what
-   version the master branch actually is.
+   code on GitHub. This is a little tricky because there
+   is a mismatch of version numbers between the ``debian/changelog``
+   file in the repo and the tags and branch names.
 
-   .. todo::
+   As of 13 Jul 2016, the official latest version is 1.2.0.
 
-        Once Trident guys respond to Issue 356, update
-        this section
-
-   ..
+   Go to the `Trident repo` on the master branch and go to
+   the ``debian/changelog`` file. Here you will see the
+   latest version.
 
 #. Update or retrieve source code from GitHub. This may be
    a ``git clone`` or a ``git pull`` depending on how you
    are utilizing the Trident source (whether you need it
    once or if you are forking the repo).
 
-#. Prerequisite packages for building a debian package:
-
-     * dh-golang
-
-     * dh-systemd
-
-     * golang-go
-
-#. In directory of Trident git source, run
+#. In root directory of Trident git source, build the package:
 
    .. code-block:: none
 
-        $ dpkg-buildpackage -b -uc -us
+       $ dpkg-buildpackage -b -uc -us
+
+   ..
+
+   This will build the binaries one level up from the trident root dir.
+
+   .. note::
+
+       The ``dpkg-buildpackage`` command will prompt you for
+       your github username and password.
+
+   ..
+
+   .. note::
+
+       The ``dpkg-buildpackage`` command runs a script called 
+       ``doc/deps.sh`` which has a plethora for "cannot find
+       package X" errors. This is a known issue, see
+       https://github.com/bapril/trident/issues/371. It still
+       seems to build a usable artifact...
 
    ..
 
@@ -517,3 +572,4 @@ Emails and other non-official documentation
 
 .. _Trident: https://trident.li
 .. _Trident documentation: https://trident.li/doc/
+.. _Trident repo: https://github.com/bapril/trident
