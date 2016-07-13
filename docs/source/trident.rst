@@ -174,7 +174,7 @@ provision a host to stand up a working Trident instance.
    Trident-Postgres-Nginx-Postfix networking
    variables are set correctly.
 
-#. Apply the ``postgresql`` Ansible role.
+#. Apply the ``postgres`` Ansible role.
 
 #. Apply the ``nginx`` Ansible role.
 
