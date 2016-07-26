@@ -61,90 +61,51 @@ For the **target machine**, the following must be true:
 Setting up a DIMS Developer Laptop
 ----------------------------------
 
-.. todo::
+This section describes how to provision a new developer laptop using a custom
+bootable USB installation drive.  Some of the steps are still manual ones, and
+these instructions will be updated as a more script-driven process is created.
+For now, this can serve to help guide the creation of the final process.
 
-    .. attention::
+To acheive a repeatable and consistent process for installing a common base
+operating system (in this case, Ubuntu 14.04 LTS) that is ready to immediately
+be provisioned remotely from an Ansible control node, a customizable Ubuntu
+installation USB drive is used with all of the files necessary to go from a
+fresh computer system to a fully-functional networked host.
 
-       These instructions are work-in-progress notes following the email
-       thread started by Linda on 4/13/2015
-       ``Subject: [dims general] Documentation for provisioning new DIMS developers``.
-       Those, and other details, are found in Section :ref:`dimsciutils:appendices`
-       of :ref:`dimsciutils:dimsciutilities`.
-
-   ..
-
-   See also:
-
-   http://foswiki.prisem.washington.edu/Development/ProvisionNewUsers
-
-   :ref:`dimspacker:vmquickstart`
-
-
-   Maybe we can delete the following notes..
-
-   .. note::
-
-      Our ansible playbooks have been updated so more tools are installed into
-      the ``dimsenv`` virtual environment: ``git``, ``git-extras`` from our
-      GitHub repo, as well as ``hubflow`` and ``mr``.  Therefore we now have
-      playbooks that can fully provision a new developer workstation, except for:
-
-          #. Initial ansible public key so Jenkins job can run Ansible against
-             the new workstation
-          #. User passwords
-          #. User private keys to users' ``$HOME/.ssh`` directories
-          #. Set up VPN
-
-   ..
-
-   .. note::
-
-      The ansible public key on Jenkins has been copied to ``dims-keys`` repo so it can be more easily
-      obtained. It is located in ``dims-keys.git/ansible-pub/id_dsa.pub``, ``master`` or ``develop`` branch.
-
-   ..
-
-..
-
-The following describes how to provision a new developer laptop. Some of the steps are
-still manual ones, and these instructions will be updated as a more script-driven process
-is created. For now, this can serve to help guide the creation of the final process.
+All of the steps for preparing an initial installation USB are given
+below, in the order they need to be performed. Once completed, you
+will have a bootable USB drive and a bit-copy of that drive that
+can be re-used.
 
 .. note::
 
-    These instructions assume knowledge of Ansible. Review Section
-    :ref:`ansibleplaybooks:ansibleintro` of :ref:`ansibleplaybooks:ansibleplaybooks`
-    if necessary.
+    If you already have a bit-copy of one of these installation USB drives,
+    skip to the :ref:`cloningdimsinstallusb` section.
+
+    If you already have a fresh (uncustomized) installation USB disk, skip
+    forward to the :ref:`customizingdimsinstallusb` section.
 
 ..
 
-.. Variables
-.. ~~~~~~~~~
-..
-.. The following variables are referenced in these directions:
-..
-..     * ``$REMOTEUSER`` - User account on target that will be connected to by control
-..       via SSH.
-..
-..     * ``$PRIVKEY`` - Full path on control to temporary SSH private key for provisioning
-..
-..     * ``$PUBKEY`` - Full path on control to temporary SSH public key for provisioning
-..
-..     * ``$IP`` - IP of target (needs to be reachable by control)
+.. .. todo::
+.. 
+..     .. attention::
+.. 
+..        These instructions are work-in-progress notes following the email
+..        thread started by Linda on 4/13/2015
+..        ``Subject: [dims general] Documentation for provisioning new DIMS developers``.
+..        Those, and other details, are found in Section :ref:`dimsciutils:appendices`
+..        of :ref:`dimsciutils:dimsciutilities`.
+.. 
+..    ..
+.. 
+..    See also:
+.. 
+..    http://foswiki.prisem.washington.edu/Development/ProvisionNewUsers
+.. 
+..    :ref:`dimspacker:vmquickstart`
+.. ..
 
-
-To acheive a repeatable and consistent process for installing a common
-base operating system (in this case, Ubuntu 14.04 LTS) that can then be
-immediately provisioned remotely from an Ansible control node, a customizable
-Ubuntu installation USB drive is used with all of the files necessary
-to go from a fresh computer system to a fully-functional networked
-host.
-
-The steps for preparing an initial installation USB are given below.
-If you already have a bit-copy of one of these installation USB drives,
-skip to the :ref:`cloningdimsinstallusb` section, or if you already
-have a custom installation USB, skip forward to the
-:ref:`customizingdimsinstallusb` section.
 
 .. _prepareinstallusb:
 
@@ -172,9 +133,9 @@ drive.
     .. code-block:: none
        :emphasize-lines: 9,11,13,15,17,20,34,35,40
 
-        Usage: ./dims.install.createusb [options] [args]
+        Usage: dims.install.createusb [options] [args]
 
-        Use "./dims.install.createusb --help" to see help on command line options.
+        Use "dims.install.createusb --help" to see help on command line options.
 
         Options:
           -h, --help            show this help message and exit
@@ -219,18 +180,19 @@ drive.
 
 ..
 
+
 Partition USB drive
 ^^^^^^^^^^^^^^^^^^^
 
-If you are starting out with a blank USB drive, you must first partition
-the drive and label it so it is recognizable by DIMS scripts.
+If you are starting out with a blank USB drive, you must first partition the
+drive and label it so it is recognizable by DIMS scripts.  An easy program to
+use for this purpose on Ubuntu is the `Gnome Partition Editor`_ (a.k.a.,
+**GParted**).
 
-An easy program to use for this purpose on Ubuntu is the `Gnome Partition
-Editor`_ (a.k.a., **GParted**).  Figure :ref:`gparted` shows an 8GB USB drive
-partitioned using GParted.  Create two partitions with the primary partition
-(shown here as ``/dev/sdb1``) marked as **bootable**, with a ``FAT32`` file
-system, and labeled ``DIMSINSTALL``.  Make the second partition an ``ext3``
-file system and label it ``DIMSBACKUP``.
+Figure :ref:`gparted` shows an 8GB USB drive partitioned using GParted.  Create
+two partitions with the primary partition (shown here as ``/dev/sdb1``) marked
+as **bootable**, with a ``FAT32`` file system, and labeled ``DIMSINSTALL``.
+Make the second partition an ``ext3`` file system and label it ``DIMSBACKUP``.
 
 .. _Gnome Partition Editor: http://gparted.org/
 
@@ -279,7 +241,6 @@ is mounted as ``/dev/sdb``).
     contents prior to re-installation of the operating system on a system.
     Since the kickstart process automatically partitions the hard drive,
     existing contents would be lost.
-    DIMS development tools.
 
     .. TODO(dittrich): Develop backup script to facilitate re-installation/upgrading OS.
     .. todo::
@@ -293,20 +254,46 @@ is mounted as ``/dev/sdb``).
 Create Ubuntu installation USB
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-After downloading the Ubuntu installation ISO and verifying its integrity using
-the signed SHA256 hash files, write the installation ISO to the partitioned
-USB.  The primary partition (i.e., ``/dev/sdb1``) is where the Ubuntu
-installation ISO image (and ``casper-rw`` file system storage file, where DIMS
-customization files will be stored) will be written.  The second partition does
-not show up because it is not marked as bootable.  Figure :ref:`makestartup`
-shows what the `Ubuntu Startup Disk Creator`_ GTK application will look like at
-this step.
+Installation of Ubuntu on a developer system is performed using the *Server*
+installation image (e.g., ``ubuntu-14.04.4-server-amd64.iso``).
+
+The program
+to use for this purpose is the Ubuntu **Startup Disk Creator**. Run it
+with ``root`` privileges (as they are needed to write the Master Boot
+Record on the USB drive).
+
+.. code-block:: none
+
+    $ sudo usb-creator-gtk &
+
+..
+
+After
+downloading the Ubuntu Server installation ISO and verifying its integrity
+using the signed SHA256 hash files, write the installation ISO to the
+partitioned USB.
+
+The primary partition (i.e., ``/dev/sdb1``) is where the
+Ubuntu installation ISO image (and ``casper-rw`` file system storage file,
+where DIMS customization files will be stored) will be written.  Make sure
+that the option is checked to store files across boots, which will create
+a ``casper-rw`` partition image within the startup disk image.
+
+.. note::
+
+    The second partition does not show up because it is not marked as bootable,
+    though it may be mounted and visible using the File viewer.
+
+..
+
+Figure :ref:`makestartup` shows what the `Ubuntu Startup Disk Creator`_ GTK
+application will look like at this step.
 
 .. _Ubuntu Startup Disk Creator: https://apps.ubuntu.com/cat/applications/precise/usb-creator-gtk/
 
 .. _makestartup:
 
-.. figure:: images/Make_Startup_Disk.png
+.. figure:: images/usb-creator-make.png
    :width: 85%
    :align: center
 
@@ -434,24 +421,8 @@ by inserting files from a common file share into the installation USB.
 ..
 
 In order to make the necessary files available to any of the DIMS developers,
-a share file system is used.
-
-.. note::
-
-    Initially, this was an SSH file system (SSHFS). The SSHFS mount had to be
-    initiated before operations that accessed the shared files, so helper
-    scripts were written that were invoked by Bash shell initialization to
-    ensure the file system was mounted as needed by DIMS scripts.  Team members
-    believed that SSHFS was too slow, so a Network Attached Storage (NAS)
-    server was used to mount NFS partitions to developer workstations and
-    helper scripts re-written.  NFS was then found to be both slow and unstable
-    when used over an OpenVPN tunnel, as well as causing problems when laptops
-    "sleep", preventing ``shutdown`` from completing on the developer laptops,
-    and causing Mac OS X to hang. We have not had time to go back to the SSHFS
-    file system, which despite being a little slow was far more stable and
-    reliable than NFS.
-
-..
+an NFS file share is used. Alternatives remote file sharing protocols include
+SSHFS and SMB.
 
 An environment variable ``CFG`` points to the path to the files used to
 customize the installation ISO. At present, these are in directories with
@@ -548,8 +519,8 @@ of hosts in a single run.  Each DIMS instance being controlled by Ansible
 will thus have a shared key for the Ansible account that, at most, is
 unique to a deployment and/or category.
 
-.. code-block:: none
 
+.. code-block:: none
 
 
 ..
@@ -560,5 +531,13 @@ unique to a deployment and/or category.
 .. todo::
 
     Stopped here. Finish these instructions...
+
+    * Force the IP address for the initial ``dims.ansible-playbooks`` run.
+      (Add an ``--ip-address`` option to keep from forcing user to write to
+      the ``inventory/inventory`` file just to make the initial connection.)
+
+    * Set up the user account. (Add a task playbook to do this, installing
+      user account, SSH key, and creating initial Python virtualenv clone
+      in user's account.)
 
 ..
