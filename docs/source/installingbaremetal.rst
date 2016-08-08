@@ -152,7 +152,7 @@ drive.
 
 .. note::
 
-    Start out by studying the ``--help`` output of ``dims.intsall.createusb``
+    Start out by studying the ``--help`` output of ``dims.install.createusb``
     to understand the defaults it uses (shown by the highlighted lines in the
     following code block). These defaults are hard-coded into the program
     and should be updated when new Ubuntu install ISO images are used.
