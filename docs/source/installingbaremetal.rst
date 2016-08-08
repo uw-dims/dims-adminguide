@@ -106,6 +106,35 @@ can be re-used.
 ..    :ref:`dimspacker:vmquickstart`
 .. ..
 
+.. note::
+
+    The DIMS project purchased a number of Dell Precision M4800 laptops for
+    use for development and demonstration purposes. These laptops require the
+    use of proprietary drivers for the Broadcom Wireless NIC and NVIDIA
+    graphics controller. The specific models can be identified using ``lspci``:
+
+    .. code-block:: none
+
+        $ lspci  | grep -i Broadcom
+        03:00.0 Network controller: Broadcom Corporation BCM4352 802.11ac Wireless Network Adapter (rev 03)
+        $ lspci | grep VGA
+        01:00.0 VGA compatible controller: NVIDIA Corporation GK107GLM [Quadro K1100M] (rev a1)
+
+    ..
+
+    These drivers can be installed manually using the Ubuntu *Additional
+    Drivers* app, and there is prototype code in the Ubuntu post-install script
+    designed to automate this task.
+
+    .. _additionaldrivers:
+
+    .. figure:: images/additional-drivers.png
+       :width: 85%
+       :align: center
+
+       Additional Drivers from working laptop
+
+..
 
 .. _prepareinstallusb:
 
