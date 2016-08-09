@@ -115,16 +115,15 @@ can be re-used.
 
     .. code-block:: none
 
-        $ lspci  | grep -i Broadcom
-        03:00.0 Network controller: Broadcom Corporation BCM4352 802.11ac Wireless Network Adapter (rev 03)
+        $ lspci -knn | grep -i Broadcom
+        03:00.0 Network controller [0280]: Broadcom Corporation BCM4352 802.11ac Wireless Network Adapter [14e4:43b1] (rev 03)
         $ lspci | grep VGA
         01:00.0 VGA compatible controller: NVIDIA Corporation GK107GLM [Quadro K1100M] (rev a1)
 
     ..
 
     These drivers can be installed manually using the Ubuntu *Additional
-    Drivers* app, and there is prototype code in the Ubuntu post-install script
-    designed to automate this task.
+    Drivers* app as seen in Figure :ref:`additionaldrivers`.
 
     .. _additionaldrivers:
 
@@ -134,7 +133,25 @@ can be re-used.
 
        Additional Drivers from working laptop
 
+    ..
+
+    There is prototype code in the Ubuntu post-install script
+    designed to automate this task based on information from `How can I install
+    Broadcom Wireless Adapter BCM4352 802.11ac PCID [14e4:43b1] (rev 03) on
+    fresh install of Ubuntu 14.10 (Utopic Unicorn)?`_, which is
+    essentially:
+
+    .. code-block:: none
+
+       $ sudo apt-get update
+       $ sudo apt-get install bcmwl-kernel-source
+       $ sudo modprobe wl
+
+    ..
+
 ..
+
+.. _How can I install Broadcom Wireless Adapter BCM4352 802.11ac PCID [14e4\:43b1] (rev 03) on fresh install of Ubuntu 14.10 (Utopic Unicorn)?: http://askubuntu.com/questions/590442/how-can-i-install-broadcom-wireless-adapter-bcm4352-802-11ac-pcid-14e443b1-r
 
 .. _prepareinstallusb:
 
