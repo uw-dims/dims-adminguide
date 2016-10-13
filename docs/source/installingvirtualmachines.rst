@@ -236,3 +236,62 @@ Follow these steps to build the 3 CoreOS VMs and the 3 Debian VMs.
 
    ..
 
+Run Directory Helper Makefile Targets
+-------------------------------------
+
+Beyond the steps outlined in the section above, there are many other
+``make`` helpers in the VM run directory.
+
+.. code-block:: none
+
+    [dimsenv] mboggess@dimsdev2:/vm/run/red () $ make help
+    /vm/run/red
+    [Using Makefile.dims.global v1.7.1 rev ]
+    ---------------------------------------------------------------------------
+    Usage: make [something]
+    
+    Where "something" is one of the targets listed in the sections below.
+    
+    
+    ----- Targets from Makefile -----
+    
+    show - show all variables used with this Makefile
+    NOTE: all of the following are done with timing and with
+          output saved to a file named 'make-DATESTRING.txt'
+    
+    up - Do 'vagrant up --no-provision'
+    reboot - Do 'vagrant halt && vagrant up --no-provision'
+    halt - halt vagrant cluster
+    update-box - update the CoreOS Vagrant box file
+    provision - Time and record 'vagrant provision'
+    reprovision-remote - Update ansible-playbooks from remote (w/current checked out branch)
+    reprovision-local - Reprovision host via locally rsync-ed ansible-playbooks
+    sync-playbooks - Update ansible-playbooks by rsync from current checked out working directory
+    rebuild - use test.vagrant.factory from packer repo to do 'destroy' and 'build' in one step
+    destroy - Do 'vagrant destroy'
+    clean - Remove unecessary files
+    spotless - Remove all temporary files for this VM.
+    listvms - lists all configured virtual machines (using 'vboxmanage')
+    list - list all running VMs
+    vminfo - See some info about VMs
+    test - Run 'test.sh' with bash -x and redirect output to 'test.out'
+           This is a helper that can be run from the /vagrant
+           directory in the VM. Have it write output to a file
+           that you follow with "tail -F" and you can observe
+           results from the host
+    run-tests: Run test.runner for system level tests
+                             This will be like at the end of running
+                             the Ansible provisioner, but at will.
+     @echo 
+    ----- Targets from /opt/dims/etc/Makefile.dims.global -----
+    
+    help - Show this help information (usually the default rule)
+    
+    dimsdefaults - show default variables included from Makefile.dims.global
+    print-SOMETHING - prints the value of variable "SOMETHING"
+    version - show the Git revision for this repo
+    envcheck - perform checks of requirements for DIMS development
+    
+    ---------------------------------------------------------------------------
+
+..
