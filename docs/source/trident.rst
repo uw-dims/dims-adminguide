@@ -303,12 +303,14 @@ Essentially, the following steps would need to occur on the remote target:
    The following is a template of ``trident.conf``:
    
    .. literalinclude:: trident-trident.conf.j2
+      :language: jinja
 
 #. Properly configure the postgres ``pg_hba.conf`` file (location variable)
 
    The following is a template of ``pg_hba.conf``:
    
    .. literalinclude:: pg_hba.conf.j2
+      :language: jinja
 
 #. Ensure reachability of the database port defined in ``/etc/trident/trident.conf``
 
@@ -337,6 +339,7 @@ Nginx Webserver
    for a *production* system:
    
    .. literalinclude:: nginx-trident-production.conf.j2
+      :language: none
 
    .. TODO(mboggess)
    .. todo::
@@ -348,6 +351,7 @@ Nginx Webserver
    for a *development* system:
    
    .. literalinclude:: nginx-trident-development.conf.j2
+      :language: none
 
    .. note::
 
@@ -361,12 +365,14 @@ Nginx Webserver
    The following is a template of ``trident-upstream.inc``:
    
    .. literalinclude:: trident-upstream.inc.j2
+      :language: none
 
 #. Properly configure the Trident server at ``/etc/trident/nginx/trident-server.inc``
 
    The following is an example of ``trident-server.inc``:
    
    .. literalinclude:: trident-server.inc
+      :language: none
 
    .. TODO(mboggess)
    .. todo::
@@ -393,18 +399,21 @@ Postfix
    The following is a template of ``main.cf``:
    
    .. literalinclude:: postfix-main.cf.j2
+      :language: none
 
 #. Properly configure ``/etc/aliases``
 
    The following is a template of ``aliases``:
 
    .. literalinclude:: aliases.j2
+      :language: none
 
 #. Might have to configure Postfix's master config file at ``/etc/postfix/master.cf``
 
    The following is an example of ``master.cf``:
    
    .. literalinclude:: postfix-master.cf
+      :language: none
 
    .. TODO(mboggess)
    .. todo::
@@ -418,6 +427,7 @@ Postfix
    The following is a template of ``virtual``:
    
    .. literalinclude:: postfix-virtual.j2
+      :language: none
 
    .. TODO(mboggess)
    .. todo::
@@ -475,6 +485,7 @@ Now we can install the Trident server and the Trident CLI.
    The following is an example of ``/etc/default/trident``:
    
    .. literalinclude:: trident-default
+      :language: bash
 
    .. TODO(mboggess)
    .. todo::
@@ -1124,6 +1135,7 @@ Emails and other non-official documentation
 * Email from Linda in response to Megan asking for any additional documentation.
 
 .. literalinclude:: tridentemailsandanyotherdocumentation.txt
+   :language: none
 
 * There is an Ansible role called ``trident-docker-deploy`` located in
   ``$GIT/ansible-playbooks/roles``. This roles creates a volume container to
