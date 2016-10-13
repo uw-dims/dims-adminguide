@@ -18,9 +18,9 @@ includes the following systems:
 * red.devops.local (Ubuntu Trusty)
 * yellow.devops.local (Debian Jessie)
 * blue16.devops.local (Ubuntu Xenial)
-* core-01.devops.local (CoreOS 1185.1.0)
-* core-02.devops.local (CoreOS 1185.1.0)
-* core-03.devops.local (CoreOS 1185.1.0)
+* core-01.devops.local (CoreOS 1164.1.0)
+* core-02.devops.local (CoreOS 1164.1.0)
+* core-03.devops.local (CoreOS 1164.1.0)
 
 This list will be updated as the group changes.
 
@@ -95,7 +95,7 @@ need access to it in order to retrieve these files.
 * Ubuntu 14.04.4 desktop iso download: $NAS/share/isos/ubuntu-14.04.4-desktop-amd64.iso
 * Ubuntu 16.04.1 server iso download: $NAS/share/isos/ubuntu-16.04.1-server-amd64.iso
 * Debian Jessie 8.6.0 iso download: $NAS/share/isos/debian-8.5.0-amd64-netinst.iso
-* CoreOS 1185.1.0 box file download: $NAS/share/boxes/coreos_production_vagrant.box
+* CoreOS 1164.1.0 box file download: $NAS/share/boxes/coreos_production_vagrant.box
 
 You can download most of these files from the web, but we did make some changes to
 the Ubuntu 16.04.1 server iso itself, so you really need the iso from the NAS.
