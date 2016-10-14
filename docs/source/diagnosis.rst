@@ -363,9 +363,9 @@ including the ones on the developer laptops. When using this tool as a daemon,
 it can give advanced warning of disk degradation and failure. (For more
 information, see `smartmontools home`_.
 
-The package will be added to the ``dimsenv`` virtual environment, and the
-rest of this section will be devoted to a brief introduction for how to
-use the tool. 
+The package will be added to the list of base packages installed on all
+DIMS systems, and the rest of this section will be devoted to a brief
+introduction for how to use the tool. 
 
 .. note::
 
