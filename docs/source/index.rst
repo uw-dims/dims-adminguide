@@ -16,6 +16,7 @@ administration of DIMS components from an administrator's perspective.
 
    introduction
    referenceddocs
+   onboarding
    installingbaremetal
    installingvirtualmachines
    installingdimsinstance
