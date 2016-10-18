@@ -88,21 +88,21 @@ can be re-used.
 ..
 
 .. .. todo::
-.. 
+..
 ..     .. attention::
-.. 
+..
 ..        These instructions are work-in-progress notes following the email
 ..        thread started by Linda on 4/13/2015
 ..        ``Subject: [dims general] Documentation for provisioning new DIMS developers``.
 ..        Those, and other details, are found in Section :ref:`dimsciutils:appendices`
 ..        of :ref:`dimsciutils:dimsciutilities`.
-.. 
+..
 ..    ..
-.. 
+..
 ..    See also:
-.. 
+..
 ..    http://foswiki.prisem.washington.edu/Development/ProvisionNewUsers
-.. 
+..
 ..    :ref:`dimspacker:vmquickstart`
 .. ..
 
