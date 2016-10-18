@@ -18,6 +18,15 @@ import os
 import shlex
 from sphinx import __version__
 
+# ReadTheDocs configuration setting:
+
+on_rtd = os.environ.get('READTHEDOCS') == "True"
+if on_rtd:
+    html_theme = 'default'
+else:
+    html_theme = 'sphinx_rtd_theme'
+
+
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
@@ -34,13 +43,11 @@ from sphinx import __version__
 extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.doctest',
-    'sphinx.ext.todo',
     'sphinx.ext.intersphinx',
+    'sphinx.ext.todo',
     'sphinx.ext.graphviz',
     'sphinx.ext.ifconfig',
 ]
-
-todo_include_todos = True
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
@@ -51,15 +58,12 @@ source_suffix = '.rst'
 # The encoding of source files.
 source_encoding = 'utf-8-sig'
 
-# Include todos
-source_include_todos = True
-
 # The master toctree document.
 master_doc = 'index'
 
 # General information about the project.
 project = u'DIMS Administrator Guide'
-copyright = u'2014, 2015 University of Washington'
+copyright = u'2014-2016 University of Washington'
 author = u'Dave Dittrich'
 
 # The version info for the project you're documenting, acts as replacement for
@@ -111,7 +115,11 @@ pygments_style = 'sphinx'
 #keep_warnings = False
 
 # If true, `todo` and `todoList` produce output, else they produce nothing.
-todo_include_todos = True
+
+if not on_rtd and os.environ.get('INCLUDETODOS') == "True":
+    todo_include_todos = True
+else:
+    todo_include_todos = False
 
 # -- Options for HTML output ----------------------------------------------
 
@@ -202,33 +210,38 @@ htmlhelp_basename = 'DIMSAdminGuide'
 # -- Options for LaTeX output ---------------------------------------------
 
 latex_elements = {
-# The paper size ('letterpaper' or 'a4paper').
-#'papersize': 'letterpaper',
+    # The paper size ('letterpaper' or 'a4paper').
+    #'papersize': 'letterpaper',
 
-# The font size ('10pt', '11pt' or '12pt').
-#'pointsize': '10pt',
+    # The font size ('10pt', '11pt' or '12pt').
+    #'pointsize': '10pt',
 
-# Additional stuff for the LaTeX preamble.
-#
-# The following comes from
-# https://github.com/rtfd/readthedocs.org/issues/416
-#
-'preamble': "".join((
-    '\usepackage{pifont}',                # To get Dingbats
-    '\DeclareUnicodeCharacter{00A0}{ }',  # NO-BREAK SPACE
-    '\DeclareUnicodeCharacter{251C}{+}',  # BOX DRAWINGS LIGHT VERTICAL AND RIGHT
-    '\DeclareUnicodeCharacter{2514}{+}',  # BOX DRAWINGS LIGHT UP AND RIGHT
-    '\DeclareUnicodeCharacter{25CF}{\ding{108}}',  # Dingbat 108 (black circle)
-    '\DeclareUnicodeCharacter{1F37A}{ }', # Beer emoji (just turn into space for now)
-)),
+    # Additional stuff for the LaTeX preamble.
+    #
+    # The following comes from
+    # https://github.com/rtfd/readthedocs.org/issues/416
+    # and http://www.utf8-chartable.de/unicode-utf8-table.pl?start=9472&names=-
+    #
+    'preamble': "".join((
+        '\usepackage{pifont}',                # To get Dingbats
+        '\DeclareUnicodeCharacter{00A0}{ }',  # NO-BREAK SPACE
+        '\DeclareUnicodeCharacter{2014}{\dash}', # LONG DASH
+        '\DeclareUnicodeCharacter{251C}{+}',  # BOX DRAWINGS LIGHT VERTICAL AND RIGHT
+        '\DeclareUnicodeCharacter{2514}{+}',  # BOX DRAWINGS LIGHT UP AND RIGHT
+        '\DeclareUnicodeCharacter{1F37A}{ }', # Beer emoji (just turn into space for now)
+        '\DeclareUnicodeCharacter{2588}{\textblock}',  # SOLID TEXT BLOCK
+        '\DeclareUnicodeCharacter{25CF}{\ding{108}}',  # Dingbat 108 (black circle)
+    )),
 }
 
 # Grouping the document tree into LaTeX files. List of tuples
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-  ('index', 'DIMSAdminGuide.tex', u'DIMS Administrator Guide',
-   u'David Dittrich', 'manual'),
+  ('index',
+   'DIMSAdminGuide.tex', u'DIMS Administrator Guide',
+   u'David Dittrich',
+   'manual'),
 ]
 
 # The name of an image file (relative to this directory) to place at the top of
@@ -257,8 +270,11 @@ latex_logo = 'UW-logo.png'
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    ('index', 'dimsciutilities', u'DIMS Administrator Guide',
-     [u'David Dittrich'], 1)
+    ('index',
+     'dimsciutilities',
+     u'DIMS Administrator Guide',
+     [u'David Dittrich'],
+     1)
 ]
 
 # If true, show URL addresses after external links.
@@ -271,8 +287,12 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-  ('index', 'DIMSAdminGuide', u'DIMS Administrator Guide',
-   u'David Dittrich', 'DIMSAdminGuide', 'Guide for system administration of DIMS components.',
+  ('index',
+   'DIMSAdminGuide',
+   u'DIMS Administrator Guide',
+   u'David Dittrich',
+   'DIMSAdminGuide',
+   'Guide for system administration of DIMS components.',
    'Miscellaneous'),
 ]
 
@@ -288,6 +308,8 @@ texinfo_documents = [
 # If true, do not generate a @detailmenu in the "Top" node's menu.
 #texinfo_no_detailmenu = False
 
+git_branch = os.environ.get('GITBRANCH', "develop")
+git_tag = os.environ.get('GITTAG', "latest")
 
 # -- Options for Epub output ----------------------------------------------
 
@@ -295,7 +317,7 @@ texinfo_documents = [
 epub_title = u'DIMS Administrator Guide'
 epub_author = u'David Dittrich'
 epub_publisher = u'David Dittrich'
-epub_copyright = u'2014, 2015 David Dittrich'
+epub_copyright = u'2014-2016 David Dittrich'
 
 # The basename for the epub file. It defaults to the project name.
 #epub_basename = u'DIMS Administrator Guide'
@@ -358,25 +380,40 @@ epub_exclude_files = ['search.html']
 # If false, no index is generated.
 #epub_use_index = True
 
-os.environ['GITBRANCH'] = "develop"
+# The following allows selection of which URL base is used
+# to find intersphinx inventory files (i.e., the location where
+# linked HTML docs will be found).
 
 if os.environ.get('DOCSURL') is None:
-    #os.environ['DOCSURL'] = "file://{}".format(os.environ.get('GIT'))
-    os.environ['DOCSURL'] = "http://u12-dev-svr-1.prisem.washington.edu:8080/docs/{}/html".format(
-        os.environ['GITBRANCH'])
+    if not on_rtd:
+        os.environ['DOCSURL'] = "http://demo.devops.develop:8080/docs/{}/html".format(git_branch)
 
 intersphinx_cache_limit = -1   # days to keep the cached inventories (0 == forever)
-intersphinx_mapping = {
-        'dimsdevguide': ("{}/dims-devguide".format(os.environ['DOCSURL']), None),
-        'dimsasbuilt': ("{}/dims-asbuilt".format(os.environ['DOCSURL']), None),
-        'dimsparselogs': ("{}/dims-parselogs".format(os.environ['DOCSURL']),None),
+if on_rtd:
+    intersphinx_mapping = {
+        'dimsdevguide': ("https://dims-devguide.readthedocs.io/en/{0}".format(git_tag), None),
+        'dimsasbuilt': ("https://dims-asbuilt.readthedocs.io/en/{0}".format(git_tag), None),
+        'dimsocd': ("https://dims-ocd.readthedocs.io/en/{0}".format(git_tag), None),
+        'dimsad': ("https://dims-ad.readthedocs.io/en/{0}".format(git_tag), None),
+        'dimssr': ("https://dims-sr.resrthedocs.io/en/{0}".format(git_tag), None),
+        'dimstp': ("https://dims-tp.readthedocs.io/en/{0}".format(git_tag), None),
+        'dittrich': ('https://staff.washington.edu/dittrich/home/', None)
+    }
+else:
+    intersphinx_mapping = {
+        'dimsdevguide': ("{}/dims-dimsdevguide".format(os.environ['DOCSURL']), None),
+        'dimsasbuilt': ("{}/dims-dimsasbuilt".format(os.environ['DOCSURL']), None),
+        'dimsocd': ("{}/dims-ocd".format(os.environ['DOCSURL']), None),
         'dimsad': ("{}/dims-ad".format(os.environ['DOCSURL']), None),
         'dimssr': ("{}/dims-sr".format(os.environ['DOCSURL']), None),
-        'dimsocd': ("{}/dims-ocd".format(os.environ['DOCSURL']), None),
-        'dimsdockerfiles': ("{}/dims-dockerfiles".format(os.environ['DOCSURL']), None),
-        'dimsciutils': ("{}/dims-ci-utils".format(os.environ['DOCSURL']), None),
-        'ansibleplaybooks': ("{}/ansible-playbooks".format(os.environ['DOCSURL']),None),
-        'ansibleinventory': ("{}/ansible-inventory".format(os.environ['DOCSURL']),None),
-        'dimspacker': ("{}/dims-packer".format(os.environ['DOCSURL']),None),
+        'dimstp': ("{}/dims-tp".format(os.environ['DOCSURL']), None),
+        'dimspacker': ("{}/dims-packer".format(os.environ['DOCSURL']), None),
         'dittrich': ('https://staff.washington.edu/dittrich/home/', None)
-}
+    }
+
+# TODO(dittrich): Not adding these yet, but may need to.
+#intersphinx_mapping = {
+#        'dimsparselogs': ("{}/dims-parselogs".format(os.environ['DOCSURL']),None),
+#        'dimsciutils': ("{}/dims-ci-utils".format(os.environ['DOCSURL']), None),
+#        'ansibleplaybooks': ("{}/ansible-playbooks".format(os.environ['DOCSURL']),None),
+#        'ansibleinventory': ("{}/ansible-inventory".format(os.environ['DOCSURL']),None),
