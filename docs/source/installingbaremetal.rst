@@ -337,6 +337,41 @@ application will look like at this step.
     removes the label). To manually change the label, use GNU's GParted
     Partition Editor as described in the Ubuntu `RenameUSBDrive`_ page.
 
+    First verify the device name (so you don't accidentally harm another
+    auto-mounted device), then use ``mlabel`` as seen here:
+
+    .. code-block:: none
+       :emphasize-lines: 3
+
+        $ mount | grep '^/dev/sd'
+        /dev/sda1 on /boot type ext3 (rw)
+        /dev/sdb1 on /media/dittrich/917D-FA28 type vfat (rw,nosuid,nodev,uid=1004,gid=1004,shortname=mixed,dmask=0077,utf8=1,showexec,flush,uhelper=udisks2)
+        /dev/sdb2 on /media/dittrich/DIMSBACKUP type ext3 (rw,nosuid,nodev,uhelper=udisks2)
+        $ sudo mlabel -i /dev/sdb1 ::DIMSINSTALL
+
+    ..
+
+    Now unmount and re-mount the device, and verify that the label did in
+    fact get changed.
+
+    .. code-block:: none
+       :emphasize-lines: 3
+
+        $ dims.install.createusb --unmount-usb
+        $ dims.install.createusb --mount-usb
+        $ mount | grep '^/dev/sd'
+        /dev/sda1 on /boot type ext3 (rw)
+        /dev/sdb1 on /media/dittrich/DIMSINSTALL type vfat (rw,nosuid,nodev,uid=1004,gid=1004,shortname=mixed,dmask=0077,utf8=1,showexec,flush,uhelper=udisks2)
+        /dev/sdb2 on /media/dittrich/DIMSBACKUP type ext3 (rw,nosuid,nodev,uhelper=udisks2)
+
+    ..
+
+    .. todo::
+
+        Add this feature to make this easier.
+
+    ..
+
 ..
 
 .. _RenameUSBDrive: https://help.ubuntu.com/community/RenameUSBDrive
