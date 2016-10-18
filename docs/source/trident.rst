@@ -617,7 +617,7 @@ Trident system.
 
  
 User configurations
-~~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^
 
 This section walks through the configuration of a user who has
 sysadmin privileges. There are a couple differences between what a
@@ -796,7 +796,7 @@ or remove an email address.
 ..
 
 Sysadmin configurations
-~~~~~~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^^^^
 
 Sysadmins can set up trust groups, view information about their system, and
 use the Trident command line interface, tcli (or "tickly"), through the web
