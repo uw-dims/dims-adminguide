@@ -3,6 +3,11 @@
 Diagnosing System Problems and Outages
 ======================================
 
+.. _usingdimscli:
+
+Using ``dimscli``
+-----------------
+
 This chapter covers using ``dimscli`` as a distributed
 shell for diagnosing problems throughout a DIMS deployment.
 
@@ -325,4 +330,204 @@ the name with a trailing comma (``,``), as seen here:
    ...
 
 ..
+
+.. _otherdiagnosingtools:
+
+Other Tools for Diagnosing System Problems
+------------------------------------------
+
+.. _smartmontools:
+
+smartmontools
+^^^^^^^^^^^^^
+
+Hardware makes up the physical layer of the DIMS system. Developers are
+currently using Dell Precision M4800 laptops to develop the software
+layers of DIMS.
+
+These laptops have had multiple issues, specifically including not sleeping
+properly and heating up to extreme temperatures, heating up to extreme
+temperatures when not sitting on solid, very well ventilated surfaces, and
+these specific problems have led to malfunctions with the hard drives. At
+least one laptop has completely stopped being able to boot.  Multiple other
+laptops have struggled during the boot up process and have had other problems
+that may indicate a near-term hard drive failure. 
+
+In an effort to turn a black box into less of a black box and to try to see
+ahead of time if there are any indicators that may be pointing to a failure
+before a failure, we are now employing the use of a tool called ``smartmontools``.
+This package comes with two tools -- ``smartctl`` and ``smartd`` -- which
+control and monitor storage systems using the ``Self-Monitoring, Analysis
+and Reporting Technology System (SMART)`` built in to a lot of modern hard drives,
+including the ones on the developer laptops. When using this tool as a daemon,
+it can give advanced warning of disk degradation and failure. (For more
+information, see `smartmontools home`_.
+
+The package will be added to the list of base packages installed on all
+DIMS systems, and the rest of this section will be devoted to a brief
+introduction for how to use the tool. 
+
+.. note::
+
+    These instructions were taken from `ubuntu smartmontools docs`_.
+    If it differs on other Linux flavors (particularly Debian Jessie), new
+    instructions will be added.
+
+..
+
+You will be using the ``smartctl`` utility to manually monitor your drives.
+First, you need to double check that your hard drive is SMART-enabled.
+
+.. code-block:: none
+    :linenos:
+    :emphasize-lines: 18,19 
+
+    [dimsenv] mboggess@dimsdev2:it/dims-adminguide/docs/source (develop*) $ sudo smartctl -i /dev/sda
+    smartctl 6.2 2013-07-26 r3841 [x86_64-linux-4.4.0-42-generic] (local build)
+    Copyright (C) 2002-13, Bruce Allen, Christian Franke, www.smartmontools.org
+    
+    === START OF INFORMATION SECTION ===
+    Model Family:     Seagate Laptop SSHD
+    Device Model:     ST1000LM014-1EJ164
+    Serial Number:    W771CY1P
+    LU WWN Device Id: 5 000c50 089fc94f9
+    Firmware Version: DEMB
+    User Capacity:    1,000,204,886,016 bytes [1.00 TB]
+    Sector Sizes:     512 bytes logical, 4096 bytes physical
+    Rotation Rate:    5400 rpm
+    Device is:        In smartctl database [for details use: -P show]
+    ATA Version is:   ACS-2, ACS-3 T13/2161-D revision 3b
+    SATA Version is:  SATA 3.1, 6.0 Gb/s (current: 6.0 Gb/s)
+    Local Time is:    Fri Oct 14 11:08:25 2016 EDT
+    SMART support is: Available - device has SMART capability.
+    SMART support is: Enabled
+
+..
+
+This output gives you information about the hard drive, including if SMART
+is support and enabled.
+
+In the event that somehow SMART is available but not enabled, run
+
+.. code-block:: none
+
+   sudo smartctl -s on /dev/sda 
+
+..
+
+There are several different types of tests you can run via ``smartctl``. A full
+list is documented in the help/usage output which you can obtain by running
+
+.. code-block:: none
+
+    [dimsenv] mboggess@dimsdev2:it/dims-adminguide/docs/source (develop*) $ smartctl -h
+
+..
+
+To find an estimate of the time it will take to complete the various tests, run
+
+.. code-block:: none
+    :linenos:
+    :emphasize-lines: 13,14,29-34
+
+    [dimsenv] mboggess@dimsdev2:it/dims-adminguide/docs/source (develop*) $ sudo smartctl -c /dev/sda
+    smartctl 6.2 2013-07-26 r3841 [x86_64-linux-4.4.0-42-generic] (local build)
+    Copyright (C) 2002-13, Bruce Allen, Christian Franke, www.smartmontools.org
+    
+    === START OF READ SMART DATA SECTION ===
+    General SMART Values:
+    Offline data collection status:  (0x00) Offline data collection activity
+                                            was never started.
+                                            Auto Offline Data Collection: Disabled.
+    Self-test execution status:      (   0) The previous self-test routine completed
+                                            without error or no self-test has ever 
+                                            been run.
+    Total time to complete Offline 
+    data collection:                (  139) seconds.
+    Offline data collection
+    capabilities:                    (0x73) SMART execute Offline immediate.
+                                            Auto Offline data collection on/off support.
+                                            Suspend Offline collection upon new
+                                            command.
+                                            No Offline surface scan supported.
+                                            Self-test supported.
+                                            Conveyance Self-test supported.
+                                            Selective Self-test supported.
+    SMART capabilities:            (0x0003) Saves SMART data before entering
+                                            power-saving mode.
+                                            Supports SMART auto save timer.
+    Error logging capability:        (0x01) Error logging supported.
+                                            General Purpose Logging supported.
+    Short self-test routine 
+    recommended polling time:        (   2) minutes.
+    Extended self-test routine
+    recommended polling time:        ( 191) minutes.
+    Conveyance self-test routine
+    recommended polling time:        (   3) minutes.
+    SCT capabilities:              (0x10b5) SCT Status supported.
+                                            SCT Feature Control supported.
+                                            SCT Data Table supported.
+
+..
+
+As you can see, the ``long`` test is rather long--191 minutes!
+
+To run the ``long`` test, run
+
+.. code-block:: none
+
+    [dimsenv] mboggess@dimsdev2:it/dims-adminguide/docs/source (develop*) $ sudo smartctl -t long /dev/sda
+    smartctl 6.2 2013-07-26 r3841 [x86_64-linux-4.4.0-42-generic] (local build)
+    Copyright (C) 2002-13, Bruce Allen, Christian Franke, www.smartmontools.org
+    
+    === START OF OFFLINE IMMEDIATE AND SELF-TEST SECTION ===
+    Sending command: "Execute SMART Extended self-test routine immediately in off-line mode".
+    Drive command "Execute SMART Extended self-test routine immediately in off-line mode" successful.
+    Testing has begun.
+    Please wait 191 minutes for test to complete.
+    Test will complete after Fri Oct 14 15:00:32 2016
+    
+    Use smartctl -X to abort test.
+
+..
+
+To abort the test:
+
+.. code-block:: none
+
+    [dimsenv] mboggess@dimsdev2:it/dims-adminguide/docs/source (develop*) $ sudo smartctl -X /dev/sda
+    smartctl 6.2 2013-07-26 r3841 [x86_64-linux-4.4.0-42-generic] (local build)
+    Copyright (C) 2002-13, Bruce Allen, Christian Franke, www.smartmontools.org
+    
+    === START OF OFFLINE IMMEDIATE AND SELF-TEST SECTION ===
+    Sending command: "Abort SMART off-line mode self-test routine".
+    Self-testing aborted!
+
+..
+
+To get test results, for a SATA drive, run
+
+.. code-block:: none
+
+    [dimsenv] mboggess@dimsdev2:it/dims-adminguide/docs/source (develop*) $ sudo smartctl -a -d ata /dev/sda
+
+..
+
+To get test results, for an IDE drive, run
+
+.. code-block:: none
+
+    [dimsenv] mboggess@dimsdev2:it/dims-adminguide/docs/source (develop*) $ sudo smartctl -a /dev/sda
+
+..
+
+Additionally, you can run ``smartmontools`` as a daemon, but for now, that
+will be left for an admin to research and develop on their own. In the future,
+this has potential to be turned into an Ansible role. Documentation from Ubuntu
+on how to use ``smartmontools`` as a daemon can be found in the `daemon subsection`_
+of the Ubuntu ``smartmontools`` documentation.
+
+.. _smartmontools home: https://www.smartmontools.org/
+.. _ubuntu smartmontools docs: https://help.ubuntu.com/community/Smartmontools
+.. _daemon subsection: https://help.ubuntu.com/community/Smartmontools#Advanced:_Running_as_Smartmontools_as_a_Daemon
 
