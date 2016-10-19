@@ -3,8 +3,32 @@
 Onboarding Developers
 =====================
 
-This chapter covers the process for onboarding new developers
-into the DIMS project.
+This chapter covers the process for onboarding new developers to
+provide them access to DevOps components necessary to work on
+elements of a DIMS deployment. In short, developers (and
+system administrators) will need the following:
+
+    * An account in the Trident portal system for access to email
+      lists, etc.
+
+    * A GPG/PGP key pair. The public key will be loaded into the Trident
+      portal so others can access the key and so it can be used for
+      encrypted email.
+
+    * A Google account for OpenID Connect authentication used for
+      single-signon access to internal resources, along with an
+      LDAP database entry that links to this Google account.
+
+    * SSH public/private key pairs allowing access to Git repositories,
+      Ansible control host, DIMS system components, etc.
+
+    * Initial copies of Git repositories used to develop and build
+      a DIMS deployment instance.
+
+
+Once all of these resources have been procured, developers or system
+administrators are ready to work on a DIMS instance.
+
 
 .. _initialaccountsetup:
 
@@ -13,6 +37,15 @@ Initial Account Setup
 
 The first step in adding a new DIMS developer is getting them set up
 with an account on our internal ``ops-trust`` portal instance.
+
+.. note::
+
+    We will transition to using Trident, rather than the old Ops-Trust
+    portal code base initially set up for this project, as soon as
+    we are able. Trident has an internal wiki, so the FosWiki server mentioned
+    here will also be retired.
+
+..
 
 Our FosWiki server has a page that was dedicated to the steps necessary
 for `Provisioning New DIMS Users`_.
@@ -103,7 +136,7 @@ as needed.
 
     See :ref:`dimssr:dimssystemrequirements` sections :ref:`dimssr:accountAccessControls`,
     :ref:`dimssr:diutUserStory5`, and :ref:`dimssr:accountSuspension`, and
-    Jira Epic `DIMS-64`_.
+    JIRA Epic `DIMS-64`_.
 
 ..
 
@@ -458,3 +491,167 @@ Transfer Config Files
       [dimsenv] mboggess@b52:~ () $ exec bash
       
    ..
+
+.. _ldapconfig:
+
+Adding LDAP Entries for Users
+-----------------------------
+
+We have an OpenLDAP server which serves as an authorization backend for our
+LemonLDAP SSO. Authentication is provided by OpenID Connect. It also serves as
+the user directory for JIRA.
+
+.. note::
+
+   You will need an application to be able to edit/add directory information.
+   `Apache Directory Studio`_ is cross platform and recommended. Ideally,
+   the Trident portal would directly feed these records, rather than requiring
+   someone follow the lengthly steps outlined below using a more laborious
+   graphical user interface.
+
+   An Ansible role ``apache-directory-studio`` is used to install this
+   application. Once this role has been applied, you can start the
+   GUI with the following command:
+
+   .. code-block:: none
+
+       $ apache-directory-studio &
+
+   ..
+
+   The first time the program is run, a connection must be configured for
+   the project LDAP server. Follow the instructions in :ref:`apacheDirectoryStudioSetup`
+   to create the initial connection.
+
+   .. attention::
+
+      When starting Adobe Directory Studio from the command line, you *must* add
+      the ``&`` to run the program in the background. Since this is not
+      a terminal program that takes input at the command line, failing to background
+      the process will result in the shell not returning to a command prompt
+      until after you quit the application, which novice Linux users unfamiliar
+      with command shells and background processes will interpret as the terminal
+      window being "hung" or "frozen".
+
+    ..
+
+..
+
+.. _Apache Directory Studio: http://directory.apache.org/studio/
+
+After Adobe Directory Studio has been installed and configured, start the
+application. You should see the initial connection in the list:
+
+.. figure:: images/apache-directory-studio-connectionlist.png
+   :width: 65%
+   :align: center
+
+   Initial LDAP Browser Connection list
+
+..
+
+   #. Click on the connection in the **Connections** list. (If you followed the
+      instructions in :ref:`apacheDirectoryStudioSetup`, the connection you want is
+      labelled ``ldap.devops.develop``.
+
+   #. Click to open **DIT** in the tree.
+
+      .. figure:: images/apache-directory-studio-browser.png
+         :width: 65%
+         :align: center
+
+         DIT for connection ``ldap.devops.develop``
+
+      ..
+
+   #. Click to open **dc=prisem,dc=washington,dc=edu** in the tree.
+
+   #. Click to open **ou=Users** in the tree. The current users will display.
+
+   #. Right-click **ou=Users** to open context menu and click **New** -> **New Entry**.
+
+   #. Select **Use existing entry as template**. Click **Browse** button to
+      open the **ou** and select a member.
+
+   #. Click **Next**.
+
+   #. In the **Object Classes** dialog, do not add any more object classes. Just
+      click **Next**.
+
+      .. figure:: images/apache-directory-studio-objectclasses.png
+         :width: 65%
+         :align: center
+
+         Object Classes (skip)
+
+      ..
+
+   #. In the **Distinguished Name** dialog, replace the template user's name
+      you selected with the new user's name. The **DN** preview should then look like
+      **cn=new_user_name,ou=Users,dc=prisem,dc=washington,dc=edu**.
+
+      .. figure:: images/apache-directory-studio-dn.png
+         :width: 65%
+         :align: center
+
+         Distinguished Name dialog
+
+      ..
+
+   #. Click **Next**.
+
+   #. In the **Attribute Description** dialog (center panel), replace the template
+      values with the values for your new user. Double click
+      each **Valuefield** to edit.
+
+      .. figure:: images/apache-directory-studio-attributes.png
+         :width: 65%
+         :align: center
+
+         Attribute Description dialog
+
+      ..
+
+      .. note::
+
+         Tab to the next field or the value you entered might not be saved.
+
+      ..
+
+      * **sn** - Enter the user's Last name
+      * **displayName** - Enter the user's First and Last name
+      * **mail** - Enter the user's Gmail address using for authenticating with
+        OpenID Connect authentication.
+      * **ssoRoles** - These are used for testing right now (you can leave them as is.)
+      * **uid** - enter the uid in the form **firstname.lastname**
+      * **userPassword** - enter a password. It will be hashed.
+
+   #. Click **Finish**.
+
+   #. Click on the new member and verify the fields. Edit any that were not entered correctly.
+
+Exit the application when your are done and have the user test the authentication
+by going to ``http://jira.prisem.washington.edu/`` and select **Google** in the
+the **OpenID Login** dialog:
+
+      .. figure:: images/jira-login.png
+         :width: 65%
+         :align: center
+
+         JIRA Dashboard Login screen
+
+      ..
+
+.. note::
+
+   Google OpenID requires that the domain name of the system requesting authentication
+   have a valid public DNS name. Even though you can connect to the system from within the
+   VPN/VLAN via a non-public DNS name lookup, the authentication will not work. For this
+   reason, the name ``jira.prisem.washington.edu`` is mapped in the split-horizon DNS
+   mappings.
+
+..
+
+If the user has not recently authenticated to Google, they will be prompted for their
+password and/or second-factor authentication information. Once authenticated, the
+JIRA Dashboard will pop up.
