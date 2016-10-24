@@ -492,10 +492,15 @@ Transfer Config Files
       
    ..
 
+.. _jiraonboarding:
+
+Jira Onboarding
+---------------
+
 .. _ldapconfig:
 
 Adding LDAP Entries for Users
------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 We have an OpenLDAP server which serves as an authorization backend for our
 LemonLDAP SSO. Authentication is provided by OpenID Connect. It also serves as
@@ -655,3 +660,40 @@ the **OpenID Login** dialog:
 If the user has not recently authenticated to Google, they will be prompted for their
 password and/or second-factor authentication information. Once authenticated, the
 JIRA Dashboard will pop up.
+
+Adding Users to Jira Groups
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Actual documentation for this section will be added, but for now, here is
+an email from Linda Parsons, in response to a query by Megan Boggess asking
+how a new DIMS member is given initial access to the DIMS Jira "artifacts"
+(Scrum board, issues, etc.). 
+
+.. code-block:: none
+
+    You need to add the new user to groups in JIRA. Unfortunately, I don't
+    remember exactly how - would know if I could see the app... However,
+    you need to be a JIRA administrator to do it. I know Dave has that
+    access - maybe you do too. There is a link somewhere to do admin stuff -
+    you can google how to use it by searching for JIRA add user to group or
+    something like that. (There is a menu I think near the top right to
+    access admin functions.)
+
+    If you can get to the Users section, then you can see the users already
+    in the system and what groups they are in. You can also look up what
+    the permissions are for each group. Probably JIRA-developer group would
+    be sufficient.
+
+    Also, we only have a license for 10 users...
+
+    One caveat - the Google sign-in for JIRA does not appear to work to get
+    to the Admin options. (If you click on a link or menu item to do anything
+    administratively it will ask you to verify your authentication.) So when
+    I did it, I had to use my username and password entered in LDAP. So the
+    rub is that there are passwords in there, but we don't use them for anything
+    else. You probably should, for whoever is doing the administrative work,
+    change that user's password in LDAP so they know what it is. Does that make
+    sense? We just don't have any LDAP front-end except the Apache Directory
+    program (I forget its exact name) to make those changes.
+
+..
