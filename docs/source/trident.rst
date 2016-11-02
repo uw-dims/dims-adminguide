@@ -803,7 +803,7 @@ use the Trident command line interface, tcli (or "tickly"), through the web
 app. This section walks through these features.
 
 Trust group configurations
-^^^^^^^^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The initial login page will list your trust groups. If you don't have
 any, or to add new ones, click the "Add Trust Group" link in the second
