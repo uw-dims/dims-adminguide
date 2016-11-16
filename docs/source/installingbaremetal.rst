@@ -591,21 +591,111 @@ New SSH host key sets can be generated using ``keys.host.create``.
 
 ..
 
-The equivalent script to generate SSH user keys has not yet been written,
-but an early helper ``Makefile`` is available to perform these steps
-in a consistent manner. The highest level of security is acheived by
-having unique SSH keys for each account, however this would significantly
-complicate use of Ansible, which is designed to control a large number
-of hosts in a single run.  Each DIMS instance being controlled by Ansible
-will thus have a shared key for the Ansible account that, at most, is
-unique to a deployment and/or category.
+.. note::
 
+    The equivalent script to generate SSH user keys has not yet been written,
+    but an early helper ``Makefile`` is available to perform these steps in a
+    consistent manner. The highest level of security is acheived by having
+    unique SSH keys for each account, however this would significantly
+    complicate use of Ansible, which is designed to control a large number of
+    hosts in a single run.  Each DIMS instance being controlled by Ansible will
+    thus have a shared key for the Ansible account that, at most, is unique to
+    a deployment and/or category.
 
-.. code-block:: none
+    .. code-block:: none
 
+        [dimsenv] dittrich@dimsdemo1:~/dims/git/dims-keys/ssh-pub (develop*) $ DIMSUSER=ansible make genkey
+        ssh-keygen -t rsa \
+                        -C "DIMS key for ansible" \
+                        -f dims_ansible_rsa
+        Generating public/private rsa key pair.
+        dims_ansible_rsa already exists.
+        Overwrite (y/n)? y
+        Enter passphrase (empty for no passphrase):
+        Enter same passphrase again:
+        Your identification has been saved in dims_ansible_rsa.
+        Your public key has been saved in dims_ansible_rsa.pub.
+        The key fingerprint is:
+        06:52:35:82:93:73:8b:e8:0f:7a:15:f4:44:29:a2:b8 DIMS key for ansible
+        The key's randomart image is:
+        +--[ RSA 2048]----+
+        |     ++oo        |
+        |  . B.+. .       |
+        | . -.O.          |
+        | o. o.o.         |
+        | o   .  S        |
+        | Eo .  .         |
+        | . +             |
+        | . . .           |
+        |  .              |
+        +-----------------+
+        ssh-keygen -l \
+                -f dims_ansible_rsa.pub > dims_ansible_rsa.sig
+        [dimsenv] dittrich@dimsdemo1:~/dims/git/dims-keys/ssh-pub (develop*) $ ls -lat | head
+        total 128
+        -rw-rw-r--  1 dittrich dittrich   81 Nov 15 14:58 dims_ansible_rsa.sig
+        -rw-------  1 dittrich dittrich 1675 Nov 15 14:58 dims_ansible_rsa
+        -rw-rw-r--  1 dittrich dittrich  402 Nov 15 14:58 dims_ansible_rsa.pub
+          . . .
+        [dimsenv] dittrich@dimsdemo1:~/dims/git/dims-keys/ssh-pub (develop*) $ mv dims_ansible_rsa* $CFG/zion/ssh-user-keys/
+
+    ..
 
 ..
 
+After all keys, certificates, etc., are installed in the new host's directory
+in ``$CFG``, you can write the contents to the installation USB disk partition.
+
+.. code-block:: none
+
+    [dimsenv] dittrich@dimsdemo1:/git/dims-ci-utils/usb-install (develop*) $ dims.install.createusb --help
+    Usage: ./dims.install.createusb [options] [args]
+
+    Use "./dims.install.createusb --help" to see help on command line options.
+
+
+    Options:
+      -h, --help            show this help message and exit
+      -d, --debug           Enable debugging.
+      -D DEVICE, --device=DEVICE
+                            Device file for mounting USB. [default: sdb]
+      -H HOSTNAME, --hostname=HOSTNAME
+                            Hostname of system to install. [default dimsdemo1]
+      -l USBLABEL, --usblabel=USBLABEL
+                            USB device label. [default: DIMSINSTALL]
+      --distro-version=DISTROVERSION
+                            Distribution version. [default: 14.04.5]
+      --base-configs-dir=BASE_CONFIGS_DIR
+                            Base directory for configuration files. [default:
+                            /opt/dims/nas/scd]
+      -u, --usage           Print usage information.
+      -v, --verbose         Be verbose (on stdout) about what is happening.
+      -V, --version         Print version and exit.
+
+      Development Options:
+        Caution: use these options at your own risk.
+
+        --find-device       Attempt to find USB device actively mounted and exit.
+        --empty-casper      Empty out all contents (except lost+found) from
+                            casper-rw and exit.
+        --ls-casper         Just list contents of casper-rw file system.
+        --label-casper      Put --usblabel into casper-rw and exit.
+        --mount-casper      Mount casper-rw in cwd and exit.
+        --unmount-casper    Unmount casper-rw and exit.
+        --mount-usb         Mount DIMS install USB (sdb) and exit. [default:
+                            False]
+        --unmount-usb       Unmount DIMS install USB (sdb) and exit. [default:
+                            False]
+        --read-usb-into     Read USB drive into file. [default: False]
+        --write-usb-from    Write USB drive from file. [default: False]
+        -f IMAGEFILE, --imagefile=IMAGEFILE
+                            File name to use for storing compressed USB image.
+                            [default: ubuntu-14.04.5-install.dd.bz2]
+        --block-size=BLOCK_SIZE
+                            Block size to use for 'dd' read/write. [default: 512]
+    [dimsenv] dittrich@dimsdemo1:/git/dims-ci-utils/usb-install (develop*) $ dims.install.createusb --hostname zion
+
+..
 
 
 .. TODO(dittrich): Stopped here - finish these instructions
