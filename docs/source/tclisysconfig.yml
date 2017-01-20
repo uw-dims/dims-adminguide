@@ -1,0 +1,39 @@
+---
+
+# file: v2/roles/trident/tasks/main.yml
+
+<snip>
+
+- name: Ensure trident administator is logged in
+  shell: "tcli system login {{ trident.initial_sysadmin.name }} {{ trident.initial_sysadmin.password }}"
+  register: tcli_login
+  no_log: true
+  when: ansible_lsb.codename == "jessie"
+  become: yes
+  tags: [ trident ]
+
+- name: Require successful login to trident
+  fail: "Failed to log in via trident: {{ tcli_login.stdout }}"
+  when: ansible_lsb.codename == "jessie" and tcli_login.stdout != "Login successful"
+  tags: [ trident ]
+
+- name: Ensure system configurtion is present
+  shell: "{{ item }}"
+  with_items:
+   - "tcli system swapadmin"
+   - "tcli system set name '{{ trident.name }}'"
+   - "tcli system set welcome_text '{{ trident.welcome_text }}'"
+   - "tcli system set url_public {{ trident.url_public }}"
+   - "tcli system set adminname '{{ trident.adminname }}'"
+   - "tcli system set adminemail '{{ trident.adminemail }}'"
+   - "tcli system set email_domain '{{ trident.email_domain }}'"
+   - "tcli system set people_domain '{{ trident.people_domain }}'"
+   - "tcli system set logo_image {{ trident.logo_image }}"
+   - "tcli system set header_image {{ trident.header_image }}"
+  when: ansible_lsb.codename == "jessie" and tcli_login.stdout == "Login successful"
+  become: yes
+  tags: [ trident ]
+
+<snip>
+
+#EOF

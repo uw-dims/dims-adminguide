@@ -547,6 +547,51 @@ them into a "secure, non-debug" way and a "non-secure, debug" way.
 
 ..
 
+.. _commandlinetcli:
+
+Using tcli on the command line
+------------------------------
+
+The following output shows some of the commands available
+to tcli command line users, and how to log in as a sysadmin
+user to gain access to more commands. 
+
+.. literalinclude:: tclicommands.txt
+   :language: bash
+
+There are certain things with which a DIMS system is automatically
+configured. These attributes are set via tasks in the Trident
+Ansible role:
+
+.. literalinclude:: tclisysconfig.yml
+   :language: yaml
+
+Once the role is run against the host machine which is to run
+the Trident application, not only is Trident running, and you
+have access to the web application, but the web app shows that
+the customization has taken place.
+
+Additionally, we bootstrap global initial admin accounts and
+a initial trust group with its mailing lists:
+
+.. literalinclude:: tcliadminconfig.yml
+   :language: yaml
+
+At the end of the role, there are now admin accounts that can
+be immediately used to set up other trust groups and other
+mailing lists, as well begin and continue the process of
+curating memberships of these trust groups.
+
+To set these things up yourself, follow these commands:
+
+.. literalinclude:: setupwithtcli.txt
+   :language: bash
+
+Now you should have a pretty good understanding of how tcli
+works. Always remember to login and then "swapadmin" when you
+need to change and customize things.
+
+
 .. _configuringtridentviawebapp:
 
 Configuring Trident via web app
@@ -1125,18 +1170,6 @@ and you'll get useful information on how to run tcli:
 Anything you can run on the command line using tcli, you can
 run via the web app.
 
-
-.. _commandlinetcli:
-
-Using tcli on the command line
-------------------------------
-
-The following output shows some of the commands available
-to tcli command line users, and how to log in as a sysadmin
-user to gain access to more commands. 
-
-.. literalinclude:: tclicommands.txt
-   :language: bash
 
 .. _emailsotherdocs:
 
