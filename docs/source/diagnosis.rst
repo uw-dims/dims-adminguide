@@ -86,21 +86,21 @@ as needed to diagnose all of these hosts at once.
     Subject: [dims devops] [Jenkins] [FAILURE] jenkins-update-cifbulk-server-develop-16
     Date: Thu Jan 14 20:35:21 PST 2016
     Message-ID: <20160115043521.C7D5E1C004F@jenkins>
-    
+
     Started by an SCM change
     [EnvInject] - Loading node environment variables.
     Building in workspace /var/lib/jenkins/jobs/update-cifbulk-server-develop/workspace
-    
+
     Deleting project workspace... done
-    
+
     [ssh-agent] Using credentials ansible (Ansible user ssh key - root)
     [ssh-agent] Looking for ssh-agent implementation...
     [ssh-agent]   Java/JNR ssh-agent
     [ssh-agent] Started.
 
      ...
-    
-    TASK: [cifbulk-server | Make config change available and restart if updating existing] *** 
+
+    TASK: [cifbulk-server | Make config change available and restart if updating existing] ***
     <rabbitmq.prisem.washington.edu> REMOTE_MODULE command . /opt/dims/envs/dimsenv/bin/activate && supervisorctl -c /etc/supervisord.conf reread #USE_SHELL
     failed: [rabbitmq.prisem.washington.edu] => (item=reread) => {"changed": true, "cmd": ". /opt/dims/envs/dimsenv/bin/activate && supervisorctl -c /etc/supervisord.conf reread", "delta": "0:00:00.229614", "end": "2016-01-14 20:34:49.409784", "item": "reread", "rc": 2, "start": "2016-01-14 20:34:49.180170"}
     stderr: Error: could not find config file /etc/supervisord.conf
@@ -109,19 +109,19 @@ as needed to diagnose all of these hosts at once.
     failed: [rabbitmq.prisem.washington.edu] => (item=update) => {"changed": true, "cmd": ". /opt/dims/envs/dimsenv/bin/activate && supervisorctl -c /etc/supervisord.conf update", "delta": "0:00:00.235882", "end": "2016-01-14 20:34:50.097224", "item": "update", "rc": 2, "start": "2016-01-14 20:34:49.861342"}
     stderr: Error: could not find config file /etc/supervisord.conf
     For help, use /usr/bin/supervisorctl -h
-    
+
     FATAL: all hosts have already failed -- aborting
-    
-    PLAY RECAP ******************************************************************** 
+
+    PLAY RECAP ********************************************************************
                to retry, use: --limit @/var/lib/jenkins/cifbulk-server-configure.retry
-    
-    rabbitmq.prisem.washington.edu : ok=11   changed=4    unreachable=0    failed=1   
-    
+
+    rabbitmq.prisem.washington.edu : ok=11   changed=4    unreachable=0    failed=1
+
     Build step 'Execute shell' marked build as failure
     [ssh-agent] Stopped.
     Warning: you have no plugins providing access control for builds, so falling back to legacy behavior of permitting any downstream builds to be triggered
     Finished: FAILURE
-    -- 
+    --
     [[ UW/DIMS ]]: All message content remains the property of the author
     and must not be forwarded or redistributed without explicit permission.
 
@@ -331,6 +331,190 @@ the name with a trailing comma (``,``), as seen here:
 
 ..
 
+.. _diagnosingvagrant:
+
+Debugging Vagrant
+-----------------
+
+Vagrant has a mechanism for enabling debugging output to determine
+what it is doing. That mechanism is to set an environment variable
+``VAGRANT_LOG=debug`` before running ``vagrant``.
+
+.. code-block:: none
+
+    $ vagrant halt
+    $ VAGRANT_LOG=debug vagrant up --no-provision > /tmp/debug.log.1 2>&1
+
+..
+
+The debugging log looks like the following:
+
+.. code-block:: none
+
+     INFO global: Vagrant version: 1.8.6
+     INFO global: Ruby version: 2.2.5
+     INFO global: RubyGems version: 2.4.5.1
+     INFO global: VAGRANT_LOG="debug"
+     INFO global: VAGRANT_OLD_ENV_TMPDIR="/tmp"
+     INFO global: VAGRANT_OLD_ENV_COMMAND=""
+     INFO global: VAGRANT_OLD_ENV_LANG="en_US.UTF-8"
+     INFO global: VAGRANT_OLD_ENV_UNDEFINED="__undefined__"
+     INFO global: VAGRANT_OLD_ENV_TERM="screen-256color"
+     INFO global: VAGRANT_OLD_ENV_VAGRANT_LOG="debug"
+
+     . . .
+
+     INFO global: VAGRANT_INTERNAL_BUNDLERIZED="1"
+     INFO global: Plugins:
+     INFO global:   - bundler = 1.12.5
+     INFO global:   - unf_ext = 0.0.7.2
+     INFO global:   - unf = 0.1.4
+     INFO global:   - domain_name = 0.5.20161129
+     INFO global:   - http-cookie = 1.0.3
+     INFO global:   - i18n = 0.7.0
+     INFO global:   - log4r = 1.1.10
+     INFO global:   - micromachine = 2.0.0
+     INFO global:   - mime-types-data = 3.2016.0521
+     INFO global:   - mime-types = 3.1
+     INFO global:   - net-ssh = 3.0.2
+     INFO global:   - net-scp = 1.1.2
+     INFO global:   - netrc = 0.11.0
+     INFO global:   - rest-client = 2.0.0
+     INFO global:   - vagrant-scp = 0.5.7
+     INFO global:   - vagrant-share = 1.1.6
+     INFO global:   - vagrant-triggers = 0.5.3
+     INFO global:   - vagrant-vbguest = 0.13.0
+
+     . . .
+
+     INFO vagrant: `vagrant` invoked: ["up"]
+    DEBUG vagrant: Creating Vagrant environment
+     INFO environment: Environment initialized (#<Vagrant::Environment:0x00000002618e68>)
+     INFO environment:   - cwd: /vm/run/blue14
+     INFO environment: Home path: /home/ansible/.vagrant.d
+    DEBUG environment: Effective local data path: /vm/run/blue14/.vagrant
+     INFO environment: Local data path: /vm/run/blue14/.vagrant
+    DEBUG environment: Creating: /vm/run/blue14/.vagrant
+     INFO environment: Running hook: environment_plugins_loaded
+     INFO runner: Preparing hooks for middleware sequence...
+     INFO runner: 3 hooks defined.
+     INFO runner: Running action: environment_plugins_loaded #<Vagrant::Action::Builder:0x000000025278b0>
+
+     . .
+
+    DEBUG meta: Finding driver for VirtualBox version: 5.1.10
+     INFO meta: Using VirtualBox driver: VagrantPlugins::ProviderVirtualBox::Driver::Version_5_1
+     INFO base: VBoxManage path: VBoxManage
+     INFO subprocess: Starting process: ["/usr/bin/VBoxManage", "showvminfo", "d1f7ffcb-3fab-4878-a77d-5fdb8d2f7fae"]
+     INFO subprocess: Command not in installer, restoring original environment...
+    DEBUG subprocess: Selecting on IO
+    DEBUG subprocess: stdout: Name:            blue14_default_1482088614789_39851
+    Groups:          /
+    Guest OS:        Ubuntu (64-bit)
+    UUID:            d1f7ffcb-3fab-4878-a77d-5fdb8d2f7fae
+    Config file:     /home/ansible/VirtualBox VMs/blue14_default_1482088614789_39851/blue14_default_1482088614789_39851.vbox
+    Snapshot folder: /home/ansible/VirtualBox VMs/blue14_default_1482088614789_39851/Snapshots
+    Log folder:      /home/ansible/VirtualBox VMs/blue14_default_1482088614789_39851/Logs
+    Hardware UUID:   d1f7ffcb-3fab-4878-a77d-5fdb8d2f7fae
+    Memory size:     3072MB
+    Page Fusion:     off
+    VRAM size:       32MB
+    CPU exec cap:    100%
+
+     . . .
+
+    Effective Paravirt. Provider: KVM
+    State:           powered off (since 2016-10-30T20:11:22.000000000)
+    Monitor count:   1
+    3D Acceleration: off
+    2D Video Acceleration: off
+    Teleporter Enabled: off
+
+     . . .
+
+..
+
+For this debugging scenario, we are trying to add the ability to toggle whether
+Vagrant brings up the Virtualbox VM with or without a GUI (i.e., "headless" or
+not).  The line we are concerned about here is the following line, which shows
+the ``startvm`` line used to run the Virtualbox VM:
+
+.. code-block:: none
+
+    INFO subprocess: Starting process: ["/usr/bin/VBoxManage", "startvm", "89e0e942-3b3b-4f0a-b0e4-6d0bb51fef04", "--type", "headless"]
+
+..
+
+The default for Vagrant is to start VMs in headless mode. To instead boot
+with a GUI, the ``Vagrantfile`` should contain a provisioner block with
+the following setting:
+
+.. code-block:: none
+
+      config.vm.provider "virtualbox" do |v|
+        v.gui = true
+      end
+
+..
+
+.. note::
+
+    It is important to note that the ``Vagrantfile`` is Ruby code,
+    and that the above sets a Ruby boolean to the value ``true``,
+    which is `not necessarily` the same as the string ``"true"``.
+
+..
+
+Rather than requiring that the user edit the ``Vagrantfile``,
+it would be more convenient to support passing an environment
+variable into the child process.
+
+Using the following code snippets, we can inherit an environment
+variable (which is a string) and turn it into a boolean using a
+string comparison operation in a ternary logical expression.
+
+.. code-block:: none
+
+    # Set GUI to boolean false if environment variable GUI == 'true'
+    GUI = ENV['GUI'].nil? ? false : (ENV['GUI'] == 'true')
+
+    . . .
+
+      # Conditionally control whether startvm uses "--type gui"
+      # or "--type headless" using GUI (set earlier)
+      config.vm.provider "virtualbox" do |v|
+        v.gui = GUI
+      end
+
+    . . .
+
+..
+
+Now we can test the setting of the environment variable on
+a ``vagrant`` command line, again with debug logging enabled
+and redirected into a second log file.
+
+.. code-block:: none
+
+    $ vagrant halt
+    ==> default: Attempting graceful shutdown of VM...
+    $ vagrant destroy --force
+    ==> default: Destroying VM and associated drives...
+    $ GUI=true VAGRANT_LOG=debug vagrant up --no-provision > /tmp/debug.log.2 2>&1
+
+..
+
+Now looking for the specific string in the output of both files, we can
+compare the results and see that we have the desired effect:
+
+.. code-block:: none
+
+    $ grep 'Starting process.*startvm' /tmp/debug.log.{1,2}
+    /tmp/debug.log.1: INFO subprocess: Starting process: ["/usr/bin/VBoxManage", "startvm", "89e0e942-3b3b-4f0a-b0e4-6d0bb51fef04", "--type", "headless"]
+    /tmp/debug.log.2: INFO subprocess: Starting process: ["/usr/bin/VBoxManage", "startvm", "3921e4e9-fdb4-4191-90b3-f7415ec0b37d", "--type", "gui"]
+
+..
+
 .. _otherdiagnosingtools:
 
 Other Tools for Diagnosing System Problems
@@ -351,7 +535,7 @@ temperatures when not sitting on solid, very well ventilated surfaces, and
 these specific problems have led to malfunctions with the hard drives. At
 least one laptop has completely stopped being able to boot.  Multiple other
 laptops have struggled during the boot up process and have had other problems
-that may indicate a near-term hard drive failure. 
+that may indicate a near-term hard drive failure.
 
 In an effort to turn a black box into less of a black box and to try to see
 ahead of time if there are any indicators that may be pointing to a failure
@@ -365,7 +549,7 @@ information, see `smartmontools home`_.
 
 The package will be added to the list of base packages installed on all
 DIMS systems, and the rest of this section will be devoted to a brief
-introduction for how to use the tool. 
+introduction for how to use the tool.
 
 .. note::
 
@@ -380,12 +564,12 @@ First, you need to double check that your hard drive is SMART-enabled.
 
 .. code-block:: none
     :linenos:
-    :emphasize-lines: 18,19 
+    :emphasize-lines: 18,19
 
     [dimsenv] mboggess@dimsdev2:it/dims-adminguide/docs/source (develop*) $ sudo smartctl -i /dev/sda
     smartctl 6.2 2013-07-26 r3841 [x86_64-linux-4.4.0-42-generic] (local build)
     Copyright (C) 2002-13, Bruce Allen, Christian Franke, www.smartmontools.org
-    
+
     === START OF INFORMATION SECTION ===
     Model Family:     Seagate Laptop SSHD
     Device Model:     ST1000LM014-1EJ164
@@ -411,7 +595,7 @@ In the event that somehow SMART is available but not enabled, run
 
 .. code-block:: none
 
-   sudo smartctl -s on /dev/sda 
+   sudo smartctl -s on /dev/sda
 
 ..
 
@@ -433,16 +617,16 @@ To find an estimate of the time it will take to complete the various tests, run
     [dimsenv] mboggess@dimsdev2:it/dims-adminguide/docs/source (develop*) $ sudo smartctl -c /dev/sda
     smartctl 6.2 2013-07-26 r3841 [x86_64-linux-4.4.0-42-generic] (local build)
     Copyright (C) 2002-13, Bruce Allen, Christian Franke, www.smartmontools.org
-    
+
     === START OF READ SMART DATA SECTION ===
     General SMART Values:
     Offline data collection status:  (0x00) Offline data collection activity
                                             was never started.
                                             Auto Offline Data Collection: Disabled.
     Self-test execution status:      (   0) The previous self-test routine completed
-                                            without error or no self-test has ever 
+                                            without error or no self-test has ever
                                             been run.
-    Total time to complete Offline 
+    Total time to complete Offline
     data collection:                (  139) seconds.
     Offline data collection
     capabilities:                    (0x73) SMART execute Offline immediate.
@@ -458,7 +642,7 @@ To find an estimate of the time it will take to complete the various tests, run
                                             Supports SMART auto save timer.
     Error logging capability:        (0x01) Error logging supported.
                                             General Purpose Logging supported.
-    Short self-test routine 
+    Short self-test routine
     recommended polling time:        (   2) minutes.
     Extended self-test routine
     recommended polling time:        ( 191) minutes.
@@ -479,14 +663,14 @@ To run the ``long`` test, run
     [dimsenv] mboggess@dimsdev2:it/dims-adminguide/docs/source (develop*) $ sudo smartctl -t long /dev/sda
     smartctl 6.2 2013-07-26 r3841 [x86_64-linux-4.4.0-42-generic] (local build)
     Copyright (C) 2002-13, Bruce Allen, Christian Franke, www.smartmontools.org
-    
+
     === START OF OFFLINE IMMEDIATE AND SELF-TEST SECTION ===
     Sending command: "Execute SMART Extended self-test routine immediately in off-line mode".
     Drive command "Execute SMART Extended self-test routine immediately in off-line mode" successful.
     Testing has begun.
     Please wait 191 minutes for test to complete.
     Test will complete after Fri Oct 14 15:00:32 2016
-    
+
     Use smartctl -X to abort test.
 
 ..
@@ -498,7 +682,7 @@ To abort the test:
     [dimsenv] mboggess@dimsdev2:it/dims-adminguide/docs/source (develop*) $ sudo smartctl -X /dev/sda
     smartctl 6.2 2013-07-26 r3841 [x86_64-linux-4.4.0-42-generic] (local build)
     Copyright (C) 2002-13, Bruce Allen, Christian Franke, www.smartmontools.org
-    
+
     === START OF OFFLINE IMMEDIATE AND SELF-TEST SECTION ===
     Sending command: "Abort SMART off-line mode self-test routine".
     Self-testing aborted!
