@@ -1,0 +1,109 @@
+---
+
+# file: v2/roles/trident/tasks/main.yml
+
+<snip>
+
+- name: Ensure trident administator is logged in
+  shell: "tcli system login {{ trident.initial_sysadmin.name }} {{ trident.initial_sysadmin.password }}"
+  register: tcli_login
+  no_log: true
+  when: ansible_lsb.codename == "jessie"
+  become: yes
+  tags: [ trident ]
+
+- name: Require successful login to trident
+  fail: "Failed to log in via trident: {{ tcli_login.stdout }}"
+  when: ansible_lsb.codename == "jessie" and tcli_login.stdout != "Login successful"
+  tags: [ trident ]
+
+<snip>
+
+- name: Ensure initial sysadmin user example email is not present
+  shell: "tcli user email remove trident@trident.example.net"
+  when: ansible_lsb.codename == "jessie" and tcli_login.stdout == "Login successful"
+  become: yes
+  tags: [ trident ]
+
+- name: Ensure initial sysadmin user email is present
+  shell: "tcli user email add {{ trident.initial_sysadmin.name }} {{ trident.initial_sysadmin.email }}"
+  when: ansible_lsb.codename == "jessie" and tcli_login.stdout == "Login successful"
+  become: yes
+  tags: [ trident ]
+
+- name: Force initial sysadmin email address to be confirmed
+  shell: "tcli user email confirm_force {{ trident.initial_sysadmin.name }} {{ trident.initial_sysadmin.email }}"
+  when: ansible_lsb.codename == "jessie" and tcli_login.stdout == "Login successful"
+  become: yes
+  tags: [ trident ]
+
+- name: Ensure initial TG is present
+  shell: "tcli tg add {{ trident.initial_tg.ident }}"
+  when: ansible_lsb.codename == "jessie" and tcli_login.stdout == "Login successful"
+  become: yes
+  tags: [ trident ]
+
+- name: Ensure initial TG description is present
+  shell: "tcli tg set descr {{ trident.initial_tg.descr }}"
+  when: ansible_lsb.codename == "jessie" and tcli_login.stdout == "Login successful"
+  become: yes
+  tags: [ trident ]
+
+- name: Ensure initial ML is present
+  shell: "tcli ml new {{ trident.initial_tg.ident }} {{ trident.initial_ml }}"
+  when: ansible_lsb.codename == "jessie" and tcli_login.stdout == "Login successful"
+  become: yes
+  tags: [ trident ]
+
+- name: Ensure global admin accounts are present
+  shell: "tcli user new {{ item.key }} {{ item.value.email }}"
+  with_dict: "{{ trident_admins }}"
+  when: ansible_lsb.codename == "jessie" and tcli_login.stdout == "Login successful"
+  become: yes
+  tags: [ trident ]
+
+- name: Ensure global admin accounts have passwords
+  shell: "tcli user password set portal {{ item.key }} {{ tridentSysAdminPass }}"
+  with_dict: "{{ trident_admins }}"
+  when: ansible_lsb.codename == "jessie" and tcli_login.stdout == "Login successful"
+  become: yes
+  tags: [ trident ]
+
+- name: Force global admin emails to be confirmed
+  shell: "tcli user email confirm_force {{ item.key }} {{ item.value.email }}"
+  with_dict: "{{ trident_admins }}"
+  when: ansible_lsb.codename == "jessie" and tcli_login.stdout == "Login successful"
+  become: yes
+  tags: [ trident ]
+
+- name: Ensure global admin users have global sysadmin rights
+  shell: "tcli user set sysadmin {{ item.key }} true"
+  with_dict: "{{ trident_admins }}"
+  when: ansible_lsb.codename == "jessie" and tcli_login.stdout == "Login successful"
+  become: yes
+  tags: [ trident ]
+
+- name: Nominate global admin users to initial TG
+  shell: "tcli tg member nominate {{ trident.initial_tg.ident }} {{ item.key }}"
+  with_dict: "{{ trident_admins }}"
+  when: ansible_lsb.codename == "jessie" and tcli_login.stdout == "Login successful"
+  become: yes
+  tags: [ trident ]
+
+- name: Approve global admin users to initial TG
+  shell: "tcli tg member approve {{ trident.initial_tg.ident }} {{ item.key }}"
+  with_dict: "{{ trident_admins }}"
+  when: ansible_lsb.codename == "jessie" and tcli_login.stdout == "Login successful"
+  become: yes
+  tags: [ trident ]
+
+- name: Ensure global admin users have initial TG sysadmin rights
+  shell: "tcli tg member promote {{ trident.initial_tg.ident }} {{ item.key }}"
+  with_dict: "{{ trident_admins }}"
+  when: ansible_lsb.codename == "jessie" and tcli_login.stdout == "Login successful"
+  become: yes
+  tags: [ trident ]
+
+<snip>
+
+#EOF
