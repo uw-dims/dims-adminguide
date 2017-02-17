@@ -4,11 +4,11 @@ Trident
 =======
 
 This chapter introduces `Trident`_, a "Trusted Information Exchange
-Toolkit" that facilitates the formation of trust groups, 
+Toolkit" that facilitates the formation of trust groups,
 communication between members of trust groups, among other things.
-This chapter will walk through the installation and configuration 
-of Trident and its prerequisites. How to use Trident and its various 
-features will be covered in a different section. 
+This chapter will walk through the installation and configuration
+of Trident and its prerequisites. How to use Trident and its various
+features will be covered in a different section.
 
 .. TODO(mboggess)
 .. todo::
@@ -16,6 +16,420 @@ features will be covered in a different section.
      Add intersphinx link in the above paragraph to indicate
      where to find instructions on how to use Trident.
      :ref:`tbd:tbd`
+..
+
+Installing Trident manually
+---------------------------
+
+This section walks through the steps to use the ``tcli`` command line
+interface to manually configure a Trident deployment with an initial trust
+group, trust group administrator accounts and default mailing lists. These
+would be the steps necessary to bootstrap a Trident system for use by a trusted
+information sharing organization before starting to add regular trust group
+members and moving into the standard vetting process for growing the trust
+group.
+
+Before logging in, you can get help on the top level command
+options using ``tcli help``:
+
+.. code-block:: none
+
+    $ tcli help
+    -=- Trident Help -=-
+
+    Welcome to the Trident menu system which is CLI command based.
+    If a given command is not in help menu the selected user does not have permissions for it.
+
+    Each section, items marked [SUB], has its own 'help' command.
+
+    The following commands are available on the root level:
+     user                 [SUB]                User commands
+     system               [SUB]                System commands
+
+..
+
+Logging in is done using the ``system`` subcommand block. To get help on that
+subcommand block, add the subsection to the command:
+
+.. code-block:: none
+
+    $ tcli system help
+    Help for system
+     login                <username> <password> <twofactor> Login
+     logout                                    Logout
+     whoami                                    Who Am I?
+     get                  [SUB]                Get values from the system
+
+..
+
+The standard Trident administrator account is ``trident``. Log in to it
+with the secret password configured at the time the Trident packages
+were installed and the initial ``tsetup`` command was used to
+bootstrap the database.
+
+.. code-block:: none
+
+    $ tcli system login trident THE_ACTUAL_SECRET_PASSWORD
+    Login successful
+
+..
+
+Now that you are logged in, further subcommand blocks become
+available. Use ``help`` (or just add the subcommand without
+any options, in some cases) to see what new options are
+available:
+
+.. code-block:: none
+
+    $ tcli system help
+    Help for system
+     login                <username> <password> <twofactor> Login
+     logout                                    Logout
+     whoami                                    Who Am I?
+     swapadmin                                 Swap from regular to sysadmin user
+     get                  [SUB]                Get values from the system
+
+..
+
+To perform system administration actions, you must use ``swapadmin`` to
+change the logged in user to be an administrator:
+
+.. code-block:: none
+
+    $ tcli system swapadmin
+    Now a SysAdmin user
+
+..
+
+Again, this opens up further options and/or subcommands. Look to see
+what those are:
+
+.. code-block:: none
+
+    $ tcli system help
+    Help for system
+     report                                    Report system statistics
+     login                <username> <password> <twofactor> Login
+     logout                                    Logout
+     whoami                                    Who Am I?
+     swapadmin                                 Swap from regular to sysadmin user
+     set                  [SUB]                Configure the system
+     get                  [SUB]                Get values from the system
+
+..
+
+To get the current setting of system attributes, use ``tcli system get`` followed
+by the attribute you want to get. Again, you can either add ``help`` to see the
+list, or just use the command ``tcli system get`` to see the attributes:
+
+.. code-block:: none
+
+    $ tcli system get help
+    Help for system get
+     name                                      System Name - Name of the System
+     welcome_text                              Welcome Text - Welcome message shown on login page
+     adminname                                 Name of the Admistrator(s) - Name of the Administrator, shown at bottom of the page
+     adminemail                                Administrator email address - Email address of the Administrator, linked at the bottom of the page
+     copyyears                                 Copyright Years - Years that copyright ownership is claimed
+     email_domain                              Email Domain - The domain where emails are sourced from
+     url_public                                Public URL - The full URL where Trident is exposed to the public, used for redirects and OAuth2 (Example: https://trident.example.net)
+     people_domain                             People Domain - Domain used for people's email addresses and identifiers (Example: people.trident.example.net)
+     cli_enabled                               CLI Enabled - Enable the Web CLI (/cli/)
+     api_enabled                               API Enabled - Enable the API URL (/api/) thus allowing external tools to access the details provided they have authenticated
+     oauth_enabled                             OAuth/OpenID Enabled - Enable OAuth 2.0 and OpenID Connect support (/oauth2/ + /.wellknown/webfinger)
+     no_index                                  No Web Indexing - Disallow Web crawlers/robots from indexing and following links
+     email_sig                                 Email Signature - Signature appended to mailinglist messages
+     require2fa                                Require 2FA - Require Two Factor Authentication (2FA) for every Login
+     pw_enforce                                Enforce Rules - When enabled the rules below are enforced on new passwords
+     pw_length                                 Minimal Password Length (suggested: 12)
+     pw_letters                                Minimum amount of Letters
+     pw_uppers                                 Minimum amount of Uppercase characters
+     pw_lowers                                 Minimum amount of Lowercase characters
+     pw_numbers                                Minimum amount of Numbers
+     pw_specials                               Minimum amount of Special characters
+     sysadmin_restrict                         IP Restrict SysAdmin - When provided the given CIDR prefixes, space separated, are the only ones that allow the SysAdmin bit to be enabled. The SysAdmin b
+    it is dropped for SysAdmins coming from different prefixes. Note that 127.0.0.1 and ::1 are always included in the set, thus CLI access remains working.
+     header_image                              Header Image - Image shown on the Welcome page
+     logo_image                                Logo Image - Logo shown in the menu bar
+     unknown_image                             Unknown Person Image - Logo shown for users who do not have an image set
+     showversion                               Show Trident Version in UI - Show the Trident version in the UI, default enabled so that users can report issues to the Trident Project
+     adminemailpublic                          Show Sysadmin E-mail to non-members - Show sysadmin e-mail in the public footer
+
+    $ tcli system get
+    Help for system get
+     name                                      System Name - Name of the System
+     welcome_text                              Welcome Text - Welcome message shown on login page
+     adminname                                 Name of the Admistrator(s) - Name of the Administrator, shown at bottom of the page
+     adminemail                                Administrator email address - Email address of the Administrator, linked at the bottom of the page
+     . . .
+     showversion                               Show Trident Version in UI - Show the Trident version in the UI, default enabled so that users can report issues to the Trident Project
+     adminemailpublic                          Show Sysadmin E-mail to non-members - Show sysadmin e-mail in the public footer
+
+..
+
+On first installation, the database exists for Trident configuration, but
+many attributes are not yet configured. For example, if you try to see
+the administrator's name and email address (which are shown in the main
+page of the web UI), do:
+
+.. code-block:: none
+
+    $ tcli system get adminname
+    unknown
+    $ tcli system get adminemail
+    unknown
+
+..
+
+There is a setting for the email domain, but it is just an example
+that will not actually work:
+
+.. code-block:: none
+
+    $ tcli system get email_domain
+    trident.example.net
+
+..
+
+You will need to set it to something that matches the SMTP Mail
+Transfer Agent (MTA), which is Postfix in this case:
+
+.. code-block:: none
+
+    $ tcli system set email_domain prisem.washington.edu
+    Updated email_domain
+
+..
+
+If you will be giving members a unique email address that is related
+to the trust group, rather than their personal or work email address,
+set the ``people_domain`` (which also initially comes with an
+example default):
+
+.. code-block:: none
+
+    $ tcli system get people_domain
+    people.trident.example.net
+    $ tcli system set people_domain people.prisem.washington.edu
+    Updated people_domain
+
+..
+
+As with the email addresses, the public URL is configured with a
+non-working example:
+
+.. code-block:: none
+
+    $ tcli system get url_public
+    https://trident.example.net
+
+..
+
+Set it to match the routable public URL that people will use to get
+to the Trident portal from the Internet:
+
+.. code-block:: none
+
+    $ tcli system set url_public https://zion.prisem.washington.edu
+    Updated url_public
+
+..
+
+You may toggle whether the web UI shows the address of the administrator
+to anyone who is not logged in (i.e., the general public) or does not.
+The default setting is ``yes``:
+
+.. code-block:: none
+
+    $ tcli system get adminemailpublic
+    yes
+
+..
+
+There is no initial welcome text shown on the web UI. Set it
+as appropriate:
+
+.. code-block:: none
+
+    $ tcli system get welcome_text
+    Not Configured
+    $ tcli system set welcome_text "DIMS"
+    Updated welcome_text
+
+..
+
+Set the descriptive name of the administrator and the
+email address used to communicate with them:
+
+.. code-block:: none
+
+    $ tcli system set adminname "DIMS Administrator"
+    Updated adminname
+    $ tcli system set adminemail trident@prisem.washington.edu
+    Updated adminemail
+
+..
+
+You must set the name of the deployed portal that will
+be presented in the web UI:
+
+.. code-block:: none
+
+    $ tcli system get name
+    Not Configured
+    $ tcli system set name "DIMS Trident"
+    Updated name
+
+..
+
+A trailer is placed on all outgoing email messages. This allows including
+reminders about information sharing policies or other disclaimers. By default,
+it reads as follows:
+
+.. code-block:: none
+
+    $ tcli system get email_sig
+    All message content remains the property of the author
+    and must not be forwarded or redistributed without explicit permission.
+
+..
+
+The main web page includes a "header" graphic image that spans the
+browser window, allowing you to brand the portal. The file must be
+loaded under the ``web_root`` directory for the Trident web app
+to access it. By default, it is located in a subdirectory named
+``gfx/`` with the name ``gm.jpg``:
+
+.. code-block:: none
+
+    $ tcli system get header_image
+    /gfx/gm.jpg
+    $ sudo find / -type d -name gfx
+    /usr/share/trident/webroot/gfx
+
+..
+
+There is also a logo that is displayed by the web app:
+
+.. code-block:: none
+
+    $ tcli system get logo_image
+    /gfx/logo.png
+
+..
+
+You can either replace these files with content of your chosing, or you can add
+new files with different names and change the configuration settings.  The
+directory with these files may contain other files, so check first:
+
+.. code-block:: none
+
+    $ ls /usr/share/trident/webroot/gfx
+    gm.jpg  info.png  invalid.png  logo.png  logo.svg  red_asterisk.png  search.png  unknown_person.jpg  valid.png  warning.png  xkcd_password_strength.png
+
+..
+
+If you wish to use your organization's logo, you must first copy
+the file onto the system.
+
+.. code-block:: none
+
+    $ wget https://www.example.com/images/logo_24.png
+    --2017-01-13 12:41:27--  https://www.example.com/images/logo_24.png
+    Resolving www.example.com (www.example.com)... 93.184.216.34
+    Connecting to www.example.com (www.example.com)|93.184.216.34|:443... connected.
+    HTTP request sent, awaiting response... 200 OK
+    Length: 6220 (6.1K) [image/png]
+    Saving to: ‘logo_24.png’
+
+    logo_24.png                                       100%[============================================================================================================>]   6.07K  --.-KB/s   in 0s
+
+    2017-01-13 12:41:28 (125 MB/s) - ‘logo_24.png’ saved [6220/6220]
+
+..
+
+For this example, we will over-write the original logo with this
+new file:
+
+.. code-block:: none
+
+    $ sudo mv logo_24.png /usr/share/trident/webroot/gfx/logo.png
+
+..
+
+For the next example, we will add a new file for the header image,
+and change the variable to point to it:
+
+.. code-block:: none
+
+    $ sudo mv vagrant/our_org_header.png /usr/share/trident/webroot/gfx/
+    $ tcli system set header_image our_org_header.png
+    Updated header_image
+
+..
+.. code-block:: none
+
+    $ ls -l /usr/share/trident/webroot/gfx/
+    total 580
+    -rwxr-xr-x 1 root    root     83078 Sep 12 07:37 gm.jpg
+    -rwxr-xr-x 1 root    root       580 Sep 12 07:37 info.png
+    -rwxr-xr-x 1 root    root       424 Sep 12 07:37 invalid.png
+    -rw-r--r-- 1 ansible ansible   6220 Dec  9  2015 logo.png
+    -rwxr-xr-x 1 root    root      2541 Sep 12 07:37 logo.svg
+    -rwxr-xr-x 1 root    root       223 Sep 12 07:37 red_asterisk.png
+    -rwxr-xr-x 1 root    root      3287 Sep 12 07:37 search.png
+    -rwxr-xr-x 1 root    root      2994 Sep 12 07:37 unknown_person.jpg
+    -rw-r--r-- 1 root    root     59250 Jan 13 12:53 usss-1.jpg
+    -rw-rw-r-- 1 ansible dims    309901 Jan 13 12:50 our_org_header.png
+    -rwxr-xr-x 1 root    root       389 Sep 12 07:37 valid.png
+    -rwxr-xr-x 1 root    root       616 Sep 12 07:37 warning.png
+    -rwxr-xr-x 1 root    root     93029 Sep 12 07:37 xkcd_password_strength.png
+
+..
+
+.. code-block:: none
+
+    $ sudo chown root:root /usr/share/trident/webroot/gfx/*
+
+..
+
+.. code-block:: none
+
+    $ sudo chmod 755 /usr/share/trident/webroot/gfx/*
+
+..
+
+.. code-block:: none
+
+    $ ls -l /usr/share/trident/webroot/gfx/
+    total 580
+    -rwxr-xr-x 1 root root  83078 Sep 12 07:37 gm.jpg
+    -rwxr-xr-x 1 root root    580 Sep 12 07:37 info.png
+    -rwxr-xr-x 1 root root    424 Sep 12 07:37 invalid.png
+    -rwxr-xr-x 1 root root   6220 Dec  9  2015 logo.png
+    -rwxr-xr-x 1 root root   2541 Sep 12 07:37 logo.svg
+    -rwxr-xr-x 1 root root    223 Sep 12 07:37 red_asterisk.png
+    -rwxr-xr-x 1 root root   3287 Sep 12 07:37 search.png
+    -rwxr-xr-x 1 root root   2994 Sep 12 07:37 unknown_person.jpg
+    -rwxr-xr-x 1 root root 309901 Jan 13 12:50 our_org_header.png
+    -rwxr-xr-x 1 root root    389 Sep 12 07:37 valid.png
+    -rwxr-xr-x 1 root root    616 Sep 12 07:37 warning.png
+    -rwxr-xr-x 1 root root  93029 Sep 12 07:37 xkcd_password_strength.png
+
+..
+
+.. code-block:: none
+
+    $ tcli system get header_image
+    /gfx/gm.jpg
+
+..
+
+.. code-block:: none
+
+    $ tcli system set header_image /gfx/gm.jpg
+    Updated header_image
+
 ..
 
 .. _ansiblemanagedtrident:
@@ -33,16 +447,16 @@ Ansible:
        foundational to provisioning DIMS systems. More information
        about these roles can be found at tbd:tbd.
 
-     * Host(s) provisioned by Ansible roles foundational to 
+     * Host(s) provisioned by Ansible roles foundational to
        DIMS systems. If using multiple hosts for a Trident
        instance, they must all be provisioned with these roles.
 
      * Access to and knowledge of how to use Ansible roles
-       specific to standing up a working Trident instance. More 
-       information about these roles can be found below, and 
+       specific to standing up a working Trident instance. More
+       information about these roles can be found below, and
        information about how to provision a host with them can
        be found at tbd:tbd.
-       
+
      * Latest Trident package OR
 
      * Access to the github.com Trident repo
@@ -151,7 +565,7 @@ use by the Ansible role.
 
    .. note::
 
-       The ``dpkg-buildpackage`` command runs a script called 
+       The ``dpkg-buildpackage`` command runs a script called
        ``doc/deps.sh`` which has a plethora for "cannot find
        package X" errors. This is a known issue, see
        https://github.com/bapril/trident/issues/371. It still
@@ -170,7 +584,7 @@ The following section outlines the steps needed to
 provision a host to stand up a working Trident instance.
 
 #. Ensure all variables for your deployment are set to
-   the correct values. In particular, ensure any 
+   the correct values. In particular, ensure any
    Trident-Postgres-Nginx-Postfix networking
    variables are set correctly.
 
@@ -286,7 +700,7 @@ Essentially, the following steps would need to occur on the remote target:
         I'm not sure *which* user this means--the PostgreSQL ``trident`` user, I'm
         assuming. I'm also assuming that since ``tsetup`` creates a ``trident`` user for
         PostgreSQL, it will also give it the appropriate permissions. (I'm assuming
-        this because the "Local Database" section said nothing about giving anyone 
+        this because the "Local Database" section said nothing about giving anyone
         appropriate permissions.)
 
         Perhaps I'm confused, and this step means give the *system* ``trident`` user
@@ -301,14 +715,14 @@ Essentially, the following steps would need to occur on the remote target:
 #. Properly configure the Trident daemon at ``/etc/trident/trident.conf``
 
    The following is a template of ``trident.conf``:
-   
+
    .. literalinclude:: trident-trident.conf.j2
       :language: jinja
 
 #. Properly configure the postgres ``pg_hba.conf`` file (location variable)
 
    The following is a template of ``pg_hba.conf``:
-   
+
    .. literalinclude:: pg_hba.conf.j2
       :language: jinja
 
@@ -337,19 +751,19 @@ Nginx Webserver
 
    The following is a template of the nginx ``trident.conf``
    for a *production* system:
-   
+
    .. literalinclude:: nginx-trident-production.conf.j2
       :language: none
 
    .. TODO(mboggess)
    .. todo::
 
-       This still needs ssl certs, etc. 
+       This still needs ssl certs, etc.
    ..
 
    The following is a template of the nginx ``trident.conf``
    for a *development* system:
-   
+
    .. literalinclude:: nginx-trident-development.conf.j2
       :language: none
 
@@ -363,14 +777,14 @@ Nginx Webserver
 #. Properly configure Trident Daemon Upstream at ``/etc/trident/nginx/trident-upstream.inc``
 
    The following is a template of ``trident-upstream.inc``:
-   
+
    .. literalinclude:: trident-upstream.inc.j2
       :language: none
 
 #. Properly configure the Trident server at ``/etc/trident/nginx/trident-server.inc``
 
    The following is an example of ``trident-server.inc``:
-   
+
    .. literalinclude:: trident-server.inc
       :language: none
 
@@ -391,13 +805,13 @@ Postfix
 #. Know the answers to the following:
 
     * What type of mail configuration
-    
+
     * The Fully Qualified Domain Name (FQDN) of your server
 
 #. Properly configure Postfix's main config file at ``/etc/postfix/main.cf``
 
    The following is a template of ``main.cf``:
-   
+
    .. literalinclude:: postfix-main.cf.j2
       :language: none
 
@@ -411,7 +825,7 @@ Postfix
 #. Might have to configure Postfix's master config file at ``/etc/postfix/master.cf``
 
    The following is an example of ``master.cf``:
-   
+
    .. literalinclude:: postfix-master.cf
       :language: none
 
@@ -425,31 +839,31 @@ Postfix
 #. Might have to configure additional email addresses at ``/etc/postfix/virtual``
 
    The following is a template of ``virtual``:
-   
+
    .. literalinclude:: postfix-virtual.j2
       :language: none
 
    .. TODO(mboggess)
    .. todo::
 
-       I didn't template the emails/domains on the left side because 
-       I wasn't really sure what they should be or if they were 
+       I didn't template the emails/domains on the left side because
+       I wasn't really sure what they should be or if they were
        related to any variables from other templates (particularly the
        domain--would that be the {{ tridentFQDN }} from the Trident
-       daemon config? 
+       daemon config?
 
    ..
 
 .. note::
 
     The `Trident documentation`_ gave the information used to configure
-    the ``/etc/aliases`` file and the ``/etc/postfix/virtual`` file, 
+    the ``/etc/aliases`` file and the ``/etc/postfix/virtual`` file,
     but then just said "Of course do configure the rest of Postfix
     properly." I don't really know what that means, so that's why
     I included the ``master.cf`` file, since that was included in the
     ``/etc/postfix`` dir. There are a couple other files there,
     ``/etc/postfix/dynamicmaps.cf`` and ``/etc/postfix/postfix-files``,
-    along with a ``sasl/`` dir and a couple scripts. 
+    along with a ``sasl/`` dir and a couple scripts.
 
 ..
 
@@ -467,7 +881,7 @@ Now we can install the Trident server and the Trident CLI.
 
        $ wget http://source.prisem.washington.edu:8442/trident-server_1.0.3_amd64.deb
        $ wget http://source.prisem.washington.edu:8442/trident-cli_1.0.3_amd64.deb
-       
+
    ..
 
    .. note::
@@ -483,7 +897,7 @@ Now we can install the Trident server and the Trident CLI.
 #. Properly configure Trident daemon defaults at ``/etc/default/trident``
 
    The following is an example of ``/etc/default/trident``:
-   
+
    .. literalinclude:: trident-default
       :language: bash
 
@@ -530,8 +944,8 @@ them into a "secure, non-debug" way and a "non-secure, debug" way.
 .. note::
 
     * The above code is from a start script used by the Dockerfile
-      created by Linda Parsons ($GIT/dims-dockerfiles/dockerfiles/trident/conf/start.sh). 
-      I just grabbed it to show how to run the daemon. We should 
+      created by Linda Parsons ($GIT/dims-dockerfiles/dockerfiles/trident/conf/start.sh).
+      I just grabbed it to show how to run the daemon. We should
       probably always have syslog enabled...
 
     * There's a note in that start script that says using the
@@ -540,7 +954,7 @@ them into a "secure, non-debug" way and a "non-secure, debug" way.
 
     .. todo::
 
-        * Probably all of these services should be controlled by supervisor 
+        * Probably all of these services should be controlled by supervisor
           or something.
 
     ..
@@ -615,7 +1029,7 @@ to have acces to the Trident command line interface, tcli (or "tickly"), and
 to view and monitor reports, logs, and settings for this particular
 Trident system.
 
- 
+
 User configurations
 ^^^^^^^^^^^^^^^^^^^
 
@@ -833,7 +1247,7 @@ starting with a name for the trust group.
     If there isn't at least one verified email address,
     this will fail.
 
-.. 
+..
 
 Once you have at least one trust group, clicking the "Trust Group" tab
 at the top of the page will give you an index of the trust groups you
@@ -1133,7 +1547,7 @@ Using tcli on the command line
 
 The following output shows some of the commands available
 to tcli command line users, and how to log in as a sysadmin
-user to gain access to more commands. 
+user to gain access to more commands.
 
 .. literalinclude:: tclicommands.txt
    :language: bash
@@ -1161,9 +1575,9 @@ Emails and other non-official documentation
       * Trident:  ``$GIT/dims-dockerfiles/dockerfiles/trident``
 
 * Additionally, Linda created a couple "helper" containers. One container
-  updates ``source.prisem.washington.edu`` and another builds off the 
+  updates ``source.prisem.washington.edu`` and another builds off the
   "fresh-install" DIMS postgres container to install a copy of the DIMS
-  OPS-Trust database. 
+  OPS-Trust database.
 
   These can be viewed at:
 
