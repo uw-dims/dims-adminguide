@@ -43,17 +43,13 @@ For the **control machine**, the following must be true:
 
 For the **target machine**, the following must be true:
 
-    #. Base operating system installed.
+    #. The base operating system is installed.
 
     #. An ``ansible`` account must be present, configured for ``sudo``
        access for performing administrator tasks, with the matching public
        key allowing SSH access via the private key on the control machine.
 
-    #. OpenVPN must be configured with a certificate allowing remote
-       access to the internal DIMS network.
-
-    #. Firewall rules must allow access from the control machine, or
-       access must be available from the DIMS VPN.
+    #. Firewall rules must allow SSH access from the control machine.
 
 
 .. _setupdevlaptop:
@@ -484,8 +480,8 @@ will be cloning to is available as ``/dev/sdb``.
 
 .. _customizingdimsinstallusb:
 
-Customzing an installation USB
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Customizing an installation USB
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The installation ISO is customized with SSH keys, OpenVPN certificates, etc.,
 by inserting files from a common file share into the installation USB.
@@ -694,6 +690,26 @@ in ``$CFG``, you can write the contents to the installation USB disk partition.
         --block-size=BLOCK_SIZE
                             Block size to use for 'dd' read/write. [default: 512]
     [dimsenv] dittrich@dimsdemo1:/git/dims-ci-utils/usb-install (develop*) $ dims.install.createusb --hostname zion
+
+..
+
+After installing the operating system using the Kickstart customized
+USB drive, the system should be able to access the network.  Test using
+``ping 8.8.8.8`` to verify network connectivity and a default route.
+
+Install an initial ``clouds.yml`` file to configure ``dimscli``:
+
+.. code-block:: none
+
+    [dimsenv] ansible@zion:~ () $ cat ~/.config/openstack/clouds.yml
+    clouds:
+      ectf:
+        profile: ectf
+        prefer_ipv6: False
+        force_ipv4: True
+        consul_peers: ['node01.ops.ectf','node02.ops.ectf','node03.ops.ectf']
+        region_name: ectf
+        debug: True
 
 ..
 
