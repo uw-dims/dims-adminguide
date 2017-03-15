@@ -968,7 +968,7 @@ Using tcli on the command line
 
 The following output shows some of the commands available
 to tcli command line users, and how to log in as a sysadmin
-user to gain access to more commands. 
+user to gain access to more commands.
 
 .. literalinclude:: tclicommands.txt
    :language: bash
@@ -1584,6 +1584,302 @@ and you'll get useful information on how to run tcli:
 Anything you can run on the command line using tcli, you can
 run via the web app.
 
+.. _upgradingTrident:
+
+Upgrading configuration across Trident versions
+-----------------------------------------------
+
+One of the challenges with integrating open source applications into a
+continuous delivery or automated deployment environment has to do with managing
+customizations across changes in ongoing releases. From one version of a
+program to another, the contents of congiruation files may change, they may be
+split into more configuration files, or merged from many into a smaller number,
+or their names and/or directory paths changed.
+
+The first challenge with automating the configuration and installation of an
+open source application requires figuring out which files to put under Ansible
+control, and how to template those files so as to use variables in a way that
+supports customized deployments.
+
+Each time a new release comes out, opportunities for things to break
+exist. Simply updating the version number and re-installing may work,
+but it may also break one or more things in the application. Some
+things that break will be easy to detect when starting a service,
+or running the application, but other problems may not be detected until
+long into the execution of some application or service that cause
+problems that are much harder to debug due to time between updating
+and encountering the problem.
+
+To manage the upgrade process, one or more of the following tasks
+must be performed.
+
+#. Differencing the contents of files under Ansible control to determine
+   when configuration customization changes are necessary, or whether it
+   is safe to just update and move on.
+
+#. Differening the contents of the distribution archive, or resulting
+   installed files, to detect file name changes, new configuration
+   files, etc. Knowing when the contents of default files have
+   changed in the face of continuous deployment of files that are
+   under Ansible control, takes some getting used to. Having a development
+   environment in which a default installation can be performed, or
+   using a basic "vanilla" virtual machine to hand-install the new
+   package to look at the resulting files, may be necessary.
+
+#. Chosing how to handle file name changes for possible
+   backward-compatibility or multi-version support. This may involve
+   complicated Ansible ``when`` conditionals, file names containing
+   version numbers, or other mechanisms that prevent situations
+   where a change results in a situation where the playbook only
+   works with versions ``<= N`` or ``>=N`` in a mutually-exclusive
+   exclusive way.
+
+To see how these problems manifest themselves, and how to detect
+and handle them, let's take a look at two different releases of the
+``trident`` portal system. We will compare two releases, versions
+``1.3.8`` and ``1.4.2``.
+
+We start by extracting the contents of each release's ``deb`` archive
+file into a directory where we can examine and/or compare the files.
+
+.. code-block:: none
+
+    $ cd /tmp
+    $ dpkg -x /vm/cache/sources/trident-server_1.3.8_amd64.deb trident_1.3.8
+    $ dpkg -x /vm/cache/sources/trident-server_1.4.2_amd64.deb trident_1.4.2
+
+..
+
+We now have two parallel directories in ``/tmp``. Using the Unix ``diff``
+program, we can see which files differ in content, or differ in existence
+(i.e., occur in one directory, but not the other).
+
+Here is an example of changes to file contents:
+
+.. code-block:: none
+
+    $ diff -r trident_1.3.8/ trident_1.4.2/
+    diff -r trident_1.3.8/etc/init.d/trident trident_1.4.2/etc/init.d/trident
+    109a110,113
+    >   rotate)
+    >       start-stop-daemon --stop --quiet --signal USR1 --exec ${DAEMON} --pidfile ${PIDFILE} --name ${DNAME}
+    >       ;;
+    >
+    116c120
+    <       log_action_msg "Usage: ${SCRIPTNAME} {start|stop|restart|status}" || true
+    ---
+    >       log_action_msg "Usage: ${SCRIPTNAME} {start|stop|restart|status|rotate}" || true
+    diff -r trident_1.3.8/etc/trident/nginx/trident-server.inc trident_1.4.2/etc/trident/nginx/trident-server.inc
+    11,12d10
+    < #     include
+    < # ------------------>8
+    13a12,13
+    > #     ssl_certificate ...
+    > #     ...
+    15c15,17
+    <
+    ---
+    > #     include /etc/trident/nginx/trident-server.inc
+    > # }
+    > # ------------------>8
+    23c25,28
+    <       location /css/ {
+    ---
+    >       location ~ ^/(css|gfx|js)/ {
+    >               expires 7d;
+    >               root /usr/share/;
+
+..
+
+Here are examples of file system changes, specifically those files in the
+``webroot`` directory:
+
+.. code-block:: none
+   :emphasize-lines: 3,4,5
+
+    $ diff -r trident_1.3.8/ trident_1.4.2/ | grep '^Only' | grep '/webroot'
+    Only in trident_1.3.8/usr/share/trident/webroot/css: epiceditor
+    Only in trident_1.3.8/usr/share/trident/webroot/css: form.css
+    Only in trident_1.3.8/usr/share/trident/webroot/css: style.css
+    Only in trident_1.4.2/usr/share/trident/webroot/css: trident.css
+    Only in trident_1.3.8/usr/share/trident/webroot: favicon.ico
+    Only in trident_1.3.8/usr/share/trident/webroot/gfx: gm.jpg
+    Only in trident_1.3.8/usr/share/trident/webroot/gfx: info.png
+    Only in trident_1.3.8/usr/share/trident/webroot/gfx: invalid.png
+    Only in trident_1.3.8/usr/share/trident/webroot/gfx: logo.png
+    Only in trident_1.3.8/usr/share/trident/webroot/gfx: red_asterisk.png
+    Only in trident_1.3.8/usr/share/trident/webroot/gfx: search.png
+    Only in trident_1.3.8/usr/share/trident/webroot/gfx: unknown_person.jpg
+    Only in trident_1.3.8/usr/share/trident/webroot/gfx: valid.png
+    Only in trident_1.3.8/usr/share/trident/webroot/gfx: warning.png
+    Only in trident_1.3.8/usr/share/trident/webroot/gfx: xkcd_password_strength.png
+    Only in trident_1.3.8/usr/share/trident/webroot: js
+    Only in trident_1.3.8/usr/share/trident/webroot: robots-ok.txt
+    Only in trident_1.3.8/usr/share/trident/webroot: robots.txt
+
+..
+
+We can see that one file (``form.css``) was removed between release
+``1.3.8`` and ``1.4.2``, while one file (``style.css``) was renamed,
+possibly including the now-absent ``form.css` file, to a new
+file named ``trident.css``. By looking at the contents of the
+``form.css`` file, it is clear that ``.styled_form`` is one of
+the unique elements defined in this file. Looking at the contents
+of the same directory from both versions seems to support the
+hypothesis that this file was merged:
+
+.. code-block:: none
+
+    $ grep -r styled_form trident_1.3.8/usr/share/trident/webroot/css/
+    trident_1.3.8/usr/share/trident/webroot/css/style.css:form#wikiform.styled_form
+    trident_1.3.8/usr/share/trident/webroot/css/form.css:.styled_form .form_hint, .styled_form .required
+    trident_1.3.8/usr/share/trident/webroot/css/form.css:.styled_form ul
+    trident_1.3.8/usr/share/trident/webroot/css/form.css:.styled_form li
+    trident_1.3.8/usr/share/trident/webroot/css/form.css:.styled_form h2
+    trident_1.3.8/usr/share/trident/webroot/css/form.css:.styled_form label
+    trident_1.3.8/usr/share/trident/webroot/css/form.css:.styled_form input, .fakebutton
+    trident_1.3.8/usr/share/trident/webroot/css/form.css:.styled_form textarea
+    trident_1.3.8/usr/share/trident/webroot/css/form.css:.styled_form input[type=number]
+    trident_1.3.8/usr/share/trident/webroot/css/form.css:.styled_form input[type=radio]
+    trident_1.3.8/usr/share/trident/webroot/css/form.css:.styled_form input[type=submit], .fakebutton
+    trident_1.3.8/usr/share/trident/webroot/css/form.css:.styled_form input, .styled_form textarea, .fakebutton
+    trident_1.3.8/usr/share/trident/webroot/css/form.css:.styled_form input:focus, .styled_form textarea:focus, .fakebutton
+    trident_1.3.8/usr/share/trident/webroot/css/form.css:.styled_form input:required, .styled_form textarea:required
+    trident_1.3.8/usr/share/trident/webroot/css/form.css:.styled_form input:required:valid, .styled_form textarea:required:valid
+    trident_1.3.8/usr/share/trident/webroot/css/form.css:.styled_form input:focus:invalid, .styled_form textarea:focus:invalid
+    trident_1.3.8/usr/share/trident/webroot/css/form.css:form.styled_form li.info label, form.styled_form li.error label, form.styled_form li.okay label, form.styled_form li.warning label, form.styl
+    ed_form li.required label
+    trident_1.3.8/usr/share/trident/webroot/css/form.css:form.styled_form li.info label
+    trident_1.3.8/usr/share/trident/webroot/css/form.css:form.styled_form li.error label
+    trident_1.3.8/usr/share/trident/webroot/css/form.css:form.styled_form li.okay label
+    trident_1.3.8/usr/share/trident/webroot/css/form.css:form.styled_form li.warning label
+    trident_1.3.8/usr/share/trident/webroot/css/form.css:form.styled_form li.required label
+    trident_1.3.8/usr/share/trident/webroot/css/form.css:.styled_form input:hover + .form_hint, .styled_form textarea:hover + .form_hint
+    trident_1.3.8/usr/share/trident/webroot/css/form.css:.styled_form input:required:valid + .form_hint, .styled_form textarea:required:valid + .form_hint,
+    trident_1.3.8/usr/share/trident/webroot/css/form.css:.styled_form input:required:valid + .form_hint::before, .styled_form textarea:required:valid + .form_hint::before
+    trident_1.3.8/usr/share/trident/webroot/css/form.css:.styled_form input[type=submit], .fakebutton, .styled_button input
+    trident_1.3.8/usr/share/trident/webroot/css/form.css:.styled_form input[type=submit], .fakebutton, .styled_button input
+    trident_1.3.8/usr/share/trident/webroot/css/form.css:.styled_form input[type=submit]:disabled
+    trident_1.3.8/usr/share/trident/webroot/css/form.css:.styled_form input[type=submit].deny
+    trident_1.3.8/usr/share/trident/webroot/css/form.css:.styled_form input[type=checkbox], input[type=radio]
+    trident_1.3.8/usr/share/trident/webroot/css/form.css:.styled_form input[type=checkbox]:checked, input[type=radio]:checked
+    trident_1.3.8/usr/share/trident/webroot/css/form.css:.styled_form input[type=checkbox]:disabled, input[type=radio]:disabled
+    trident_1.3.8/usr/share/trident/webroot/css/form.css:.styled_form input[type=checkbox]:checked:disabled, input[type=radio]:checked:disabled
+    trident_1.3.8/usr/share/trident/webroot/css/form.css:.styled_form input[type=checkbox]:after, input[type=radio]:after
+    trident_1.3.8/usr/share/trident/webroot/css/form.css:.styled_form input[type=checkbox]:disabled:after, input[type=radio]:disabled:after
+    trident_1.3.8/usr/share/trident/webroot/css/form.css:.styled_form input[type="checkbox"]:checked:after,input[type="radio"]:checked:after
+    trident_1.3.8/usr/share/trident/webroot/css/form.css:.styled_form input[type="checkbox"]:focus
+    trident_1.3.8/usr/share/trident/webroot/css/form.css:.styled_form textarea.console
+
+..
+
+.. code-block:: none
+
+    $ grep -r styled_form trident_1.4.2/usr/share/trident/webroot/css/
+    trident_1.4.2/usr/share/trident/webroot/css/trident.css:.login form.styled_form
+    trident_1.4.2/usr/share/trident/webroot/css/trident.css:.login .styled_form input
+    trident_1.4.2/usr/share/trident/webroot/css/trident.css:.login .styled_form input[type="submit"]
+
+..
+
+The problem now is how to support one CSS file named ``style.css`` for (at least)
+version ``1.3.8``, but a file named ``trident.css`` for (at least) version
+``1.4.2``. There still remains the question, "When did this change occur, and how
+do we instruct Ansible which file to use?"
+
+If, on the other hand, the file name has not changed but its contents vary
+significantly (e.g., one uses a variable named ``file_root`` and the other
+has changed to using a variable named ``file_roots``), it becomes more complicated
+in managing a file with one name, but two different contents. This requires
+differentiating files by metadata (i.e., the name must include a version number
+or some other unique string), or the use of Jinja conditionals must be done.
+The latter mechanism of Jinja conditional inclusion, is a bit simpler and
+is easiest to manage in terms of file differencing as the mechanism for
+maintaining the contents of different versions of the file.
+
+For example, here is how the difference between content in the file
+``trident.conf.j2`` can be managed using Jinja conditionals:
+
+.. code-block:: jinja
+
+    # {{ ansible_managed }} [ansible-playbooks v{{ ansibleplaybooks_version }}]
+    #
+    #######################################################
+    # Trident Configuration
+    #######################################################
+    # Except for comment lines (anything starting with '#')
+    # this file is in the JSON format, thus mind the commas
+    # and quotes otherwise Trident can't properly use it.
+    #
+    # This file should only be readable by the Trident user
+    #######################################################
+
+    {
+    {% if trident.version in [ '1.3.8' ] %}
+        "file_root": "/usr/share/trident/",
+    {% endif %}
+    {% if trident.version in [ '1.4.2' ] %}
+        # Where the dbschemas, webroot and templates are located
+        "file_roots": [ "/usr/share/trident/", "/usr/share/pitchfork/" ],
+    {% endif %}
+
+        # Where variable files are stored
+        "var_root": "/var/lib/trident/",
+
+        # TODO(dittrich): Try to get this to rsyslog for sorting, not separate logging
+        # Log File location (logrotate rotates it)
+        "logfile": "/var/log/trident/trident.log",
+
+        # Crypto Keys for JWT (in directory relative to config dir)
+        "jwt_key_prv": "jwt.prv",
+        "jwt_key_pub": "jwt.pub",
+
+    {% if trident.version in [ '1.4.2' ] %}
+        # Content Security Policy
+        "csp": "default-src 'self'",
+
+        # CSS: Cascading Style Sheets
+        "css": [ "trident", "blockquote", "code", "crumbs", "diff", "form", "loader", "messages", "search", "table", "wiki" ],
+
+        # Javascript: global Javascript for every page
+        # (Should actually always be empty)
+        "javascript": [],
+
+        # X-Forwarded-For Trusted IP list
+        # CIDR prefixes from which we trust the XFF header
+        "xff_trusted_cidr": [ "127.0.0.1/8" ],
+
+        # Weak Password Dictionaries
+        "pw_weakdicts": [ "10k_most_common.txt" ],
+    {% endif %}
+
+    {% if trident.version in [ '1.3.8' ] %}
+        #########################################
+        # PostgreSQL Database details
+        #########################################
+        # PSQL local unix socket
+        # Uses PSQL peer authentication
+        # This works out of the box on Debian
+        #########################################
+    {% endif %}
+    {% if trident.version in [ '1.4.2' ] %}
+        #########################################
+        # PostgreSQL Database details
+        #########################################
+        # Requires configuration of pg_hba.conf!
+        #
+        # local unix socket (Debian):
+        #   "db_host": "/var/run/postgresql/",
+        #   "db_port": "5432",
+        #
+        # remote:
+        #   "db_host": "db.example.org",
+        #   "db_port": "5432",
+        #########################################
+    {% endif %}
+
+..
+
 .. _emailsotherdocs:
 
 Emails and other non-official documentation
@@ -1616,8 +1912,6 @@ Emails and other non-official documentation
       * Build: ``$GIT/dims-dockerfiles/dockerfiles/trident-build``
 
       * Original Database: ``$GIT/dims-dockerfiles/dockerfiles/postgres-trident-clone``
-
-
 
 
 .. _Trident: https://trident.li
