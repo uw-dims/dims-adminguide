@@ -1584,19 +1584,6 @@ and you'll get useful information on how to run tcli:
 Anything you can run on the command line using tcli, you can
 run via the web app.
 
-(??)
-(??).. _commandlinetcli:
-(??)
-(??)Using tcli on the command line
-(??)------------------------------
-(??)
-(??)The following output shows some of the commands available
-(??)to tcli command line users, and how to log in as a sysadmin
-(??)user to gain access to more commands. 
-(??)
-(??).. literalinclude:: tclicommands.txt
-(??)   :language: bash
-
 .. _emailsotherdocs:
 
 Emails and other non-official documentation
