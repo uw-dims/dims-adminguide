@@ -28,59 +28,29 @@ To bootstrap a DIMS instance, it is necessary to first install the required
 base operating system, pre-requisite packages, and software components that
 serve as the foundation for running the DIMS micro-services. This includes the
 DIMS software and configuration files that differentiate one DIMS instance from
-another on the network. Each instance lives on its own IP address block, has
-its own DNS domain, and is branded uniquely for its owners. Configuration for
-the specific deployment is applied, resulting in a functioning DIMS instance
-that can be accessed from the internet by system administrators, who in turn
-bootstrap user accounts to start using DIMS.
+another on the network.
 
-.. _singleHostVirtualCluster:
+Each DIMS instance has a routable Internet connection from at least one
+node and an internal local area network on which the DIMS system components
+are connected on the back end. This means there is at least one IP address
+block that is shared on the back, regardless of whether the primary node
+has its own DNS domain and Internet accessible IP address (as would be
+the case for a production service deployment) or uses dynamic addressing
+on WiFi or wired interface for a local development deployment.
 
-Single-host Virtual Machine Cluster Configuration
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+A DIMS deployment that is to be used for public facing services on the
+Internet requires a real DNS domain and routable IP address(es), with
+SSL certificates to secure the web application front end. To remotely
+administer the system requires setting up SSH keys for secure remote
+access and/or remote administration using Ansible.
 
-.. todo::
+Accounts in the Trident user portal can be set up from the command
+line using the ``tcli`` user interface, or by using the Trident
+web application front end.
 
-    Write up instructions on how to deploy a three-node CoreOS
-    cluster using Virtualbox on a Debian Linux host operating
-    system using a single compute server.
+Single-host Virtual Machine Deployment
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-    #. Install base operating system ala the dev laptops
-       with Ubuntu ``kickstart`` (or similar).
-
-    #. Install core pre-requisite packages (including
-       Virtualbox, etc.)
-
-    #. Configure to suit to be functional on the network.
-
-    #. Generate three VMs to create a CoreOS cluster on
-       the single host using its IP address as the entry
-       point (using port forwarding as needed to map
-       external IP address/port combinations to appropriate
-       internal IP address/port for micro-services.)
-
-..
-
-.. _threeNodeBareMetalCluster:
-
-Three-node Bare Metal Cluster Configuration
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-.. todo::
-
-    Write up instructions on how to deploy a three-node CoreOS
-    cluster on bare-metal hosts. This requires three servers
-    and one to three IP addresses (depending on ability to do
-    NAT forwarding from two of the three servers).
-
-    #. Prepare three ``cloud-config`` files for each of the
-       three CoreOS servers in the cluster.
-
-    #. Install CoreOS using bootable Linux ISO that references
-       ``cloud-config`` files by MAC address or other unique
-       identifier obtainable from the live-Linux OS).
-
-..
 
 .. _bootstrappingusers:
 
