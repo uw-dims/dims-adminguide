@@ -64,7 +64,6 @@ the following:
     │   ├── coreos
     │   └── red
     ├── cache
-    │   ├── aopt
     │   ├── apt
     │   ├── coreos_production_vagrant.box
     │   ├── debian-7.11.0-amd64-netinst.iso
