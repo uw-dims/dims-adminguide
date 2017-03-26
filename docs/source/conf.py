@@ -239,7 +239,8 @@ latex_elements = {
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
   ('index',
-   'DIMSAdminGuide.tex', u'DIMS Administrator Guide',
+   'DIMSAdminGuide.tex',
+   u'DIMS Administrator Guide',
    u'David Dittrich',
    'manual'),
 ]
