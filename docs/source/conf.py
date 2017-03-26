@@ -387,7 +387,7 @@ epub_exclude_files = ['search.html']
 
 if os.environ.get('DOCSURL') is None:
     if not on_rtd:
-        os.environ['DOCSURL'] = "http://demo.devops.develop:8080/docs/{}/html".format(git_branch)
+        os.environ['DOCSURL'] = "http://app.devops.develop:8080/docs/{}/html".format(git_branch)
 
 intersphinx_cache_limit = -1   # days to keep the cached inventories (0 == forever)
 if on_rtd:
