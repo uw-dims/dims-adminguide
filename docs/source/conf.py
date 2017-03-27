@@ -403,7 +403,7 @@ if on_rtd:
 else:
     intersphinx_mapping = {
         'dimsdevguide': ("{}/dims-dimsdevguide".format(os.environ['DOCSURL']), None),
-        'dimsasbuilt': ("{}/dims-dimsasbuilt".format(os.environ['DOCSURL']), None),
+        'dimsasbuilt': ("{}/dims-asbuilt".format(os.environ['DOCSURL']), None),
         'dimsocd': ("{}/dims-ocd".format(os.environ['DOCSURL']), None),
         'dimsad': ("{}/dims-ad".format(os.environ['DOCSURL']), None),
         'dimssr': ("{}/dims-sr".format(os.environ['DOCSURL']), None),
