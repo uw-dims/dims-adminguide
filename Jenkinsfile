@@ -4,7 +4,7 @@ pipeline {
   stages {
     stage('Build') {
       steps {
-        sh '(cd docs; make latexpdf)'
+        sh '(cd docs; jenkins.shell make latexpdf)'
       }
     }
     stage('Deploy') {
