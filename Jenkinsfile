@@ -11,6 +11,7 @@ pipeline {
         stage('Pre-Build') {
             steps {
                 sh '[ $DIMS_DEBUG ] && env'
+            }
         }
         stage('Build') {
             steps {
