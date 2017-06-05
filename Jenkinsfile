@@ -5,12 +5,13 @@
 pipeline {
     agent any
     environment {
-        DIMS_DEBUG=1
+        DIMS_DEBUG=0
     }
     stages {
         stage('Pre-Build') {
             steps {
                 sh '[ $DIMS_DEBUG ] && env'
+                sh '[ $BRANCH_NAME == "develop" ] && env'
             }
         }
         stage('Build') {
