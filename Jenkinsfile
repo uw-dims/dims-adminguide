@@ -10,8 +10,7 @@ pipeline {
     stages {
         stage('Pre-Build') {
             steps {
-                sh '[ $DIMS_DEBUG ] && env'
-                sh '[ $BRANCH_NAME == "develop" ] && env'
+                sh '[ $DIMS_DEBUG -ne 0 -o $BRANCH_NAME == "develop" ] && env'
             }
         }
         stage('Build') {
