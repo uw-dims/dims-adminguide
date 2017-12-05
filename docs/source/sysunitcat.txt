@@ -1,0 +1,41 @@
+core@core-01 ~ $ systemctl cat consul.service
+# /run/systemd/system/consul.service
+[Unit]
+Description=Consul bootstrap
+Requires=docker.service fleet.service
+After=docker.service fleet.service
+
+[Service]
+EnvironmentFile=/etc/environment
+TimeoutStartSec=0
+ExecStartPre=-/usr/bin/docker kill consul-%H
+ExecStartPre=-/usr/bin/docker rm consul-%H
+ExecStartPre=/bin/sh -c "/usr/bin/etcdctl mk /services/consul/boots
+ExecStart=/bin/sh -c "NUM_SERVERS=$(fleetctl list-machines | grep -
+     && EXPECT=$(if [ $NUM_SERVERS -lt 3 ] ; then echo 1; else echo
+     && JOIN_IP=$(etcdctl ls /services/consul/bootstrap/servers \
+        | grep -v $COREOS_PUBLIC_IPV4 \
+        | cut -d '/' -f 6 \
+        | head -n 1) \
+     && JOIN=$(if [ \"$JOIN_IP\" != \"\" ] ; then sleep 10; echo \"
+     && /usr/bin/docker run --name=consul-%H -v /mnt:/data \
+          -p ${COREOS_PUBLIC_IPV4}:8300:8300 \
+          -p ${COREOS_PUBLIC_IPV4}:8301:8301 \
+          -p ${COREOS_PUBLIC_IPV4}:8301:8301/udp \
+          -p ${COREOS_PUBLIC_IPV4}:8302:8302 \
+          -p ${COREOS_PUBLIC_IPV4}:8302:8302/udp \
+          -p ${COREOS_PUBLIC_IPV4}:8400:8400 \
+          -p ${COREOS_PUBLIC_IPV4}:8500:8500 \
+          -p ${COREOS_PUBLIC_IPV4}:8600:8600 \
+          -p 172.18.0.1:53:53/udp \
+          progrium/consul -node %H -server -dc=local -advertise ${C
+ExecStartPost=/bin/sh -c "/usr/bin/etcdctl set \"/services/consul/b
+ExecStop=/bin/sh -c "/usr/bin/etcdctl rm \"/services/consul/bootstr
+ExecStop=/bin/sh -c "/usr/bin/etcdctl rm /services/consul/bootstrap
+ExecStop=/usr/bin/docker stop consul-%H
+Restart=always
+RestartSec=10s
+LimitNOFILE=40000
+
+[Install]
+WantedBy=multi-user.target

@@ -7,7 +7,11 @@ Referenced documents
 
 #. :ref:`ansibleinventory:ansibleinventory`
 
+#. :ref:`ansibleplaybooks:ansibleplaybooks`
+
 #. :ref:`dimsdockerfiles:usingdockerindims`
+
+#. :ref:`dimsdockerfiles:dockerincoreos`
 
 #. :ref:`dimspacker:dimspacker`
 

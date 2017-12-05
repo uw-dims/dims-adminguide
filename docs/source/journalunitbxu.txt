@@ -1,0 +1,112 @@
+core@core-01 ~ $ journalctl -b -x -u consul.service
+-- Logs begin at Tue 2016-01-26 15:47:27 EST, end at Wed 2016-01-27 13:50:21 EST. --
+Jan 27 12:41:55 core-01 systemd[1]: Starting Consul bootstrap...
+-- Subject: Unit consul.service has begun start-up
+-- Defined-By: systemd
+-- Support: http://lists.freedesktop.org/mailman/listinfo/systemd-devel
+--
+-- Unit consul.service has begun starting up.
+Jan 27 12:41:56 core-01 docker[921]: Error response from daemon: Cannot kill container consul-core-01: notrunning: Container cb7c6
+Jan 27 12:41:56 core-01 docker[921]: Error: failed to kill containers: [consul-core-01]
+Jan 27 12:41:56 core-01 docker[926]: consul-core-01
+Jan 27 12:41:56 core-01 sh[932]: 172.17.8.101
+Jan 27 12:41:56 core-01 sh[940]: Error retrieving list of active machines: googleapi: Error 503: fleet server unable to communicat
+Jan 27 12:41:56 core-01 sh[941]: 172.17.8.101
+Jan 27 12:41:56 core-01 systemd[1]: Started Consul bootstrap.
+-- Subject: Unit consul.service has finished start-up
+-- Defined-By: systemd
+-- Support: http://lists.freedesktop.org/mailman/listinfo/systemd-devel
+--
+-- Unit consul.service has finished starting up.
+--
+-- The start-up result is done.
+Jan 27 12:42:39 core-01 sh[940]: ==> WARNING: BootstrapExpect Mode is specified as 1; this is the same as Bootstrap mode.
+Jan 27 12:42:39 core-01 sh[940]: ==> WARNING: Bootstrap mode enabled! Do not enable unless necessary
+Jan 27 12:42:39 core-01 sh[940]: ==> WARNING: It is highly recommended to set GOMAXPROCS higher than 1
+Jan 27 12:42:39 core-01 sh[940]: ==> Starting raft data migration...
+Jan 27 12:42:39 core-01 sh[940]: ==> Starting Consul agent...
+Jan 27 12:42:39 core-01 sh[940]: ==> Starting Consul agent RPC...
+Jan 27 12:42:39 core-01 sh[940]: ==> Consul agent running!
+Jan 27 12:42:39 core-01 sh[940]: Node name: 'core-01'
+Jan 27 12:42:39 core-01 sh[940]: Datacenter: 'local'
+Jan 27 12:42:39 core-01 sh[940]: Server: true (bootstrap: true)
+Jan 27 12:42:39 core-01 sh[940]: Client Addr: 0.0.0.0 (HTTP: 8500, HTTPS: -1, DNS: 53, RPC: 8400)
+Jan 27 12:42:39 core-01 sh[940]: Cluster Addr: 172.17.8.101 (LAN: 8301, WAN: 8302)
+Jan 27 12:42:39 core-01 sh[940]: Gossip encrypt: false, RPC-TLS: false, TLS-Incoming: false
+Jan 27 12:42:39 core-01 sh[940]: Atlas: <disabled>
+Jan 27 12:42:39 core-01 sh[940]: ==> Log data will now stream in as it occurs:
+Jan 27 12:42:39 core-01 sh[940]: 2016/01/27 17:42:39 [INFO] serf: EventMemberJoin: core-01 172.17.8.101
+Jan 27 12:42:39 core-01 sh[940]: 2016/01/27 17:42:39 [INFO] serf: EventMemberJoin: core-01.local 172.17.8.101
+Jan 27 12:42:39 core-01 sh[940]: 2016/01/27 17:42:39 [INFO] raft: Node at 172.17.8.101:8300 [Follower] entering Follower state
+Jan 27 12:42:39 core-01 sh[940]: 2016/01/27 17:42:39 [WARN] serf: Failed to re-join any previously known node
+Jan 27 12:42:39 core-01 sh[940]: 2016/01/27 17:42:39 [WARN] serf: Failed to re-join any previously known node
+Jan 27 12:42:39 core-01 sh[940]: 2016/01/27 17:42:39 [INFO] consul: adding server core-01 (Addr: 172.17.8.101:8300) (DC: local)
+Jan 27 12:42:39 core-01 sh[940]: 2016/01/27 17:42:39 [INFO] consul: adding server core-01.local (Addr: 172.17.8.101:8300) (DC: loc
+Jan 27 12:42:39 core-01 sh[940]: 2016/01/27 17:42:39 [ERR] agent: failed to sync remote state: No cluster leader
+Jan 27 12:42:39 core-01 sh[940]: 2016/01/27 17:42:39 [ERR] http: Request /v1/kv/docker/nodes/172.19.0.1:2376, error: No cluster le
+Jan 27 12:42:39 core-01 sh[940]: 2016/01/27 17:42:39 [ERR] http: Request /v1/kv/docker/nodes/172.19.0.1:2376, error: No cluster le
+Jan 27 12:42:39 core-01 sh[940]: 2016/01/27 17:42:39 [INFO] serf: EventMemberJoin: core-02 172.17.8.102
+Jan 27 12:42:39 core-01 sh[940]: 2016/01/27 17:42:39 [INFO] consul: adding server core-02 (Addr: 172.17.8.102:8300) (DC: local)
+Jan 27 12:42:39 core-01 sh[940]: 2016/01/27 17:42:39 [ERR] http: Request /v1/kv/docker/nodes/172.19.0.1:2376, error: No cluster le
+Jan 27 12:42:39 core-01 sh[940]: 2016/01/27 17:42:39 [ERR] http: Request /v1/kv/docker/nodes/172.19.0.1:2376, error: No cluster le
+Jan 27 12:42:40 core-01 sh[940]: 2016/01/27 17:42:40 [WARN] raft: Heartbeat timeout reached, starting election
+Jan 27 12:42:40 core-01 sh[940]: 2016/01/27 17:42:40 [INFO] raft: Node at 172.17.8.101:8300 [Candidate] entering Candidate state
+Jan 27 12:42:40 core-01 sh[940]: 2016/01/27 17:42:40 [ERR] raft: Failed to make RequestVote RPC to 172.17.8.103:8300: dial tcp 172
+Jan 27 12:42:40 core-01 sh[940]: 2016/01/27 17:42:40 [INFO] raft: Election won. Tally: 2
+Jan 27 12:42:40 core-01 sh[940]: 2016/01/27 17:42:40 [INFO] raft: Node at 172.17.8.101:8300 [Leader] entering Leader state
+...skipping...
+Jan 27 12:42:41 core-01 sh[940]: 2016/01/27 17:42:41 [ERR] raft: Failed to AppendEntries to 172.17.8.103:8300: dial tcp 172.17.8.1
+Jan 27 12:42:41 core-01 sh[940]: 2016/01/27 17:42:41 [ERR] raft: Failed to heartbeat to 172.17.8.103:8300: dial tcp 172.17.8.103:8
+Jan 27 12:42:41 core-01 sh[940]: 2016/01/27 17:42:41 [ERR] raft: Failed to AppendEntries to 172.17.8.103:8300: dial tcp 172.17.8.1
+Jan 27 12:42:41 core-01 sh[940]: 2016/01/27 17:42:41 [WARN] raft: Failed to contact 172.17.8.103:8300 in 509.786599ms
+Jan 27 12:42:41 core-01 sh[940]: 2016/01/27 17:42:41 [ERR] raft: Failed to heartbeat to 172.17.8.103:8300: dial tcp 172.17.8.103:8
+Jan 27 12:42:41 core-01 sh[940]: 2016/01/27 17:42:41 [ERR] raft: Failed to heartbeat to 172.17.8.103:8300: dial tcp 172.17.8.103:8
+Jan 27 12:42:41 core-01 sh[940]: 2016/01/27 17:42:41 [ERR] raft: Failed to AppendEntries to 172.17.8.103:8300: dial tcp 172.17.8.1
+Jan 27 12:42:41 core-01 sh[940]: 2016/01/27 17:42:41 [ERR] raft: Failed to heartbeat to 172.17.8.103:8300: dial tcp 172.17.8.103:8
+Jan 27 12:42:41 core-01 sh[940]: 2016/01/27 17:42:41 [WARN] raft: Failed to contact 172.17.8.103:8300 in 981.100031ms
+Jan 27 12:42:42 core-01 sh[940]: 2016/01/27 17:42:42 [ERR] raft: Failed to AppendEntries to 172.17.8.103:8300: dial tcp 172.17.8.1
+Jan 27 12:42:42 core-01 sh[940]: 2016/01/27 17:42:42 [ERR] raft: Failed to heartbeat to 172.17.8.103:8300: dial tcp 172.17.8.103:8
+Jan 27 12:42:42 core-01 sh[940]: 2016/01/27 17:42:42 [WARN] raft: Failed to contact 172.17.8.103:8300 in 1.480625817s
+Jan 27 12:42:42 core-01 sh[940]: 2016/01/27 17:42:42 [ERR] raft: Failed to heartbeat to 172.17.8.103:8300: dial tcp 172.17.8.103:8
+Jan 27 12:42:42 core-01 sh[940]: 2016/01/27 17:42:42 [ERR] raft: Failed to AppendEntries to 172.17.8.103:8300: dial tcp 172.17.8.1
+Jan 27 12:42:43 core-01 sh[940]: 2016/01/27 17:42:43 [ERR] raft: Failed to heartbeat to 172.17.8.103:8300: dial tcp 172.17.8.103:8
+Jan 27 12:42:44 core-01 sh[940]: 2016/01/27 17:42:44 [ERR] raft: Failed to AppendEntries to 172.17.8.103:8300: dial tcp 172.17.8.1
+Jan 27 12:42:44 core-01 sh[940]: 2016/01/27 17:42:44 [ERR] raft: Failed to heartbeat to 172.17.8.103:8300: dial tcp 172.17.8.103:8
+Jan 27 12:42:46 core-01 sh[940]: 2016/01/27 17:42:46 [ERR] raft: Failed to AppendEntries to 172.17.8.103:8300: dial tcp 172.17.8.1
+Jan 27 12:42:47 core-01 sh[940]: 2016/01/27 17:42:47 [ERR] raft: Failed to heartbeat to 172.17.8.103:8300: dial tcp 172.17.8.103:8
+Jan 27 12:42:51 core-01 sh[940]: 2016/01/27 17:42:51 [ERR] raft: Failed to AppendEntries to 172.17.8.103:8300: dial tcp 172.17.8.1
+Jan 27 12:42:52 core-01 sh[940]: 2016/01/27 17:42:52 [ERR] raft: Failed to heartbeat to 172.17.8.103:8300: dial tcp 172.17.8.103:8
+Jan 27 12:43:02 core-01 sh[940]: 2016/01/27 17:43:02 [ERR] raft: Failed to AppendEntries to 172.17.8.103:8300: dial tcp 172.17.8.1
+Jan 27 12:43:05 core-01 sh[940]: 2016/01/27 17:43:05 [ERR] raft: Failed to heartbeat to 172.17.8.103:8300: dial tcp 172.17.8.103:8
+Jan 27 12:43:14 core-01 sh[940]: 2016/01/27 17:43:14 [ERR] raft: Failed to AppendEntries to 172.17.8.103:8300: dial tcp 172.17.8.1
+Jan 27 12:43:17 core-01 sh[940]: 2016/01/27 17:43:17 [ERR] raft: Failed to heartbeat to 172.17.8.103:8300: dial tcp 172.17.8.103:8
+Jan 27 12:43:23 core-01 sh[940]: 2016/01/27 17:43:23 [INFO] serf: EventMemberJoin: core-03 172.17.8.103
+Jan 27 12:43:23 core-01 sh[940]: 2016/01/27 17:43:23 [INFO] consul: adding server core-03 (Addr: 172.17.8.103:8300) (DC: local)
+Jan 27 12:43:23 core-01 sh[940]: 2016/01/27 17:43:23 [INFO] consul: member 'core-03' joined, marking health alive
+Jan 27 12:43:24 core-01 sh[940]: 2016/01/27 17:43:24 [WARN] raft: AppendEntries to 172.17.8.103:8300 rejected, sending older logs
+Jan 27 12:43:24 core-01 sh[940]: 2016/01/27 17:43:24 [WARN] raft: Rejecting vote from 172.17.8.103:8300 since we have a leader: 17
+Jan 27 12:43:24 core-01 sh[940]: 2016/01/27 17:43:24 [WARN] raft: Failed to contact 172.17.8.103:8300 in 500.297851ms
+Jan 27 12:43:25 core-01 sh[940]: 2016/01/27 17:43:25 [WARN] raft: Failed to contact 172.17.8.103:8300 in 938.153601ms
+Jan 27 12:43:25 core-01 sh[940]: 2016/01/27 17:43:25 [WARN] raft: Rejecting vote from 172.17.8.103:8300 since we have a leader: 17
+Jan 27 12:43:25 core-01 sh[940]: 2016/01/27 17:43:25 [WARN] raft: Failed to contact 172.17.8.103:8300 in 1.424666193s
+Jan 27 12:43:27 core-01 sh[940]: 2016/01/27 17:43:27 [WARN] raft: Rejecting vote from 172.17.8.103:8300 since we have a leader: 17
+Jan 27 12:43:28 core-01 sh[940]: 2016/01/27 17:43:28 [WARN] raft: Rejecting vote from 172.17.8.103:8300 since we have a leader: 17
+Jan 27 12:43:30 core-01 sh[940]: 2016/01/27 17:43:30 [WARN] raft: Rejecting vote from 172.17.8.103:8300 since we have a leader: 17
+Jan 27 12:43:31 core-01 sh[940]: 2016/01/27 17:43:31 [WARN] raft: Rejecting vote from 172.17.8.103:8300 since we have a leader: 17
+Jan 27 12:43:33 core-01 sh[940]: 2016/01/27 17:43:33 [WARN] raft: Rejecting vote from 172.17.8.103:8300 since we have a leader: 17
+Jan 27 12:43:34 core-01 sh[940]: 2016/01/27 17:43:34 [WARN] raft: Rejecting vote from 172.17.8.103:8300 since we have a leader: 17
+Jan 27 12:43:34 core-01 sh[940]: 2016/01/27 17:43:34 [ERR] raft: peer 172.17.8.103:8300 has newer term, stopping replication
+Jan 27 12:43:34 core-01 sh[940]: 2016/01/27 17:43:34 [INFO] raft: Node at 172.17.8.101:8300 [Follower] entering Follower state
+Jan 27 12:43:34 core-01 sh[940]: 2016/01/27 17:43:34 [INFO] consul: cluster leadership lost
+Jan 27 12:43:34 core-01 sh[940]: 2016/01/27 17:43:34 [INFO] raft: aborting pipeline replication to peer 172.17.8.102:8300
+Jan 27 12:43:35 core-01 sh[940]: 2016/01/27 17:43:35 [WARN] raft: Rejecting vote from 172.17.8.103:8300 since our last term is gre
+Jan 27 12:43:35 core-01 sh[940]: 2016/01/27 17:43:35 [WARN] raft: Heartbeat timeout reached, starting election
+Jan 27 12:43:35 core-01 sh[940]: 2016/01/27 17:43:35 [INFO] raft: Node at 172.17.8.101:8300 [Candidate] entering Candidate state
+Jan 27 12:43:35 core-01 sh[940]: 2016/01/27 17:43:35 [INFO] raft: Election won. Tally: 2
+Jan 27 12:43:35 core-01 sh[940]: 2016/01/27 17:43:35 [INFO] raft: Node at 172.17.8.101:8300 [Leader] entering Leader state
+Jan 27 12:43:35 core-01 sh[940]: 2016/01/27 17:43:35 [INFO] consul: cluster leadership acquired
+Jan 27 12:43:35 core-01 sh[940]: 2016/01/27 17:43:35 [INFO] consul: New leader elected: core-01
+Jan 27 12:43:35 core-01 sh[940]: 2016/01/27 17:43:35 [WARN] raft: AppendEntries to 172.17.8.103:8300 rejected, sending older logs
+Jan 27 12:43:35 core-01 sh[940]: 2016/01/27 17:43:35 [INFO] raft: pipelining replication to peer 172.17.8.102:8300
+Jan 27 12:43:35 core-01 sh[940]: 2016/01/27 17:43:35 [INFO] raft: pipelining replication to peer 172.17.8.103:8300
+Jan 27 13:30:47 core-01 sh[940]: 2016/01/27 18:30:47 [INFO] agent.rpc: Accepted client: 127.0.0.1:44510

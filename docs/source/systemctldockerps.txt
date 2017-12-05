@@ -1,0 +1,88 @@
+core@core-01 ~ $ systemctl status
+● core-01
+    State: running
+     Jobs: 2 queued
+   Failed: 0 units
+    Since: Wed 2016-01-27 12:40:13 EST; 3min 28s ago
+   CGroup: /
+           ├─1 /usr/lib/systemd/systemd --switched-root --system --
+           └─system.slice
+             ├─docker-5f41c7d23012a856462d3a7876d7165715164d2b2c6ed
+             │ └─1475 /swarm join --addr=172.17.8.101:2376 consul:/
+             ├─dbus.service
+             │ └─508 /usr/bin/dbus-daemon --system --address=system
+             ├─update-engine.service
+             │ └─517 /usr/sbin/update_engine -foreground -logtostde
+             ├─system-sshd.slice
+             │ └─sshd@2-10.0.2.15:22-10.0.2.2:33932.service
+             │   ├─ 860 sshd: core [priv]
+             │   ├─ 862 sshd: core@pts/0
+             │   ├─ 863 -bash
+             │   ├─1499 systemctl status
+             │   └─1500 systemctl status
+             ├─docker-201c7bd05ea49b654aa8b02a92dbb739a06dd3e8a4cc7
+             │ └─1461 /swarm manage -H tcp://172.17.8.101:8333 cons
+             ├─swarm-agent.service
+             │ ├─1437 /bin/bash /home/core/runswarmagent.sh 172.17.
+             │ └─1449 /usr/bin/docker run --name swarm-agent --net=
+             ├─systemd-journald.service
+             │ └─398 /usr/lib/systemd/systemd-journald
+             ├─fleet.service
+             │ └─918 /usr/bin/fleetd
+             ├─systemd-resolved.service
+             │ └─554 /usr/lib/systemd/systemd-resolved
+             ├─systemd-timesyncd.service
+             │ └─476 /usr/lib/systemd/systemd-timesyncd
+             ├─swarm-manager.service
+             │ ├─1405 /bin/bash /home/core/runswarmmanager.sh 172.1
+             │ └─1421 /usr/bin/docker run --name swarm-manager --ne
+             ├─systemd-logind.service
+             │ └─505 /usr/lib/systemd/systemd-logind
+             ├─systemd-networkd.service
+             │ └─829 /usr/lib/systemd/systemd-networkd
+             ├─system-getty.slice
+             │ └─getty@tty1.service
+             │   └─498 /sbin/agetty --noclear tty1 linux
+             ├─systemd-udevd.service
+             │ └─425 /usr/lib/systemd/systemd-udevd
+             ├─consul.service
+             │ ├─940 /bin/sh -c NUM_SERVERS=$(fleetctl list-machine
+             │ └─973 /usr/bin/docker run --name=consul-core-01 -v /
+             ├─docker-8323ab8192308e5a65102dffb109466c6a7c7f43ff28f
+             │ └─1371 /bin/consul agent -config-dir=/config -node c
+             ├─locksmithd.service
+             │ └─1125 /usr/lib/locksmith/locksmithd
+             ├─docker.service
+             │ ├─ 877 docker daemon --dns 172.18.0.1 --dns 8.8.8.8
+             │ ├─1004 docker-proxy -proto tcp -host-ip 172.17.8.101
+             │ ├─1011 docker-proxy -proto tcp -host-ip 172.17.8.101
+             │ ├─1027 docker-proxy -proto tcp -host-ip 172.17.8.101
+             │ ├─1036 docker-proxy -proto tcp -host-ip 172.17.8.101
+             │ ├─1057 docker-proxy -proto udp -host-ip 172.17.8.101
+             │ ├─1071 docker-proxy -proto tcp -host-ip 172.17.8.101
+             │ ├─1089 docker-proxy -proto udp -host-ip 172.17.8.101
+             │ ├─1108 docker-proxy -proto tcp -host-ip 172.17.8.101
+             │ └─1117 docker-proxy -proto udp -host-ip 172.18.0.1 -
+             └─etcd2.service
+               └─912 /usr/bin/etcd2 -name core-01 -initial-advertis
+core@core-01 ~ $ docker ps
+CONTAINER ID        IMAGE               COMMAND                  CR
+EATED              STATUS              PORTS
+
+
+                                   NAMES
+5f41c7d23012        swarm:latest        "/swarm join --addr=1"   Ab
+out a minute ago   Up About a minute
+
+
+                                   swarm-agent
+201c7bd05ea4        swarm:latest        "/swarm manage -H tcp"   Ab
+out a minute ago   Up About a minute
+
+
+                                   swarm-manager
+8323ab819230        progrium/consul     "/bin/start -node cor"   2
+minutes ago        Up 2 minutes        172.17.8.101:8300-8302->8300
+-8302/tcp, 172.17.8.101:8400->8400/tcp, 172.17.8.101:8500->8500/tcp
+, 172.18.0.1:53->53/udp, 172.17.8.101:8600->8600/tcp, 172.17.8.101:
+8301-8302->8301-8302/udp, 53/tcp   consul-core-01

@@ -1,0 +1,51 @@
+[dimsenv] ansible@yellow:~ () $ tcli help
+-=- Trident Help -=-
+
+Welcome to the Trident menu system which is CLI command based.
+If a given command is not in help menu the selected user does not have permissions for it.
+
+Each section, items marked [SUB], has its own 'help' command.
+
+The following commands are available on the root level:
+ user                 [SUB]                User commands
+ system               [SUB]                System commands
+[dimsenv] ansible@yellow:~ () $ tcli user help
+Help for user
+ password             [SUB]                Password commands
+[dimsenv] ansible@yellow:~ () $ tcli system help
+Help for system
+ login                <username> <password> <twofactor> Login
+ logout                                    Logout
+ whoami                                    Who Am I?
+ get                  [SUB]                Get values from the system
+[dimsenv] ansible@yellow:~ () $ tcli system login trident trident123
+Login successful
+[dimsenv] ansible@yellow:~ () $ tcli system whoami
+Username: trident
+Fullname:
+[dimsenv] ansible@yellow:~ () $ tcli system swapadmin
+Now a SysAdmin user
+[dimsenv] ansible@yellow:~ () $ tcli system help
+Help for system
+ report                                    Report system statistics
+ login                <username> <password> <twofactor> Login
+ logout                                    Logout
+ whoami                                    Who Am I?
+ swapadmin                                 Swap from regular to sysadmin user
+ set                  [SUB]                Configure the system
+ get                  [SUB]                Get values from the system
+[dimsenv] ansible@yellow:~ () $ tcli user help
+Help for user
+ new                  <username> <email>   Create a new user
+ nominate             <username> <email> <bio_info> <affiliation> <descr> Nominate New User
+ set                  [SUB]                Set properties of a user
+ get                  [SUB]                Get properties of a user
+ list                 <match>              List all users
+ merge                <into> <from>        Merge a user
+ delete               <username>           Delete a new user
+ 2fa                  [SUB]                2FA Token Management
+ email                [SUB]                Email commands
+ password             [SUB]                Password commands
+ detail               [SUB]                Manage Contact Details
+ language             [SUB]                Manage Language Skills
+[dimsenv] ansible@yellow:~ () $

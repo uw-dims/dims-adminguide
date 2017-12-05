@@ -19,7 +19,7 @@ AMQP (specifically `RabbitMQ`_) is discussed in Sections
 :ref:`dimsad:dimsarchitecturaldesign` and :ref:`dimsad:dimscomponents` of
 :ref:`dimsad:dimsarchitecturedesign`, and the specifics of the server
 initially configured for use in DIMS is documented in Section
-:ref:`dimsasbuilt:rabbitmq` of :ref:`dimsasbuilt:dimsasbuilt`.  Its use
+:ref:`dimsasbuilt:rabbitmq` of :ref:`dimsasbuilt:dimsasbuilt`.  Its use for
 processing logs within DIMS is discussed in Section
 :ref:`dimsparselogs:introtologparsing` of
 :ref:`dimsparselogs:parsinglogswithdims`.
@@ -50,7 +50,7 @@ Basic Service Administration
 ----------------------------
 
 `RabbitMQ`_ is started/stopped/restarted/queried for status just like any other
-Ubuntu service using the ``service`` command as root. It's configuration files
+Ubuntu service using the ``service`` command as root. Its configuration files
 and settings are found in ``/etc/rabbitmq`` and
 ``/etc/default/rabbitmq-server``, and its log files in ``/var/log/rabbitmq/``.
 
@@ -97,7 +97,7 @@ and settings are found in ``/etc/rabbitmq`` and
     and `mozilla/opsec-puppet`_ and `Increase RabbitMQ file descriptor limit
     and memory watermark without restart`_.
 
-    .. code-block:: json
+    .. code-block:: none
 
         root@b52:/etc/rabbitmq# rabbitmqctl status | grep -A 4 file_descriptors
          {file_descriptors,
